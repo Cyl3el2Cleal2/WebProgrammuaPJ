@@ -13,7 +13,7 @@
 	<link rel="stylesheet" href="./../../css/style.css" />
 	<noscript>
 		<link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="./../../js/serviceRepair.js"></script>
 	<style>
 		td {
@@ -23,7 +23,6 @@
 			text-align: left;
 		}
 	</style>
-
 
 </head>
 
@@ -44,10 +43,10 @@
 				<!-- ใช้ row เพื่อให้อยู่บรรทัดเดียวกัน ใช้ column เพื่อแบ่งเป็น 3 ส่วน -->
 				<div class="bestRow">
 					<div class="bestColumn">
-						<label>ชื่อพนักงาน</label>
+						<label>รหัสพนักงาน</label>
 					</div>
 					<div class="bestColumn">
-						<input id="EmpName" class="input " type="text" placeholder="กรอกชื่อพนักงาน" />
+						<input id="empID" class="input " type="text" placeholder="กรอกรหัสพนักงาน" />
 					</div>
 					<div class="bestColumn"></div>
 				</div>
@@ -152,7 +151,7 @@
 				<hr>
 				<br>
 				<!-- ปุ่มถัดไป -->
-				<a onclick="connectDB()" href="rpDetailEmp.html" class="button" style="position: absolute; right: 8%;">ถัดไป</a>
+				<a onclick="insertToDB()" href="#" class="button" style="position: absolute; right: 8%;">ถัดไป</a>
 				<br>
 
 			</form>
