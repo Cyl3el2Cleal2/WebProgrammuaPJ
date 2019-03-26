@@ -1,0 +1,89 @@
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+	<title>ใบรับรถ</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="./../../css/style.css" />
+	<noscript>
+	<link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	<script src="../../js/rpTicket.js"></script>
+</head>
+
+<body onload="getTableTicket()">
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+	<!-- Main -->
+	<section class="main">
+		<header>
+			<h1>ใบรับรถ</h1>
+		</header>
+						
+		<hr /><br>
+
+	<!-- Body -->
+		<form method="post" action="#">
+			<div class="fields">
+				<div class="fields">
+					<ul class="mmUlLeft"><li><img src="./../../image/mmLogo.gif" width="80" height="80"></li></ul>
+					<ul class="mmUlLeft"><li><h3>ใบรับรถ<br><small>โชคทวีออโต้เซลล์</small></h3></li></ul>
+					<ul class="mmUlLeft"><li><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br></li></ul>
+					<ul class="mmUlLeft"><li><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br></li></ul>
+					<ul class="mmUl"><li>วันที่ <input type="date" id="thisDate"name="date" id="date" placeholder="วันที่" /></li></ul>
+				</div>
+				<div align ="left">
+					<ul class="mmUlLeft">
+					<li class="mmli"><h3 class="mmh3">ชื่อลูกค้า<input type="text" name="name" id="recieveName" placeholder="กรอกชื่อลูกค้า"/></h3></li>
+					<li><h3 class="mmh3">เบอร์โทรศัพท์<input type="text" id="recieveTel" placeholder="กรอกเบอร์โทรศัพท์" /></h3></li>
+					</ul>
+					<ul class="mmUlLeft"><span>&nbsp;</span></ul>
+					<ul class="mmUlLeft"><span>&nbsp;</span></ul>
+					<ul class="mmUlLeft"><span>&nbsp;</span></ul>
+					<ul class="mmUlLeft">
+						<li>&nbsp;</li>
+						<li><h3 class="mmh3">วันที่นัดรับ<input type="Date" id="mmRecieveDate" name="recieveDate" id="recieveDate" placeholder="วันที่" /></h3></li>
+					</ul>
+				</div><br>
+				<div>
+					<table class="mmTable" id="mmTable">
+						<tr>
+							<th class="mmth">ลำดับที่</th>
+							<th class="mmth">ข้อมูลรถ</th>
+							<th class="mmth">ประเภทรถ</th>
+							<th class="mmth">ประเภทการซ่อม</th>
+						</tr>
+						<tr>
+							<td class="mmtd">001</td>
+							<td class="mmtd">ToYotA</td>
+							<td class="mmtd">4 ล้อ</td>
+							<td class="mmtd">เปลี่ยนยาง</td>
+						</tr>
+					</table>
+				</div><br>
+				<div align ="right">
+					<ul class="mmUl"><li>ลงชื่อ<span class="mmSpan">                      </span><br><small>เจ้าหน้าที่</small></li></ul>
+					<ul class="mmUl"><li>ลงชื่อ<span class="mmSpan">                     </span><br><small>ลูกค้า</small></li></ul>
+				</div><br>
+			</div><hr />
+		</form><br><br>
+		<a href="#" class="button print" style="position: absolute; right: 9em;"  onclick="myFunction()">พิมพ์</a>
+		<a href="rpVat.html" class="button" style="position: absolute; right: 2em;">ถัดไป</a>
+					
+	</div>
+
+			
+
+		<!-- Scripts -->
+			<script>
+				if ('addEventListener' in window) {
+					window.addEventListener('load', function() { document.body.className = document.body.className.replace(/\bis-preload\b/, ''); });
+					document.body.className += (navigator.userAgent.match(/(MSIE|rv:11\.0)/) ? ' is-ie' : '');
+				}
+			</script>
+
+	</body>
+</html>
