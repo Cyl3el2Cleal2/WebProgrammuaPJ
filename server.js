@@ -18,9 +18,10 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(login)
 app.use(buy)
-app.use(sale)
-app.use(repair)
-app.use(regis)
+//Uncomment ถ้าทำแล้ว
+// app.use(sale)
+// app.use(repair)
+// app.use(regis)
 app.use(emp)
 app.listen(process.env.PORT || 3000, () => {
   console.log('Start server at port 3000.')
