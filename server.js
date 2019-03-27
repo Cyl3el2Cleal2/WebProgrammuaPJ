@@ -4,6 +4,7 @@ var bodyParser = require('body-parser')
 
 
 var login = require('./router/login')
+var forget = require('./router/forget')
 var buy = require('./router/buy')
 var sale = require('./router/sale')
 var repair = require('./router/repair')
@@ -17,10 +18,16 @@ app.get('/', function (req, res) {
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(login)
+app.use(forget)
 app.use(buy)
 //Uncomment ถ้าทำแล้ว
+<<<<<<< HEAD
 app.use(sale)
 // app.use(repair)
+=======
+// app.use(sale)
+app.use(repair)
+>>>>>>> c4e53afa509e61034c1df6c8e7309c46462ccc5e
 // app.use(regis)
 app.use(emp)
 app.listen(process.env.PORT || 3000, () => {

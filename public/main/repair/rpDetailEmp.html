@@ -11,8 +11,15 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<link rel="stylesheet" href="./../../css/style.css" />
-
-
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="./../../js/serviceRepairEmp.js"></script>
+	<style>
+		td {
+			border: 1px solid black;
+			border-collapse: collapse;
+			padding: 5px;
+			text-align: left;
+		}
 	</style>
 </head>
 
@@ -20,6 +27,7 @@
 
 	<!-- Wrapper -->
 	<div id="wrapper">
+
 
 		<!-- Main -->
 		<section id="main">
@@ -36,7 +44,7 @@
 				<div class="fields">
 					<div class="field">
 						<h3 class="h3Pop">ชื่อลูกค้า</h3>
-						<input type="text" name="name" id="name" placeholder="กรอกชื่อ" />
+						<input type="text" name="nameCus" id="nameCus" placeholder="กรอกชื่อ" />
 					</div>
 					<br>
 					<div class="field">
@@ -46,23 +54,23 @@
 					<br>
 					<div class="field">
 						<h3 class="h3Pop">เลขทะเบียน</h3>
-						<input type="email" name="num" id="num" placeholder="กรอกเลขทะเบียนรถ" />
+						<input type="email" name="carLicense" id="carLicense" placeholder="กรอกเลขทะเบียนรถ" />
 
 					</div>
 					<br>
 					<div class="field">
 						<h3 class="h3Pop">รุ่น</h3>
-						<input type="text" name="gen" id="gen" placeholder="กรอกชื่อรุ่น" />
+						<input type="text" name="carModel" id="carModel" placeholder="กรอกชื่อรุ่น" />
 					</div>
 					<br>
 					<div class="field">
 						<h3 class="h3Pop">สี</h3>
-						<input type="text" name="colorcar" id="colorcar" placeholder="กรอกสี" />
+						<input type="text" name="carColor" id="carColor" placeholder="กรอกสี" />
 					</div>
 					<br>
 					<div class="field">
 						<h3 class="h3Pop">ช่างซ่อม</h3>
-						<input type="text" name="repairman" id="repairman" placeholder="กรอกชื่อ" />
+						<input type="text" name="empID" id="empID" placeholder="กรอกชื่อ" />
 					</div>
 					<div class="field">
 
@@ -75,19 +83,25 @@
 									<label>อะไหล่</label>
 								</div>
 								<div class="columnPop">
-									<input type="text">
+									<input id=nameSpare type="text">
 								</div>
 								<div class="columnPop">
 									<label>จำนวน</label>
 								</div>
 								<div class="columnPop">
-									<input type="text">
+									<input id="numSpare" type="text">
 								</div>
 								<div class="columnPop">
-									<a href="#" class="button search">เพิ่ม</a>
+									<label>ราคา</label>
+								</div>
+								<div class="columnPop">
+									<input id="priceSpare" type="text">
+								</div>
+								<div class="columnPop">
+									<a onclick="addToTable()" class="button search">เพิ่ม</a>
 								</div>
 							</div>
-							<table class="tableBest">
+							<table id="listTable" class="tableBest">
 								<tr>
 									<th class="thPop">อะไหล่</th>
 									<th class="thPop">จำนวน</th>
@@ -98,13 +112,17 @@
 									<td class="tdPop">xxx</td>
 									<td class="tdPop">xxx</td>
 									<td class="tdPop">xxx</td>
-									<td class="tdPop"><a href="#" class="button delete">ลบ</a></td>
+									<td class="tdPop">
+										<center><a onclick="deleteToTable()" class="button delete">ลบ</a></center>
+									</td>
 								</tr>
 								<tr>
 									<td class="tdPop">xxx</td>
 									<td class="tdPop">xxx</td>
 									<td class="tdPop">xxx</td>
-									<td class="tdPop"><a href="#" class="button delete">ลบ</a></td>
+									<td class="tdPop">
+										<center><a onclick="deleteToTable()" class="button delete">ลบ</a></center>
+									</td>
 								</tr>
 							</table>
 						</fieldset>
@@ -113,7 +131,7 @@
 				</div>
 			</form>
 			<hr />
-			<a href="rpTicket.html" class="button" style="position: absolute; right: 10%;">ถัดไป</a>
+			<a onclick="insertToDB()" class="button" style="position: absolute; right: 8%;">ถัดไป</a>
 			<br>
 
 
