@@ -12,12 +12,13 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<link rel="stylesheet" href="./../../css/style.css" />
 	<script src="../../js/pdf.js" type="text/javascript"> </script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<noscript>
 		<link rel="stylesheet" href="assets/css/noscript.css" />
 	</noscript>
 </head>
 
-<body id="wrapper">
+<body id="wrapper" onload="getData()">
 	<!-- Wrapper -->
 	<div class="alexRow">
 		<div class="alexColumn left">
@@ -28,7 +29,8 @@
 							oninput="showPdf()" />
 					</h3>
 					<h3 class="isleft">
-						วันที่<input type="date" name="date" id="date" placeholder="วันที่" id="date" oninput="showPdf()" />
+						วันที่<input type="date" name="date" id="date" placeholder="วันที่" id="date"
+							oninput="showPdf()" />
 					</h3>
 					<h3 class="isleft">
 						ชื่อลูกค้า<input type="email" placeholder="กรอกชื่อ" id="name" oninput="showPdf()" />
@@ -37,7 +39,8 @@
 						พนักงาน<input type="email" placeholder="กรอกชื่อพนักงาน" id="emp" oninput="showPdf()" />
 					</h3>
 					<h3 class="isleft">
-						ที่อยู่ลูกค้า<input type="email" placeholder="กรอกที่อยู่ลูกค้า" id="address" oninput="showPdf()" />
+						ที่อยู่ลูกค้า<input type="email" placeholder="กรอกที่อยู่ลูกค้า" id="address"
+							oninput="showPdf()" />
 					</h3>
 					<h3 class="isleft">
 						ยี่ห้อ<input type="email" placeholder="กรอกซื้อขายรถยนต์ประเภท" id="type" oninput="showPdf()" />
@@ -118,12 +121,12 @@
 					&nbsp;ลงชื่อ.......................................(พยาน)
 					&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;(..............................................)&nbsp; &nbsp; &nbsp;
 					&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;
-					&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 
+					&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
 					&nbsp;&nbsp;&nbsp;(..............................................)
 				</page>
 				<div class="alexRightbtn">
 					<a onclick="PrintDiv()" class="button print">พิมพ์</a>
-					<a href="bBill.html" class="button next">ถัดไป</a>
+					<a class="button next" onclick="insertToDB()">ถัดไป</a>
 				</div>
 			</div>
 		</div>
