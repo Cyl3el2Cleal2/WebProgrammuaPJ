@@ -10,6 +10,7 @@ var sale = require('./router/sale')
 var repair = require('./router/repair')
 var regis = require('./router/regis_car')
 var emp = require('./router/emp')
+var recieve = require('./router/carRecieve')
 var path = require('path');
 app.use(express.static('public'));
 app.get('/', function (req, res) {
@@ -20,6 +21,7 @@ app.use(bodyParser.json());
 app.use(login)
 app.use(forget)
 app.use(buy)
+app.use(recieve)
 //Uncomment ถ้าทำแล้ว
 // app.use(sale)
 app.use(repair)

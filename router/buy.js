@@ -109,6 +109,7 @@ app.post("/api/buy/invoice/getItem", (req, res) => {
                                         res.sendStatus(404)
                                     } else {
                                         respons.push(result)
+                                        
                                         dbo.collection('MST_stock').find(idstock).toArray((err, result) => {
                                             if (err) {
                                                 res.sendStatus(404)
