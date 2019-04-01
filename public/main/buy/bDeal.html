@@ -18,7 +18,7 @@
 	</noscript>
 </head>
 
-<body id="wrapper" onload="getData()">
+<body id="wrapper" onload="init()">
 	<!-- Wrapper -->
 	<div class="alexRow">
 		<div class="alexColumn left">
@@ -33,26 +33,26 @@
 							oninput="showPdf()" />
 					</h3>
 					<h3 class="isleft">
-						ชื่อลูกค้า<input type="email" placeholder="กรอกชื่อ" id="name" oninput="showPdf()" />
+						ชื่อลูกค้า<input type="email" placeholder="กรอกชื่อ" id="name" oninput="showPdf()" disabled />
 					</h3>
 					<h3 class="isleft">
-						พนักงาน<input type="email" placeholder="กรอกชื่อพนักงาน" id="emp" oninput="showPdf()" />
+						พนักงาน<input type="email" placeholder="กรอกชื่อพนักงาน" id="emp" oninput="showPdf()"  disabled />
 					</h3>
 					<h3 class="isleft">
 						ที่อยู่ลูกค้า<input type="email" placeholder="กรอกที่อยู่ลูกค้า" id="address"
-							oninput="showPdf()" />
+							oninput="showPdf()"  disabled />
 					</h3>
 					<h3 class="isleft">
-						ยี่ห้อ<input type="email" placeholder="กรอกซื้อขายรถยนต์ประเภท" id="type" oninput="showPdf()" />
+						ยี่ห้อ<input type="email" placeholder="ยี่ห้อ" id="type" oninput="showPdf()"  disabled />
 					</h3>
 					<h3 class="isleft">
-						เลขทะเบียน<input type="text" placeholder="กรอกเลขทะเบียน" id="license" oninput="showPdf()" />
+						เลขทะเบียน<input type="text" placeholder="กรอกเลขทะเบียน" id="license" oninput="showPdf()"  disabled />
 					</h3>
 					<h3 class="isleft">
-						รุ่น<input type="email" placeholder="กรอกรุ่น" id="gen" oninput="showPdf()" />
+						รุ่น<input type="email" placeholder="กรอกรุ่น" id="gen" oninput="showPdf()"  disabled />
 					</h3>
 					<h3 class="isleft">
-						สี<input type="email" placeholder="กรอกสี" id="color" oninput="showPdf()" />
+						สี<input type="email" placeholder="กรอกสี" id="color" oninput="showPdf()"  disabled />
 					</h3>
 					<h3 class="isleft">
 						จำนวนเงิน<input type="email" placeholder="กรอกจำนวนเงิน" id="money" oninput="showPdf()" />
@@ -78,7 +78,7 @@
 					<p id="pdf_name">... นาย ประยุทธ์ จานโอชา ...</p> อายุ <p id="pdf_age">.. 25 ..</p> ปี
 					อาศัยอยู่ที่ <p id="pdf_address">... 250 สว. พลังประชารัฐ 00000 กรุงพนมเปญ...</p>
 					บัตรประจำตัวประชาชน <p id="pdf_id">... 1100202150211 ...</p>
-					ออกให้โดย <p id="pdf_emp">... นาย ประวิท ทะยาสาส ...</p> ซึ่ง ต่อไปในสัญญาจะเรียกว่า <p>"ผู้ซื้อ"
+					ออกให้โดย <p id="pdf_emp2">... นาย ประวิท ทะยาสาส ...</p> ซึ่ง ต่อไปในสัญญาจะเรียกว่า <p>"ผู้ซื้อ"
 					</p> <br><br>
 					<!-- ข้อตกลง -->
 					&nbsp &nbsp &nbsp &nbsp คู่สัญญาทั้งสองฝ่ายตกลงเงื่อนไขสัญญากันไว้โดยมีรายละเอียดดังนี้<br>
@@ -126,7 +126,7 @@
 				</page>
 				<div class="alexRightbtn">
 					<a onclick="PrintDiv()" class="button print">พิมพ์</a>
-					<a class="button next" onclick="insertToDB()">ถัดไป</a>
+					<a class="button next" onclick="fill()">ถัดไป</a>
 				</div>
 			</div>
 		</div>
