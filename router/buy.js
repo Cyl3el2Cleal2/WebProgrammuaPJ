@@ -135,5 +135,62 @@ app.post("/api/buy/invoice/getItem", (req, res) => {
         })
 
     });
+});
+app.post("/api/buy/deal/getItem" ,(req,res)=>{
+    console.log(req.body)
+    // MongoClient.connect(url, function (err, db) {
+    //     if (err) throw err;
+    //     var dbo = db.db("gigabug");
+    //     var idc = {
+    //         ID_TRN_buy_contract: req.body.id
+    //     }
+    //     var respons = [];
+    
+    //     dbo.collection('TRN_buy_contract').find(idc).toArray((err, result) => {
+    //         if (err) {
+    //             res.sendStatus(404)
+    //         } else {
+    //             respons.push(result)
+    //             var idcustomer = {
+    //                 ID_MST_costomer: result[0].ID_MST_customer
+    //             }
+    //             var idstock = {
+    //                 ID_MST_stock: result[0].ID_MST_stock
+    //             }
+    //             var idemployee = {
+    //                 ID_MST_employee: result[0].ID_MST_employee
+    //             }
+    //             dbo.collection('MST_customer').find(idcustomer).toArray((err, result) => {
+    //                 if (err) {
+    //                     res.sendStatus(404)
+    //                 } else {
+    //                     respons.push(result)
+
+    //                     dbo.collection('MST_employee').find(idemployee).toArray((err, result) => {
+    //                         if (err) {
+    //                             res.sendStatus(404)
+    //                         } else {
+    //                             respons.push(result)
+    //                             dbo.collection('MST_stock').find(idstock).toArray((err, result) => {
+    //                                 if (err) {
+    //                                     res.sendStatus(404)
+    //                                 } else {
+    //                                     respons.push(result)
+    //                                     res.send(respons)
+
+    //                                 }
+
+    //                             })
+    //                         }
+
+    //                     })
+    //                 }
+
+    //             })
+
+    //         }
+
+    //     })
+    // })
 })
 module.exports = app;
