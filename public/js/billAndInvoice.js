@@ -2,8 +2,8 @@ function getTableBill() {
 
 
     var id = {
-        id: "BYC000100"
-    } 
+        id: "BC0001"
+    }
     $.ajax({
         type: "POST",
         contentType: "application/json",
@@ -53,18 +53,18 @@ function getTableBill() {
                 x = x + p[i]
             }
             pr = parseInt(x);
-            
+
             var tableFooter = "</table>";
             document.getElementById("BVtable").innerHTML = tableHeader + tableContent + tableFooter;
             document.getElementById("priceHeader").innerHTML = pr
             document.getElementById("invB").innerHTML = " -"
             var vat = 0.5;
-            var prs = pr * (vat/100)
+            var prs = pr * (vat / 100)
             document.getElementById("invH").innerHTML = prs
-            document.getElementById("priceH2").innerHTML =  pr
+            document.getElementById("priceH2").innerHTML = pr
             document.getElementById("total").innerHTML = pr + prs
             document.getElementById("date").innerHTML = con[0].date
-            document.getElementById("customer").innerHTML = customer[0].firstname +" "+ customer[0].lastname
+            document.getElementById("customer").innerHTML = customer[0].firstname + " " + customer[0].lastname
             ////query
         },
         error: function (e) {
@@ -79,7 +79,7 @@ function getTableInvoice() {
     // var query = location.search.substring(1);
     // var ID_TRN_buy_bill = query.split("%20")
     var id = {
-        id: "BYB00010"
+        id: location.search.substring(1)
     }
 
 
@@ -92,13 +92,13 @@ function getTableInvoice() {
         dataType: 'json',
         success: function (res) {
             console.log(res.length)
-
-
+        
+            console.log(res)
             var bill = res[0];
             var customer = res[2];
             var stock = res[4];
 
-            var vat = parseInt(bill[0].VAT);
+            var vat = parseInt(bill[0].vat);
             var table = {
                 ID_TRN_taxlnvoice: "1",
                 license_plate: stock[0].license_plate,
@@ -106,6 +106,19 @@ function getTableInvoice() {
                 color: stock[0].color,
                 price: stock[0].price
             }
+
+            var cusUsing = {
+                date:bill[0].date,
+                type:bill[0].type,
+                name:customer[0].firstname +" "+customer[0].lastname 
+            }
+            document.getElementById("num1").innerHTML = res[5];
+            document.getElementById("num2").innerHTML = bill[0].ID_TRN_buy_bill;
+            document.getElementById("date").value = bill[0].date;
+            document.getElementById("type").value = bill[0].type;
+            document.getElementById('name').value = customer[0].firstname +" "+customer[0].lastname 
+            document.getElementById('tel').value = customer[0].tel
+            console.log(cusUsing)
             var json = []
             json.push(table)
 
@@ -147,6 +160,8 @@ function getTableInvoice() {
 
             var pri = pr + inv
             document.getElementById("priceAddinv").innerHTML = pri;
+           
+
         },
         error: function (e) {
             console.log("ERROR: ", e);
@@ -156,5 +171,67 @@ function getTableInvoice() {
 }
 
 function insertItemBill() {
+    var query = location.search.substring(1);
+    
+    var data = {
+        date: $('#date').text(),
+        type: $('#type').val(),
+        total: $('#total').text(),
+        vat: $('#invH').text(),
+        insure: "",
+        price: $('#priceH2').text(),
+        ID_TRN_buy_contract : query
+    }
+    console.log(data)
+    $.ajax({
+        type: "POST",
+        contentType: "application/json",
+        url: "http://localhost:3000/api/buy/bill/insert",
+        data: JSON.stringify(data),
+        dataType: 'json',
+        success: function (res) {
+                console.log(res.id)
+                if(res!=null){
+                     window.location.href = "bVat.html?"+res.id
+                }
+               
+        },
+        error: function (e) {
+            console.log("ERROR: ", e);
+        }
+    })
+}
+function insertItemInvoie(){
+    window.location.href = "./../main.html"
 
+
+    var query = location.search.substring(1);
+    
+    var data = {
+        date: $('#date').text(),
+        type: $('#type').val(),
+        total: $('#total').text(),
+        vat: $('#invH').text(),
+        insure: "",
+        price: $('#priceH2').text(),
+        ID_TRN_buy_contract : query
+    }
+    console.log(data)
+    $.ajax({
+        type: "POST",
+        contentType: "application/json",
+        url: "http://localhost:3000/api/buy/bill/insert",
+        data: JSON.stringify(data),
+        dataType: 'json',
+        success: function (res) {
+                console.log(res.id)
+                if(res!=null){
+                     window.location.href = "bVat.html?"+res.id
+                }
+               
+        },
+        error: function (e) {
+            console.log("ERROR: ", e);
+        }
+    })
 }
