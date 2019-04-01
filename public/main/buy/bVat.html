@@ -68,19 +68,19 @@
 										</ul>  
 									<ul style="list-style-type:none;text-align: left">
 										<li>วันที่</li>
-										<li><input id="date" type="date" style=" width: 100%" readonly></li>
+										<li><input id="date" type="date" style=" width: 100%" disabled></li>
 			
 										<li>ประเภทลูกค้า</li>
-										<li><select id="type" style=" width: 100%" class="BVselect"  readonly>
+										<li><select id="type" style=" width: 100%" class="BVselect"  disabled>
 												<option value="license">พรบ</option>
 												<option value="buy">การซื้อ</option>
 												<option value="sale">การขาย</option>
 												<option value="repair">ซ่อม</option>
 										</select></li>
 										<li>ชื่อลูกค้า</li>
-										<li><input id="name" type="text" style=" width: 100%" readonly></li>
+										<li><input id="name" type="text" style=" width: 100%" disabled></li>
 										<li>เบอร์โทร</li>
-										<li><input  id="tel" type="text" style=" width: 100%" readonly></li>
+										<li><input  id="tel" type="text" style=" width: 100%" disabled></li>
 									</ul>   
 									<ul style="list-style-type:none;text-align: left">
 										<li>&nbsp; &nbsp; &nbsp; &nbsp;</li>
@@ -181,7 +181,7 @@
 					
 						
 				
-						<a href="#" class="button print" style="position: absolute; right: 9em;" >พิมพ์</a>
+						<a onclick="PrintDiv()" class="button print" style="position: absolute; right: 9em;" >พิมพ์</a>
 			<a  onclick="insertItemInvoie()" class="button" style="position: absolute; right: 2em;">ถัดไป</a>
 							
 					
