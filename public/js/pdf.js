@@ -19,6 +19,7 @@ function showPdf() {
     document.getElementById("pdf_date").textContent = document.getElementById("date").value
     document.getElementById("pdf_name").textContent = document.getElementById("name").value
     document.getElementById("pdf_emp").textContent = document.getElementById("emp").value
+    document.getElementById("pdf_emp2").textContent = document.getElementById("emp").value
     document.getElementById("pdf_address").textContent = document.getElementById("address").value
     document.getElementById("pdf_type").textContent = document.getElementById("type").value
     document.getElementById("pdf_license").textContent = document.getElementById("license").value
@@ -27,22 +28,28 @@ function showPdf() {
     document.getElementById("pdf_money").textContent = document.getElementById("money").value
 }
 // รับมา
-var ID_customer = "E00010";
-var ID_stock;
-var ID_employee;
-var ID_buy;
+var ID_customer = "C00011";
+var ID_stock = "ST00011";
+var ID_employee = "E00012";
+var ID_buy = "BY00010";
 // กรอก
 var location;
-var date;
 var money;
 
-function init(){
-    document.getElementById("location").value = "rp89"
+function init() {
+    $("#name").val("ประยุทธ์ จันทร์โอซา")
+    $("#emp").val("สุเทพ เทือกสูบรรณ")
+    $("#address").val("130/1 อาคารปานศรี ซอยรัชดาภิเษก")
+    $("#type").val("TOYOTA")
+    $("#license").val("สว 250 กกต")
+    $("#gen").val("Yalis")
+    $("#color").val("Red")
+    showPdf();
 }
-function getData(){
+function getData() {
     var id = {
         id: ID_customer
-    } 
+    }
     $.ajax({
         type: "POST",
         contentType: "application/json",
@@ -58,55 +65,50 @@ function getData(){
     })
 }
 
-function insertToDB(){
-    // ID_this;
-    // date = document.getElementById("date").value;
-    // ID_stock;
-    // ID_emp;
-    // ID_cus;
-    // ID_sale; 
-    // create()
-    // var test = $("#put").val()
-    // alert(test)
-    window.location.href="bBill.html?"+5 
-    alert(date)
-    $("#show").text("DL SODA")
+function insertToDB() {
+
+    var data = {
+        ID_buy_contract: "BC0001",
+        ID_CUS: ID_customer,
+        ID_EMP: ID_employee,
+        ID_buy: ID_buy,
+        ID_stock: ID_stock,
+        DATE: $("#date").val()
+    }
+    console.log(data)
+    $.ajax({
+        type: "POST",
+        contentType: "application/json",
+        url: "http://localhost:3000/api/buy/deal/insertContract",
+        data: JSON.stringify(data),
+        dataType: 'json',
+        success: function (res) {
+            console.log(res);
+            if (JSON.stringify(res) == 'true') {
+                alert("insert Successful!")
+                window.location.href = "bBill.html?" + data.ID_buy_contract
+            } else {
+                alert("insert Incorrect!");
+            }
+        },
+        error: function (e) {
+            console.log("ERROR: ", e);
+        }
+    })
 }
 
-// function insertOfficer() {
-//     var user = $("#user").val();
-//     var passwd = $("#pass").val();
-//     var id = $("#idoff").val();
-//     var fnl = $("#fandl").val();
-//     var ofic = $("#offi").val();
-//     var dataOff = {
-//         username: user,
-//         password: passwd,
-//         id: id,
-//         fnl: fnl,
-//         ofic: ofic
-//     }
-//     // console.log(dataOff)
+function createID(){
 
-//     $.ajax({
-//         type: "POST",
-//         contentType: "application/json",
-//         url: "http://localhost:8080/api/officer/insertItem",
-//         data: JSON.stringify(dataOff),
-//         dataType: 'json',
-//         success: function (customer) {
-//             var result = JSON.stringify(customer);
-//             // console.log(result);
-//             if (JSON.stringify(customer) == 'true') {
-//                 alert("insert Successful!")
-//                 window.location.reload();
+}
 
-//             } else {
-//                 alert("insert Incorrect!");
-//             }
-//         },
-//         error: function (e) {
-//             console.log("ERROR: ", e);
-//         }
-//     });
-// }
+function fill(){
+    if($("#location").val() == ""){
+        alert("กรุณาใส่ข้อมูลให้ครบ")
+    }else if($("#date").val() == ""){
+        alert("กรุณาใส่ข้อมูลให้ครบ")
+    }else if($("#money").val() == ""){
+        alert("กรุณาใส่ข้อมูลให้ครบ")
+    }else{
+        insertToDB()
+    }
+}

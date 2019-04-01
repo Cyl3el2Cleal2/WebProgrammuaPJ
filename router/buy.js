@@ -7,7 +7,11 @@ var url = "mongodb://gigabug:gigabug1234@ds141351.mlab.com:41351/gigabug";
 router.use(bodyParser.json());
 
 
+<<<<<<< HEAD
 router.post("/api/buy/bill/getItem", (req, res) => {
+=======
+app.post("/api/buy/bill/getItem", (req, res) => {
+>>>>>>> ccd62aedba716a97aab7a8a6c5026362026d50e0
     MongoClient.connect(url, function (err, db) {
         if (err) throw err;
         var dbo = db.db("gigabug");
@@ -198,6 +202,7 @@ router.post("/api/buy/invoice/getItem", (req, res) => {
 
     });
 });
+<<<<<<< HEAD
 router.post("/api/buy/deal/getItem", (req, res) => {
     console.log(req.body)
     // MongoClient.connect(url, function (err, db) {
@@ -254,6 +259,35 @@ router.post("/api/buy/deal/getItem", (req, res) => {
 
     //     })
     // })
+=======
+app.post("/api/buy/deal/getItem", (req, res) => {
+    // console.log(req.body)
+})
+app.post("/api/buy/deal/insertContract", (req, res) => {
+    var dataPush = {
+        ID_TRN_buy_contract: req.body.ID_buy_contract,
+        ID_MST_customer: req.body.ID_CUS,
+        ID_MST_stock: req.body.ID_stock,
+        ID_MST_employee: req.body.ID_EMP,
+        ID_TRN_buy: req.body.ID_buy,
+        date: req.body.DATE
+    }
+    console.log(dataPush)
+    MongoClient.connect(url, function (err, db) {
+        if (err) throw err;
+        var dbo = db.db("gigabug");
+        dbo.collection("TRN_buy_contract").insert(dataPush, (err, result) => {
+            if (err) {
+                res.sendStatus(404)
+                res.send('false')
+            } else {
+                console.log(result)
+                res.send('true')
+            }
+
+        });
+    });
+>>>>>>> ccd62aedba716a97aab7a8a6c5026362026d50e0
 })
 
 
