@@ -1,8 +1,8 @@
 function getTableBill() {
 
-
+    
     var id = {
-        id: "BC0001"
+        id:  location.search.substring(1)
     }
     $.ajax({
         type: "POST",
@@ -76,14 +76,9 @@ function getTableBill() {
 
 function getTableInvoice() {
 
-    // var query = location.search.substring(1);
-    // var ID_TRN_buy_bill = query.split("%20")
     var id = {
         id: location.search.substring(1)
     }
-
-
-
     $.ajax({
         type: "POST",
         contentType: "application/json",
@@ -92,7 +87,7 @@ function getTableInvoice() {
         dataType: 'json',
         success: function (res) {
             console.log(res.length)
-        
+
             console.log(res)
             var bill = res[0];
             var customer = res[2];
@@ -106,19 +101,13 @@ function getTableInvoice() {
                 color: stock[0].color,
                 price: stock[0].price
             }
-
-            var cusUsing = {
-                date:bill[0].date,
-                type:bill[0].type,
-                name:customer[0].firstname +" "+customer[0].lastname 
-            }
             document.getElementById("num1").innerHTML = res[5];
             document.getElementById("num2").innerHTML = bill[0].ID_TRN_buy_bill;
             document.getElementById("date").value = bill[0].date;
             document.getElementById("type").value = bill[0].type;
-            document.getElementById('name').value = customer[0].firstname +" "+customer[0].lastname 
+            document.getElementById('name').value = customer[0].firstname + " " + customer[0].lastname
             document.getElementById('tel').value = customer[0].tel
-            console.log(cusUsing)
+
             var json = []
             json.push(table)
 
@@ -149,8 +138,6 @@ function getTableInvoice() {
                 pr = parseInt(x);
 
             }
-
-
             var tableFooter = "</table>";
             document.getElementById("BVtable").innerHTML = tableHeader + tableContent + tableFooter;
 
@@ -160,7 +147,7 @@ function getTableInvoice() {
 
             var pri = pr + inv
             document.getElementById("priceAddinv").innerHTML = pri;
-           
+
 
         },
         error: function (e) {
@@ -171,8 +158,6 @@ function getTableInvoice() {
 }
 
 function insertItemBill() {
-    var query = location.search.substring(1);
-    
     var data = {
         date: $('#date').text(),
         type: $('#type').val(),
@@ -180,9 +165,9 @@ function insertItemBill() {
         vat: $('#invH').text(),
         insure: "",
         price: $('#priceH2').text(),
-        ID_TRN_buy_contract : query
+        ID_TRN_buy_contract: location.search.substring(1)
     }
-    console.log(data)
+  
     $.ajax({
         type: "POST",
         contentType: "application/json",
@@ -190,45 +175,37 @@ function insertItemBill() {
         data: JSON.stringify(data),
         dataType: 'json',
         success: function (res) {
-                console.log(res.id)
-                if(res!=null){
-                     window.location.href = "bVat.html?"+res.id
-                }
-               
+            console.log(res.id)
+            if (res != null) {
+                window.location.href = "bVat.html?" + res.id
+            }
+
         },
         error: function (e) {
             console.log("ERROR: ", e);
         }
     })
 }
-function insertItemInvoie(){
-    window.location.href = "./../main.html"
-
-
-    var query = location.search.substring(1);
+function insertItemInvoie() {
     
     var data = {
-        date: $('#date').text(),
-        type: $('#type').val(),
-        total: $('#total').text(),
-        vat: $('#invH').text(),
-        insure: "",
-        price: $('#priceH2').text(),
-        ID_TRN_buy_contract : query
+        date: $('#date').val(),
+        ID_TRN_buy_bill: location.search.substring(1)
     }
-    console.log(data)
+
     $.ajax({
         type: "POST",
         contentType: "application/json",
-        url: "http://localhost:3000/api/buy/bill/insert",
+        url: "http://localhost:3000/api/buy/invoice/insert",
         data: JSON.stringify(data),
         dataType: 'json',
         success: function (res) {
-                console.log(res.id)
-                if(res!=null){
-                     window.location.href = "bVat.html?"+res.id
-                }
-               
+            
+            if (res == 'ture') {
+                alert("ทำรายการ " + $('#type').val() + " " + "สำเร็จ")
+                window.location.href = "./../main.html"
+            }
+
         },
         error: function (e) {
             console.log("ERROR: ", e);
