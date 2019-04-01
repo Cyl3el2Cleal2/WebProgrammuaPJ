@@ -49,22 +49,31 @@ function insertToDB() {
     var carColor = document.getElementById("carColor").value;
     var spare = [];
 
-    //check input value
-    if (empID == "" && date == "" && carLicense == "" && carModel == "" && carColor == "") {
-        window.alert("กรุณากรอกข้อมูลให้ถูกต้องและครบถ้วน")
-    }
-    else {
-        //insert object to spare
-        table = document.getElementById("listTable");
-        var row = table.rows;
-        for (i = 1; i <= (row.length - 1); i++) {
-            var value1 = table.rows[i].cells[0].innerHTML
-            var value2 = table.rows[i].cells[1].innerHTML
+    //insert object to spare
+    table = document.getElementById("listTable");
+    var row = table.rows;
+    for (i = 1; i <= (row.length - 1); i++) {
+        var value1 = table.rows[i].cells[0].innerHTML
+        var value2 = table.rows[i].cells[1].innerHTML
 
+        if (value1 !== "xxx" && value2 !== "xxx") {
             var obj = { "nameSpare": value1, "priceSpare": value2 };
             spare.push(obj)
         }
+    }
 
+    // console.log(empID);
+    // console.log(date);
+    // console.log(carLicense);
+    // console.log(carModel);
+    // console.log(carColor);
+    // console.log(spare);
+
+    //check input value
+    if (empID === "" && date === "" && carLicense === "" && carModel === "" && carColor === "" && spare.rows !== 0) {
+        window.alert("กรุณากรอกข้อมูลให้ถูกต้องและครบถ้วน")
+    }
+    else {
         var data1 = {
             ID_TRNmaintennance_detail_repairman: id,
             date: date,
@@ -98,5 +107,21 @@ function insertToDB() {
                 console.log("ERROR: ", e);
             }
         });
+    }
+}
+
+//check number
+function isInputNumber(evt) {
+    var ch = String.fromCharCode(evt.which);
+    if (!(/[0-9]/.test(ch))) {
+        evt.preventDefault();
+    }
+}
+
+//check string
+function isInputLetter(evt) {
+    var ch = String.fromCharCode(evt.which);
+    if ((/[1-9]/.test(ch))) {
+        evt.preventDefault();
     }
 }
