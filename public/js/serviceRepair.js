@@ -62,16 +62,29 @@ function insertToDB() {
         }
     }
 
-    // console.log(empID);
-    // console.log(date);
-    // console.log(carLicense);
-    // console.log(carModel);
-    // console.log(carColor);
-    // console.log(spare);
+    console.log(empID);
+    console.log(date);
+    console.log(carLicense);
+    console.log(carModel);
+    console.log(carColor);
+    console.log(spare);
 
     //check input value
-    if (empID === "" && date === "" && carLicense === "" && carModel === "" && carColor === "" && spare.rows !== 0) {
+    if (empID == "") {
         window.alert("กรุณากรอกข้อมูลให้ถูกต้องและครบถ้วน")
+    } else if (date == "") {
+        window.alert("กรุณากรอกข้อมูลให้ถูกต้องและครบถ้วน")
+    } else if (carLicense == "") {
+        window.alert("กรุณากรอกข้อมูลให้ถูกต้องและครบถ้วน")
+    }
+    else if (carModel == "") {
+        window.alert("กรุณากรอกข้อมูลให้ถูกต้องและครบถ้วน")
+    }
+    else if (carColor == "") {
+        window.alert("กรุณากรอกข้อมูลให้ถูกต้องและครบถ้วน")
+    }
+    else if (spare.length == 0) {
+        window.alert("กรุณาเพิ่มข้อมูลอะไหล่และราคาให้ถูกต้องและครบถ้วน")
     }
     else {
         var data1 = {
