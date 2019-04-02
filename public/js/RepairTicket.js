@@ -9,8 +9,7 @@ function insertToDB() {
     var recieveName = document.getElementById("recieveName").value;;
     var recieveTel = document.getElementById("recieveTel").value;
     var spare = [];
-
-
+    
 $.ajax({
     type: "POST",
     contentType: "application/json",
