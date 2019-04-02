@@ -56,41 +56,72 @@ function insertToDB() {
         var value1 = table.rows[i].cells[0].innerHTML
         var value2 = table.rows[i].cells[1].innerHTML
 
-        var obj = { "nameSpare": value1, "priceSpare": value2 };
-        spare.push(obj)
-    }
-
-    var data1 = {
-        ID_TRNmaintennance_detail_repairman: id,
-        date: date,
-        carLicense: carLicense,
-        carModel: carModel,
-        carColor: carColor,
-        ID_MST_employee: empID,
-        carSpare: spare
-
-    }
-    console.log(data1)
-
-    $.ajax({
-        type: "POST",
-        contentType: "application/json",
-        url: "http://localhost:3000/api/insertToDB",
-        data: JSON.stringify(data1),
-        dataType: 'json',
-        success: function (customer) {
-            var result = JSON.stringify(customer);
-            console.log(result);
-            if (JSON.stringify(customer) == 'true') {
-                alert("insert Successful!")
-                window.location = "./../../main/repair/rpDetailEmp.html"
-
-            } else {
-                alert("insert Incorrect!");
-            }
-        },
-        error: function (e) {
-            console.log("ERROR: ", e);
+        if (value1 !== "xxx" && value2 !== "xxx") {
+            var obj = { "nameSpare": value1, "priceSpare": value2 };
+            spare.push(obj)
         }
-    });
+    }
+
+    // console.log(empID);
+    // console.log(date);
+    // console.log(carLicense);
+    // console.log(carModel);
+    // console.log(carColor);
+    // console.log(spare);
+
+    //check input value
+    if (empID === "" && date === "" && carLicense === "" && carModel === "" && carColor === "" && spare.rows !== 0) {
+        window.alert("กรุณากรอกข้อมูลให้ถูกต้องและครบถ้วน")
+    }
+    else {
+        var data1 = {
+            ID_TRNmaintennance_detail_repairman: id,
+            date: date,
+            carLicense: carLicense,
+            carModel: carModel,
+            carColor: carColor,
+            ID_MST_employee: empID,
+            carSpare: spare
+
+        }
+        console.log(data1)
+
+        $.ajax({
+            type: "POST",
+            contentType: "application/json",
+            url: "http://localhost:3000/api/insertToDB",
+            data: JSON.stringify(data1),
+            dataType: 'json',
+            success: function (customer) {
+                var result = JSON.stringify(customer);
+                console.log(result);
+                if (JSON.stringify(customer) == 'true') {
+                    alert("insert Successful!")
+                    window.location = "./../../main/repair/rpDetailEmp.html"
+
+                } else {
+                    alert("insert Incorrect!");
+                }
+            },
+            error: function (e) {
+                console.log("ERROR: ", e);
+            }
+        });
+    }
+}
+
+//check number
+function isInputNumber(evt) {
+    var ch = String.fromCharCode(evt.which);
+    if (!(/[0-9]/.test(ch))) {
+        evt.preventDefault();
+    }
+}
+
+//check string
+function isInputLetter(evt) {
+    var ch = String.fromCharCode(evt.which);
+    if ((/[1-9]/.test(ch))) {
+        evt.preventDefault();
+    }
 }

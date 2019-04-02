@@ -1,23 +1,25 @@
+
+var idbill = "BC0001"
 function getTableBill() {
 
-
+    
     var id = {
-        id: "BYC000100"
-    } 
-    $.ajax({
+        id:  idbill
+    }
+    $.ajax({    ///req post
         type: "POST",
-        contentType: "application/json",
-        url: "http://localhost:3000/api/buy/bill/getItem",
-        data: JSON.stringify(id),
-        dataType: 'json',
-        success: function (res) {
+        contentType: "application/json",   //type hearder data 
+        url: "http://localhost:3000/api/buy/bill/getItem",  //url
+        data: JSON.stringify(id),   //data
+        dataType: 'json',           //type data
+        success: function (res) {   //response
 
-            var con = res[0];
-            var customer = res[1];
-            var stock = res[3];
+            var con = res[0];      //array of contract
+            var customer = res[1];  //array of customer
+            var stock = res[3];      //array of stock 
 
-            var json = []
-            var table = {
+            var json = []         
+            var table = {            //data of table
                 ID_TRN_buy_bill: "BYB0001",
                 license_plate: stock[0].license_plate,
                 model: stock[0].model,
@@ -46,25 +48,27 @@ function getTableBill() {
                     "</td> <td class=" + td + ">  " + json[i].weight +
                     "</tr>";
 
-            }
+            } 
+            var tableFooter = "</table>";
+            /************ calculate price*****************/
             p = stock[0].price.split(",")
             var x = "";
             for (var i = 0; i < p.length; i++) {
                 x = x + p[i]
             }
             pr = parseInt(x);
-            
-            var tableFooter = "</table>";
+           
+             /************render table and data using *****************/
             document.getElementById("BVtable").innerHTML = tableHeader + tableContent + tableFooter;
             document.getElementById("priceHeader").innerHTML = pr
             document.getElementById("invB").innerHTML = " -"
             var vat = 0.5;
-            var prs = pr * (vat/100)
+            var prs = pr * (vat / 100)
             document.getElementById("invH").innerHTML = prs
-            document.getElementById("priceH2").innerHTML =  pr
+            document.getElementById("priceH2").innerHTML = pr
             document.getElementById("total").innerHTML = pr + prs
             document.getElementById("date").innerHTML = con[0].date
-            document.getElementById("customer").innerHTML = customer[0].firstname +" "+ customer[0].lastname
+            document.getElementById("customer").innerHTML = customer[0].firstname + " " + customer[0].lastname
             ////query
         },
         error: function (e) {
@@ -76,14 +80,9 @@ function getTableBill() {
 
 function getTableInvoice() {
 
-    // var query = location.search.substring(1);
-    // var ID_TRN_buy_bill = query.split("%20")
     var id = {
-        id: "BYB00010"
+        id: location.search.substring(1)
     }
-
-
-
     $.ajax({
         type: "POST",
         contentType: "application/json",
@@ -93,12 +92,12 @@ function getTableInvoice() {
         success: function (res) {
             console.log(res.length)
 
-
+            console.log(res)
             var bill = res[0];
             var customer = res[2];
             var stock = res[4];
 
-            var vat = parseInt(bill[0].VAT);
+            var vat = parseInt(bill[0].vat);
             var table = {
                 ID_TRN_taxlnvoice: "1",
                 license_plate: stock[0].license_plate,
@@ -106,6 +105,13 @@ function getTableInvoice() {
                 color: stock[0].color,
                 price: stock[0].price
             }
+            document.getElementById("num1").innerHTML = res[5];
+            document.getElementById("num2").innerHTML = bill[0].ID_TRN_buy_bill;
+            document.getElementById("date").value = bill[0].date;
+            document.getElementById("type").value = bill[0].type;
+            document.getElementById('name').value = customer[0].firstname + " " + customer[0].lastname
+            document.getElementById('tel').value = customer[0].tel
+
             var json = []
             json.push(table)
 
@@ -136,8 +142,6 @@ function getTableInvoice() {
                 pr = parseInt(x);
 
             }
-
-
             var tableFooter = "</table>";
             document.getElementById("BVtable").innerHTML = tableHeader + tableContent + tableFooter;
 
@@ -147,6 +151,8 @@ function getTableInvoice() {
 
             var pri = pr + inv
             document.getElementById("priceAddinv").innerHTML = pri;
+
+
         },
         error: function (e) {
             console.log("ERROR: ", e);
@@ -156,5 +162,72 @@ function getTableInvoice() {
 }
 
 function insertItemBill() {
+    var data = {
+        date: $('#date').text(),
+        type: $('#type').val(),
+        total: $('#total').text(),
+        vat: $('#invH').text(),
+        insure: "",
+        price: $('#priceH2').text(),
+        ID_TRN_buy_contract: location.search.substring(1)
+    }
+  
+    $.ajax({
+        type: "POST",
+        contentType: "application/json",
+        url: "http://localhost:3000/api/buy/bill/insert",
+        data: JSON.stringify(data),
+        dataType: 'json',
+        success: function (res) {
+            console.log(res.id)
+            if (res != null) {
+                window.location.href = "bVat.html?" + res.id
+            }
 
+        },
+        error: function (e) {
+            console.log("ERROR: ", e);
+        }
+    })
+}
+function insertItemInvoie() {
+    
+    var data = {
+        date: $('#date').val(),
+        ID_TRN_buy_bill: location.search.substring(1)
+    }
+
+    $.ajax({
+        type: "POST",
+        contentType: "application/json",
+        url: "http://localhost:3000/api/buy/invoice/insert",
+        data: JSON.stringify(data),
+        dataType: 'json',
+        success: function (res) {
+            
+            if (res == 'ture') {
+                alert("ทำรายการ " + $('#type').val() + " " + "สำเร็จ")
+                window.location.href = "./../main.html"
+            }
+
+        },
+        error: function (e) {
+            console.log("ERROR: ", e);
+        }
+    })
+}
+function PrintDiv() {
+    var divToPrint = document.getElementById('wrapper'); // เลือก div id ที่เราต้องการพิมพ์
+    var html = '<html>' + // 
+        '<head>' +
+        '<link href="print.css" rel="stylesheet" type="text/css">' +
+        '<link rel="stylesheet" href="./../../css/style.css" />' +
+        '</head>' +
+        '<body onload="window.print(); window.close();">' + divToPrint.innerHTML + '</body>' +
+        '</html>';
+
+    var popupWin = window.open();
+    popupWin.document.open();
+    popupWin.document.write(html); //โหลด print.css ให้ทำงานก่อนสั่งพิมพ์
+    popupWin.document.close();
 }

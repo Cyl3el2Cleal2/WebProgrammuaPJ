@@ -23,8 +23,13 @@ app.use(forget)
 app.use(buy)
 app.use(recieve)
 //Uncomment ถ้าทำแล้ว
+
+app.use(sale)
+// app.use(repair)
+
 // app.use(sale)
 app.use(repair)
+
 // app.use(regis)
 app.use(emp)
 app.listen(process.env.PORT || 3000, () => {

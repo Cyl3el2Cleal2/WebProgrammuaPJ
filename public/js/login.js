@@ -1,6 +1,11 @@
 function login() {
   var username = document.getElementById("username").value;
   var password = document.getElementById("password").value;
+  if (username == '' || password == ''){
+    alert('กรุณากรอกข้อมูลให้ครบถ้วน')
+    document.getElementById("password").focus();
+    return;
+  }
   console.log(username + " " + password);
   var data = {
     username: username,
@@ -21,6 +26,7 @@ function login() {
         window.location = "./../../main/main.html";
       } else {
         alert("Login Incorrect!");
+        document.getElementById("username").focus();
       }
     },
     error: function (e) {

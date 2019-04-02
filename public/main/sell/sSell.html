@@ -7,14 +7,21 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<link rel="stylesheet" href="./../../css/style.css" />
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+	<script type="text/javascript" src="./../../js/sSell.js"></script>
 	<noscript>
 		<link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 	<script>
 		function deleteRow(r) {
 			var i = r.parentNode.parentNode.rowIndex;
 			document.getElementById("fixed_header").deleteRow(i);
+			var table = document.getElementById("fixed_header");
+			for (var i = 1; i < table.clientHeight; i++) {
+				table.rows[i].cells[0].innerHTML = i ;
+			}
 		}
 		function myCreateFunction() {
+/*
 			var table = document.getElementById("fixed_header");
 			var row = table.insertRow(1);
 			var cell1 = row.insertCell(0);
@@ -29,10 +36,11 @@
 			cell4.innerHTML = '<td class = "tdPang">xxxxxx</td>';
 			cell5.innerHTML = '<td class = "tdPang">xxxxxx</td>';
 			cell6.innerHTML = '<a class="button deleteRow" value="Delete" onclick="deleteRow(this)">ลบ</a>';
-			
-			
-			
-		}	
+		*/
+
+
+
+		}
 	</script>
 </head>
 
@@ -82,7 +90,7 @@
 							</div>
 
 							<div class="field t2">
-								<a href="#" onclick="myCreateFunction()" class="button add" >เพิ่ม</a>
+								<a href="#" onclick="queryData()" class="button add">เพิ่ม</a>
 							</div>
 							<br>
 							<hr>

@@ -39,19 +39,19 @@
                         <br>
                         <div class="isleft">
                             เบอร์โทรศัพท์
-                            <input type="text" id="tell" value="" placeholder="กรอกเบอร์โทรศัพท์">
+                            <input type="text" onkeypress="isInputNumber(event)" maxlength="10" id="tell" value="" placeholder="กรอกเบอร์โทรศัพท์">
                         </div>
                         <div class="isleft">
                             E-mail
-                            <input type="text" id="mail" value="" placeholder="Example@gmaail.com">
+                            <input type="email" id="mail" value="" placeholder="Example@gmaail.com">
                         </div>
                         <div class="isleft">
                             เลขบัตรประชาชน
-                            <input type="text" id="id-card" value="" placeholder="กรอกเลขบัตรประชาชน">
+                            <input type="text" onkeypress="isInputNumber(event)" maxlength="13" id="id-card" value="" placeholder="กรอกเลขบัตรประชาชน">
                         </div>
                         <div class="isleft">
                             เงินเดือน
-                            <input type="text" id="salary" value="" placeholder="กรอกเงินเดือน">
+                            <input type="text" onkeypress="isInputNumber(event)" id="salary" value="" placeholder="กรอกเงินเดือน">
                         </div>
                         <div>
                             <br>
@@ -61,15 +61,15 @@
                     <div class="toncolumn is-4 is-offset-3">
                         <div class="isleft">
                             รหัสพนักงาน
-                            <input type="text" id="id" value="" placeholder="กรอกรหัสพนักงาน">
+                            <input type="text" maxlength="6" id="id" value="" placeholder="กรอกรหัสพนักงาน">
                         </div>
                         <div class="isleft">
                             ตำแหน่ง
-                            <input type="text" id="position" value="" placeholder="กรอกตำแหน่ง">
+                            <input type="text" onkeypress="isInputLetter(event)" id="position" value="" placeholder="กรอกตำแหน่ง">
                         </div>
                         <div class="isleft">
                             ชื่อ - นามสกุล
-                            <input type="text" id="name" value="" placeholder="กรอก ชื่อ - นามสกุล">
+                            <input type="text" onkeypress="isInputLetter(event)" id="name" value="" placeholder="กรอก ชื่อ - นามสกุล">
                         </div>
 
                         <div class="isleft">

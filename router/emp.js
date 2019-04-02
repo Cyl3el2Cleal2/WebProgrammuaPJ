@@ -14,8 +14,8 @@ app.post("/api/emp", (req, res) => {
         var splite = name.split(" ")
         var userdata = {
             "ID_MST_employee": req.body.id,
-            "user": req.body.username,
-            "password": req.body.password,
+            // "user": req.body.username,
+            // "password": req.body.password,
             "email": req.body.email,
             "gender": req.body.gender,
             "tel" : req.body.tel,
