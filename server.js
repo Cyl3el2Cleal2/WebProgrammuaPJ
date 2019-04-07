@@ -5,6 +5,7 @@ var bodyParser = require('body-parser')
 
 var login = require('./router/login')
 var forget = require('./router/forget')
+var register = require('./router/register')
 var buy = require('./router/buy')
 var sale = require('./router/sale')
 var repair = require('./router/repair')
@@ -20,6 +21,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(login)
 app.use(forget)
+app.use(register)
 app.use(buy)
 app.use(recieve)
 //Uncomment ถ้าทำแล้ว

@@ -7,8 +7,10 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="./css/style.css">
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <script src="./js/serviceRegister.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <title>สมัครสมาชิก</title>
-  
+
 </head>
 
 <body>
@@ -30,12 +32,12 @@
                     <a href="register.html" class="button upload">อัพโหลด</a>
                 </div>
                 <div class="registercolumn">
-                    <h3 class= "isleft"><i class="fas fa-user"></i> ชื่อผู้ใช้ </h3>
-                    <h3 class= "isleft"><input type="text" id="username" placeholder="ชื่อผู้ใช้" /></h3>
-                    <h3 class= "isleft"><i class="fas fa-unlock"></i> รหัสผ่าน </h3>
-                    <h3 class= "isleft"><input type="password" id="password" placeholder="รหัสผ่าน" /></h3>
-                    <h3 class= "isleft"><i class="fas fa-unlock"></i> ยืนยันรหัสผ่าน </h3>
-                    <h3 class= "isleft"><input type="password" id="password" placeholder="ยืนยันรหัสผ่าน" /></h3>
+                    <h3 class="isleft"><i class="fas fa-user"></i> ชื่อผู้ใช้ </h3>
+                    <h3 class="isleft"><input type="text" id="username" placeholder="ชื่อผู้ใช้" /></h3>
+                    <h3 class="isleft"><i class="fas fa-unlock"></i> รหัสผ่าน </h3>
+                    <h3 class="isleft"><input type="password" id="password" placeholder="รหัสผ่าน" /></h3>
+                    <h3 class="isleft"><i class="fas fa-unlock"></i> ยืนยันรหัสผ่าน </h3>
+                    <h3 class="isleft"><input type="password" id="confirmpassword" placeholder="ยืนยันรหัสผ่าน" /></h3>
                 </div>
             </div>
 
@@ -43,35 +45,41 @@
             <form method="post" action="#">
                 <div class="fields">
                     <div class="field">
+                        <h3 class="isleft"></i>ชื่อ</h3>
+                        <h3 class="isleft"><input type="text" id="firstname" placeholder="ชื่อ" /></h3>
+                        <h3 class="isleft"></i> นามสกุล </h3>
+                        <h3 class="isleft"><input type="text" id="lastname" placeholder="นามสกุล" /></h3>
                         <br>
-                        <h3 class= "isleft"></i> เพศ </h3>
-                        <h3 class= "isleft"><input type="radio" id="r1" name="rr" />
-                            <label for="r1"><span></span>ชาย</label></h3>
+                        <h3 class="isleft"></i> เพศ </h3>
+                        <div id="gender" class="isleft">
+                            <h3><input type="radio" id="r1" value="men" />
+                                <label for="r1"><span></span>ชาย</label></h3>
+                            <h3><input type="radio" id="r2" value="women" />
+                                <label for="r2"><span></span>หญิง</label></h3>
+                        </div>
 
-                        <h3 class= "isleft"><input type="radio" id="r2" name="rr" />
-                            <label for="r2"><span></span>หญิง</label></h3>
-                        <h3 class= "isleft"></i> เบอร์โทร </h3>
-                        <h3 class= "isleft"><input type="text" id="tel" placeholder="เบอร์โทร" /></h3>
-                        <h3 class= "isleft"></i> Email </h3>
-                        <h3 class= "isleft"><input type="email" id="email" placeholder="XXX@Email.com" /></h3>
-                        <h3 class= "isleft"></i> อายุ </h3>
-                        <h3 class= "isleft"><input type="text" id="age" placeholder="อายุ" /></h3>
-                        <h3 class= "isleft"></i> เลขบัตรประชาชน </h3>
-                        <h3 class= "isleft"><input type="text" id="idcard" placeholder="เลขบัตรประชาชน" /></h3>
-                        <h3 class= "isleft"></i> ประเภทงาน </h3>
-                        <h3 class= "isleft"><input type="text" id="tel" placeholder="ประเภทงาน" /></h3>
-                        <h3 class= "isleft"></i> ที่อยู่ </h3>
-                        <h3 class= "isleft"><input type="text" id="tel" placeholder="ที่อยู่" /></h3>
+                        <h3 class="isleft"></i> เบอร์โทร </h3>
+                        <h3 class="isleft"><input type="text" id="tel" placeholder="เบอร์โทร" /></h3>
+                        <h3 class="isleft"></i> Email </h3>
+                        <h3 class="isleft"><input type="email" id="email" placeholder="XXX@Email.com" /></h3>
+                        <h3 class="isleft"></i> อายุ </h3>
+                        <h3 class="isleft"><input type="text" id="age" placeholder="อายุ" /></h3>
+                        <h3 class="isleft"></i> เลขบัตรประชาชน </h3>
+                        <h3 class="isleft"><input type="text" id="idcard" placeholder="เลขบัตรประชาชน" /></h3>
+                        <h3 class="isleft"></i> ประเภทงาน </h3>
+                        <h3 class="isleft"><input type="text" id="type" placeholder="ประเภทงาน" /></h3>
+                        <h3 class="isleft"></i> ที่อยู่ </h3>
+                        <h3 class="isleft"><input type="text" id="address" placeholder="ที่อยู่" /></h3>
                     </div>
-                    <a href="login.html" class="button ok">ตกลง</a>
+                    <a onclick="register()" class="button ok">ตกลง</a>
                 </div>
             </form>
 
         </section>
 
     </div>
-    
-   
+
+
 </body>
 
 </html>
