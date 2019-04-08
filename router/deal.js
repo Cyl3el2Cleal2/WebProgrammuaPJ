@@ -9,7 +9,7 @@ app.use(bodyParser.json());
 
 
 ////////
-app.use('/api/buy/deal/insertContract', (req, res) => {
+app.post('/api/buy/deal/insertContract', (req, res) => {
     var data = {
         ID_TRN_buy_contract: req.body.ID_buy_contract,
         ID_MST_customer: req.body.ID_CUS,
@@ -40,16 +40,14 @@ app.use('/api/buy/deal/insertContract', (req, res) => {
 })
 
 
-app.use('/api/deal/getItem', (req, res) => {
-    // var data = {
-    //     name_customer: req.body.id
-    // }
+app.post('/api/deal/getItem', (req, res) => {
+
     var data = [];
+
     MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
         if (err) throw err;
         var dbo = db.db("gigabug");
-        // var id = ObjectId("5c8e30f8ce43e42e980ac2d9")
-        var query = { _id: ObjectId("5cab5228ce07b32f305282f2") };
+        var query = { _id: ObjectId(req.body.id) };
         dbo.collection("TRN_buy").find(query).toArray(function (err, result) {
             if (err) {
                 res.send(false)
@@ -59,24 +57,41 @@ app.use('/api/deal/getItem', (req, res) => {
                 data.push(result[0].ID_TRN_buy);
                 data.push(result[0].ID_MST_customer);
                 data.push(result[0].ID_MST_stock);
-                res.send(data);
+                //res.send(data);
                 var queryCus = {
-                    ID_MST_costomer: ""+result[0].ID_MST_customer
+                    ID_MST_costomer: "" + result[0].ID_MST_customer
                 };
-                console.log(result[0].ID_MST_customer)
+                // console.log(result[0].ID_MST_customer)
                 dbo.collection("MST_customer").find(queryCus).toArray(function (err, respons) {
                     if (err) {
                         res.send(false)
                         db.close;
                     } else {
-                        data.push(respons[0].firstname +" "+respons[0].lastname)
-                        console.log(data)
-                        // res.send(data)
+                        data.push(respons[0].firstname + " " + respons[0].lastname)
+                        // console.log(data)
+                        //res.send(data)
+                        var queryStk = {
+                            ID_MST_stock: "" + result[0].ID_MST_stock
+                        };
+                        console.log("===>" + result[0].ID_MST_stock)
+                        dbo.collection("MST_stock").find(queryStk).toArray(function (err, stk) {
+                            if (err) {
+                                res.send(false)
+                                db.close;
+                            } else {
+                                data.push(stk[0].model)
+                                data.push(stk[0].license_plate)
+                                data.push(stk[0].color)
+                                data.push(stk[0].price)
+                                res.send(data)
+                            }
+                        })
                     }
                 })
             }
         });
     });
 })
+
 
 module.exports = app;

@@ -28,10 +28,11 @@ function showPdf() {
     document.getElementById("pdf_money").textContent = document.getElementById("money").value
 }
 // รับมา
-var ID_customer = "C00011";
-var ID_stock = "ST00011";
+var ID_buy_con;
+var ID_customer;
+var ID_stock;
 var ID_employee = "E00012";
-var ID_buy = "BY00010";
+var ID_buy;
 // กรอก
 var location;
 var money;
@@ -44,41 +45,44 @@ var model;
 var color;
 
 
-function init() {
-    $("#name").val("ประยุทธ์ จันทร์โอซา")
-    $("#emp").val("สุเทพ เทือกสูบรรณ")
-    $("#address").val("130/1 อาคารปานศรี ซอยรัชดาภิเษก")
-    $("#type").val("TOYOTA")
-    $("#license").val("สว 250 กกต")
-    $("#gen").val("Yalis")
-    $("#color").val("Red")
-    showPdf();
-}
 function getData() {
     var id = {
-        id: "5c8e30f8ce43e42e980ac2d8"
+        id: window.location.href.split("?")[1]
     }
     $.ajax({
         type: "POST",
         contentType: "application/json",
-        url: "http://localhost:3000/api/buy/deal/getItem",
+        url: "http://localhost:3000/api/deal/getItem",
         data: JSON.stringify(id),
         dataType: 'json',
-        // success: function (res) {
-        //     console.log("HIHIHI"+res)
-        //     name_customer;
-        //     name_employee;
-        //     address_customer;
-        //     brand;
-        //     license;
-        //     model;
-        //     color;
-        // },
-        // error: function (e) {
-        //     console.log("ERROR: ", e);
-        // }
+        success: function (res) {
+            console.log(res)
+            name_customer = res[3];
+            license = res[5];
+            model = res[4];
+            color = res[6];
+            ID_buy = res[0];
+            ID_customer = res[1]
+            ID_stock = res[2]
+            init()
+        },
+        error: function (e) {
+            console.log("ERROR: ", e);
+        }
     })
 }
+
+function init() {
+    $("#name").val(name_customer)
+    $("#emp").val("สุเทพ เทือกสูบรรณ")
+    $("#address").val("130/1 อาคารปานศรี ซอยรัชดาภิเษก")
+    $("#type").val(model)
+    $("#license").val(license)
+    $("#gen").val("Yalis")
+    $("#color").val(color)
+    showPdf();
+}
+
 
 function insertToDB() {
 
@@ -111,11 +115,6 @@ function insertToDB() {
         }
     })
 }
-
-function createID() {
-
-}
-
 function fill() {
     if ($("#location").val() == "") {
         alert("กรุณาใส่ข้อมูลให้ครบ")
