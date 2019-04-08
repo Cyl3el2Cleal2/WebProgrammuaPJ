@@ -35,6 +35,14 @@ var ID_buy = "BY00010";
 // กรอก
 var location;
 var money;
+var name_customer;
+var name_employee;
+var address_customer;
+var brand;
+var license;
+var model;
+var color;
+
 
 function init() {
     $("#name").val("ประยุทธ์ จันทร์โอซา")
@@ -48,7 +56,7 @@ function init() {
 }
 function getData() {
     var id = {
-        id: ID_customer
+        id: "5c8e30f8ce43e42e980ac2d8"
     }
     $.ajax({
         type: "POST",
@@ -56,12 +64,19 @@ function getData() {
         url: "http://localhost:3000/api/buy/deal/getItem",
         data: JSON.stringify(id),
         dataType: 'json',
-        success: function (res) {
-            console.log("HIHIHI")
-        },
-        error: function (e) {
-            console.log("ERROR: ", e);
-        }
+        // success: function (res) {
+        //     console.log("HIHIHI"+res)
+        //     name_customer;
+        //     name_employee;
+        //     address_customer;
+        //     brand;
+        //     license;
+        //     model;
+        //     color;
+        // },
+        // error: function (e) {
+        //     console.log("ERROR: ", e);
+        // }
     })
 }
 
@@ -97,18 +112,18 @@ function insertToDB() {
     })
 }
 
-function createID(){
+function createID() {
 
 }
 
-function fill(){
-    if($("#location").val() == ""){
+function fill() {
+    if ($("#location").val() == "") {
         alert("กรุณาใส่ข้อมูลให้ครบ")
-    }else if($("#date").val() == ""){
+    } else if ($("#date").val() == "") {
         alert("กรุณาใส่ข้อมูลให้ครบ")
-    }else if($("#money").val() == ""){
+    } else if ($("#money").val() == "") {
         alert("กรุณาใส่ข้อมูลให้ครบ")
-    }else{
+    } else {
         insertToDB()
     }
 }

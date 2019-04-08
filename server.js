@@ -11,6 +11,7 @@ var sale = require('./router/sale')
 var repair = require('./router/repair')
 var regis = require('./router/regis_car')
 var emp = require('./router/emp')
+var deal = require('./router/deal')
 var recieve = require('./router/carRecieve')
 var path = require('path');
 app.use(express.static('public'));
@@ -31,7 +32,7 @@ app.use(sale)
 
 // app.use(sale)
 app.use(repair)
-
+app.use(deal)
 // app.use(regis)
 app.use(emp)
 app.listen(process.env.PORT || 3000, () => {
