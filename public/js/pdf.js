@@ -82,18 +82,18 @@ function insertToDB() {
         url: "http://localhost:3000/api/buy/deal/insertContract",
         data: JSON.stringify(data),
         dataType: 'json',
-        success: function (res) {
-            console.log(res);
-            if (JSON.stringify(res) == 'true') {
-                alert("insert Successful!")
-                window.location.href = "bBill.html?" + data.ID_buy_contract
-            } else {
-                alert("insert Incorrect!");
-            }
-        },
-        error: function (e) {
-            console.log("ERROR: ", e);
-        }
+        // success: function (res) {
+        //     console.log(res);
+        //     if (JSON.stringify(res) == 'true') {
+        //         alert("insert Successful!")
+        //         window.location.href = "bBill.html?" + data.ID_buy_contract
+        //     } else {
+        //         alert("insert Incorrect!");
+        //     }
+        // },
+        // error: function (e) {
+        //     console.log("ERROR: ", e);
+        // }
     })
 }
 
