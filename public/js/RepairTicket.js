@@ -6,12 +6,12 @@ function myFunction(){
 function getTableCarRecieve() {
 
     var id = {
-        id: location.search.substring(1)
+        id: location.search.substring(0)
     }
     $.ajax({
         type: "POST",
         contentType: "application/json",
-        url: "http://localhost:3000/getDataManage",
+        url: "http://localhost:3000/mm/Repair/carRecieve/getTable",
         data: JSON.stringify(id),
         dataType: 'json',
         success: function (res) {
