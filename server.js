@@ -12,6 +12,7 @@ var repair = require('./router/repair')
 var regis = require('./router/regis_car')
 var emp = require('./router/emp')
 var recieve = require('./router/carRecieve')
+var customer = require('./router/Costum')
 var path = require('path');
 app.use(express.static('public'));
 app.get('/', function (req, res) {
@@ -24,6 +25,7 @@ app.use(forget)
 app.use(register)
 app.use(buy)
 app.use(recieve)
+app.use(customer)
 //Uncomment ถ้าทำแล้ว
 
 app.use(sale)
