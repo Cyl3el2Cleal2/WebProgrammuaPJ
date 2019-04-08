@@ -71,7 +71,7 @@ app.post('/api/deal/getItem', (req, res) => {
                         // console.log(data)
                         //res.send(data)
                         var queryStk = {
-                            ID_MST_stock: "" + result[0].ID_MST_stock
+                            _id: ObjectId(result[0].ID_MST_stock)
                         };
                         console.log("===>" + result[0].ID_MST_stock)
                         dbo.collection("MST_stock").find(queryStk).toArray(function (err, stk) {
