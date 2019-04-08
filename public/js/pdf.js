@@ -87,7 +87,7 @@ function init() {
 function insertToDB() {
 
     var data = {
-        ID_buy_contract: "BC0001",
+        ID_buy_contract: "BC000" + Math.floor(Math.random() * 50),
         ID_CUS: ID_customer,
         ID_EMP: ID_employee,
         ID_buy: ID_buy,
