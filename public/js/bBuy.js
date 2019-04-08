@@ -32,6 +32,32 @@ function getData() {
     });
 }
 
+function insert(idStock, cName) {
+    var data = {
+        date: document.getElementById("date").value,
+        ID_MST_stock: idStock,
+        name: cName
+    };
+    $.ajax({
+        type: "POST",
+        contentType: "application/json",
+        url: "http://localhost:3000/api/bBuy/insertBuy",
+        data: JSON.stringify(data),
+        dataType: "json",
+        success: function (customer) {
+            var result = JSON.stringify(customer);
+            console.log(result);
+            // alert(result)
+            window.location.href = "../buy/bDeal.html?" + customer._id
+
+        },
+        error: function (e) {
+            alert("Not found customer")
+        }
+    });
+}
+
+
 function addStock() {
 
     if (checkNull() == false) {
@@ -67,6 +93,7 @@ function addStock() {
                     alert("add fail!");
                 }
                 console.log(customer)
+                insert(customer._id, document.getElementById("name").value)
             },
             error: function (e) {
                 console.log("ERROR: ", e);
@@ -80,7 +107,6 @@ function addStock() {
 
 function letDoIt() {
     url()
-    checkNull()
     addStock()
 
 }
