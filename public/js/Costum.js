@@ -49,7 +49,7 @@ function save() {
                 console.log(result);
                 if (JSON.stringify(customer) == "true") {
                     alert("Save Successful!");
-                    window.location = "../buy/bBuy.html?" + tel
+                    window.location = "../buy/bBuy.html?tel:" + tel
                 } else {
                     alert("Save Incorrect!");
                 }
