@@ -14,8 +14,6 @@ app.post("/api/emp", (req, res) => {
         var splite = name.split(" ")
         var userdata = {
             "ID_MST_employee": req.body.id,
-            // "user": req.body.username,
-            // "password": req.body.password,
             "email": req.body.email,
             "gender": req.body.gender,
             "tel" : req.body.tel,
@@ -26,11 +24,14 @@ app.post("/api/emp", (req, res) => {
             "salary" : req.body.salary,
             "name":splite[0],
             "lastname":splite[1],
-            "id_card":req.body.id_card
+            "idcard":req.body.id_card
             
         }
+        var condition = {
+            "ID_MST_employee": req.body.id,
+        }
         console.log(userdata)
-        dbo.collection('emp').insertOne(userdata,(err,result)=>{
+        dbo.collection('MST_employee').updateOne(condition,{ $set:userdata},(err,result)=>{
             if(err){
                 res.sendStatus(404)
                 res.send('false')
@@ -41,4 +42,18 @@ app.post("/api/emp", (req, res) => {
         })
     });
 })
+
+app.get('/api/emp/search', (req, res) => {
+    MongoClient.connect(url, function (err, db) {
+        if (err) throw err;
+        var dbo = db.db("gigabug");
+
+
+        dbo.collection("MST_employee").find({}).toArray(function (err, result) {
+            if (err) throw err;
+            res.send(result)
+            db.close();
+        });
+    });
+});
 module.exports = app;

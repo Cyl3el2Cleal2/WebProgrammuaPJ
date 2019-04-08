@@ -15,7 +15,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 
-<body>
+<body onload="search()">
     <!-- Wrapper -->
     <div id="wrapper">
         <!-- Main -->
@@ -32,8 +32,8 @@
                         <div class="tonimg-resize">
                             <img id="blah" src="./../image/user.png">
                         </div>
-                        <label class="button upload">
-                            <input type="file" onchange="readURL(this)" style="display:none">
+                        <label  class="button upload">
+                            <input id="upload" type="file" onchange="readURL(this)" style="display:none">
                             อัพโหลด
                         </label>
                         <br>
@@ -55,7 +55,7 @@
                         </div>
                         <div>
                             <br>
-                            <a class="button edit">แก้ไข</a>
+                            <a class="button edit" onclick="edit()">แก้ไข</a>
                         </div>
                     </div>
                     <div class="toncolumn is-4 is-offset-3">
@@ -85,9 +85,7 @@
                         </div>
                         <div class="isleft">
                             ที่อยู่
-                            <textarea id="address" value="" class="tontextarea">
-
-                            </textarea>
+                            <textarea id="address" value="" class="tontextarea"></textarea>
                         </div>
                         <div>
                             <br>
@@ -102,12 +100,13 @@
                 </div>
                 <div>
                     <br>
-                    <input type="text" placeholder="Search.." class="tonsearchTerm">
-                    <button class="tonsearchButton">
-                        ค้นหา
-                    </button>
+                    <input type="text" id="search" placeholder="Search.." class="tonsearchTerm">
+                    <a class="tonsearchButton" onclick="filter()">ค้นหา</a>
                 </div>
-
+                <br>
+                <br>
+                <ul id="myUL">
+                  </ul>
             </form>
         </section>
     </div>
