@@ -25,7 +25,8 @@ function getData() {
             console.log(result);
             // alert(result)
             document.getElementById("name").value = customer.firstname + " " + customer.lastname;
-            id_mst_customer = customer._id;
+            //alert(customer);
+            id_mst_customer = customer.ID_MST_costomer;
         },
         error: function (e) {
             alert("Not found customer")
