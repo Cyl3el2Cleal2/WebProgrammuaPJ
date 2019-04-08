@@ -831,6 +831,11 @@ page[size="A4"] {
     text-align: left;
 }
 
+.BVtr {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
 .mmUlLeft {
     list-style-type: none;
     text-align: left;

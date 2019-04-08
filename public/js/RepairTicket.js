@@ -24,18 +24,16 @@ function getTableCarRecieve() {
 
             var vat = parseInt(bill[0].vat);
             var table = {
-                ID_TRN_taxlnvoice: "1",
+                ID_TRN_car_recieve: "1",
                 license_plate: stock[0].license_plate,
                 type: stock[0].model,
                 color: stock[0].color,
                 price: stock[0].price
             }
-            document.getElementById("num1").innerHTML = res[5];
-            document.getElementById("num2").innerHTML = bill[0].ID_TRN_buy_bill;
-            document.getElementById("date").value = bill[0].date;
-            document.getElementById("type").value = bill[0].type;
-            document.getElementById('name').value = customer[0].firstname + " " + customer[0].lastname
-            document.getElementById('tel').value = customer[0].tel
+            document.getElementById("mmRecieveDate").value = bill[0].date;
+            document.getElementById("thisDate").value = bill[0].type;
+            document.getElementById('recieveName').value = customer[0].firstname + " " + customer[0].lastname
+            document.getElementById('recieveTel').value = customer[0].tel
 
             var json = []
             json.push(table)
