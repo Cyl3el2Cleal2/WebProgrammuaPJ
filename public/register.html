@@ -27,12 +27,16 @@
 
             <div class="registerrow">
                 <div class="registercolumn">
-                    <img style="width: 130px;" src="./image/user.png" />
+                    <img id="output" style="width: 150px;" src="./image/user.png" />
                     <br>
+                    <!-- <input type="file" accept="image/*" onchange="loadFile(event)"/> -->
                     <div class="upload-btn-wrapper">
                         <a class="button upload">อัพโหลด</a>
-                        <input type="file" name="myfile" />
+                        <input type="file" accept="image/*" id="myfile" onchange="loadFile(event)"/>
+                        <br>
+                        <label id="uploadFile">noflie</label>
                     </div>
+                    <br>
                 </div>
                 <div class="registercolumn">
                     <h3 class="isleft"><i class="fas fa-user"></i> ชื่อผู้ใช้ </h3>
@@ -81,6 +85,18 @@
         </section>
 
     </div>
+    <script>
+            var loadFile = function (event) {
+                var reader = new FileReader();
+                reader.onload = function () {
+                    var output = document.getElementById('output');
+                    output.src = reader.result;
+                };
+                reader.readAsDataURL(event.target.files[0]);
+                document.getElementById("uploadFile").innerHTML =  document.getElementById("myfile").value;
+               
+            };
+        </script>
 
 
 </body>

@@ -294,6 +294,11 @@ button:hover,
 }
 
 /*>>>>>>>>>>>>>>>>>>> Kanun  <<<<<<<<<<<<<<<<*/
+input[type=file]{
+    padding:10px;
+    border: solid 1px #ffffff;
+    
+}
 .upload-btn-wrapper {
     position: relative;
     overflow: hidden;
