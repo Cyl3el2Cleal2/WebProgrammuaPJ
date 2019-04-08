@@ -15,18 +15,25 @@ app.use('/api/buy/deal/insertContract', (req, res) => {
         ID_TRN_buy: req.body.ID_buy,
         date: req.body.DATE
     }
-    
-    console.log(data)
-    MongoClient.connect(url, function(err, db) {
+
+    // /console.log(data)
+    MongoClient.connect(url, function (err, db) {
         if (err) throw err;
         var dbo = db.db("gigabug");
 
-        dbo.collection("TRN_buy_contract").insertOne(data, function(err, res) {
-          if (err) throw err;
-          console.log("1 document inserted");
-          db.close();
+        dbo.collection("TRN_buy_contract").insert(data, (err, result) => {
+            if (err) {
+                res.send("false")
+                db.close();
+            } else {
+
+                res.send("true")
+                db.close();
+
+            }
+
         });
-      });
+    });
 })
 
 module.exports = app;
