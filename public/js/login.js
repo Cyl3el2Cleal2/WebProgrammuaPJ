@@ -23,6 +23,7 @@ function login() {
       console.log(result);
       if (JSON.stringify(customer) == "true") {
         alert("Login Successful!");
+        sessionStorage.user = username;
         window.location = "./../../main/main.html";
       } else {
         alert("Login Incorrect!");

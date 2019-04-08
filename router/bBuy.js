@@ -67,7 +67,8 @@ app.post("/api/bBuy/insertBuy", (req, res) => {
             ID_TRN_buy: "",
             date:req.body.date,
             ID_MST_stock:req.body.ID_MST_stock,
-            name:req.body.name
+            name:req.body.name,
+            ID_MST_customer:req.body.ID_MST_customer
         }
         console.log(buyDoc)
 
