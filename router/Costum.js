@@ -14,18 +14,18 @@ app.post("/api/Custum", (req, res) => {
             "ID_MST_costomer": req.body.costum_id,
             "email": req.body.email,
             "gender": req.body.gender,
-            "tel" : req.body.tel,
-            "age" : req.body.age,
-            "employee_type":req.body.costum_type,
-            "firstname":req.body.name,
-            "lastname":req.body.sername
+            "tel": req.body.tel,
+            "age": req.body.age,
+            "employee_type": req.body.costum_type,
+            "firstname": req.body.name,
+            "lastname": req.body.sername
         }
         console.log(userdata)
-        dbo.collection('MST_customer').insertOne(userdata,(err,result)=>{
-            if(err){
+        dbo.collection('MST_customer').insertOne(userdata, (err, result) => {
+            if (err) {
                 res.sendStatus(404)
                 res.send('false')
-            }else{
+            } else {
                 console.log(result)
                 res.send('true')
             }
