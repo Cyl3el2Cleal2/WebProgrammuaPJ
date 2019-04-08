@@ -7,8 +7,9 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<link rel="stylesheet" href="./../../css/style.css" />
-	<noscript>
-		<link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script type="text/javascript" src="./../../js/bBuy.js">
+	</script>
 </head>
 
 <body class="is-preload">
@@ -22,35 +23,35 @@
 
 
 
-			
-				<div class="fields">
-					<div class="field t1">
-						<h3>วันที่</h3><input type="date" name="date" id="date" placeholder="วันที่" />	
-					</div>
 
-					<div class="field t1">
-						<h3>ชื่อลูกค้า</h3><input type="text" name="name" id="name" placeholder="กรอกชื่อ" />	
-					</div>
+			<div class="fields">
+				<div class="field t1">
+					<h3>วันที่</h3><input type="date" name="date" id="date" placeholder="วันที่" />
+				</div>
 
-					<div class="field t1">
-						<h3>เลขทะเบียน</h3><input type="email" name="num" id="num" placeholder="กรอกเลขทะเบียนรถ" />
-					</div>
+				<div class="field t1">
+					<h3>ชื่อลูกค้า</h3><input type="text" name="name" id="name" placeholder="กรอกชื่อ" />
+				</div>
 
-					<div class="field t1">	
-						<h3>รุ่น</h3><input type="text" name="gen" id="gen" placeholder="กรอกชื่อรุ่น" />
-					</div>
+				<div class="field t1">
+					<h3>เลขทะเบียน</h3><input type="email" name="num" id="num" placeholder="กรอกเลขทะเบียนรถ" />
+				</div>
 
-					<div class="field t1">
-						<h3>สี</h3><input type="text" name="colorcar" id="colorcar" placeholder="กรอกสี" />
-					</div>
+				<div class="field t1">
+					<h3>รุ่น</h3><input type="text" name="gen" id="gen" placeholder="กรอกชื่อรุ่น" />
+				</div>
 
-					<div class="field t1">
-						<h3>ราคา</h3><input type="text" name="price" id="price" placeholder="ราคา" />
-					</div>
+				<div class="field t1">
+					<h3>สี</h3><input type="text" name="colorcar" id="colorcar" placeholder="กรอกสี" />
+				</div>
+
+				<div class="field t1">
+					<h3>ราคา</h3><input type="text" name="price" id="price" placeholder="ราคา" />
+				</div>
 
 
 
-					<a href="bDeal.html" class="button savesellBT">บันทึก</a>
+				<a onclick="letDoIt()" class="button savesellBT">บันทึก</a>
 
 		</section>
 
