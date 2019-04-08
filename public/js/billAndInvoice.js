@@ -1,10 +1,9 @@
 
-var idbill = "BC0001"
 function getTableBill() {
 
     
     var id = {
-        id:  idbill
+        id:  location.search.substring(1)
     }
     $.ajax({    ///req post
         type: "POST",
@@ -12,15 +11,15 @@ function getTableBill() {
         url: "http://localhost:3000/api/buy/bill/getItem",  //url
         data: JSON.stringify(id),   //data
         dataType: 'json',           //type data
-        success: function (res) {   //response
-
-            var con = res[0];      //array of contract
+        success: function (res) {
+           
+            var contract = res[0];      //array of contract
             var customer = res[1];  //array of customer
             var stock = res[3];      //array of stock 
 
             var json = []         
             var table = {            //data of table
-                ID_TRN_buy_bill: "BYB0001",
+                ID_TRN_buy_bill: stock[0].ID_MST_stock,
                 license_plate: stock[0].license_plate,
                 model: stock[0].model,
                 ID_MST_stock: stock[0].ID_MST_stock,
@@ -67,12 +66,12 @@ function getTableBill() {
             document.getElementById("invH").innerHTML = prs
             document.getElementById("priceH2").innerHTML = pr
             document.getElementById("total").innerHTML = pr + prs
-            document.getElementById("date").innerHTML = con[0].date
+            document.getElementById("date").innerHTML = contract[0].date
             document.getElementById("customer").innerHTML = customer[0].firstname + " " + customer[0].lastname
             ////query
         },
         error: function (e) {
-            console.log("ERROR: ", e);
+            alert("เกิดข้อผิดพลาด")
         }
     })
 
@@ -217,17 +216,19 @@ function insertItemInvoie() {
     })
 }
 function PrintDiv() {
-    var divToPrint = document.getElementById('wrapper'); // เลือก div id ที่เราต้องการพิมพ์
-    var html = '<html>' + // 
+    var divToPrint = document.getElementById('forms'); // เลือก div id ที่เราต้องการพิมพ์
+    var html = '<!DOCTYPE HTML>'+'<html>' + // 
         '<head>' +
-        '<link href="print.css" rel="stylesheet" type="text/css">' +
-        '<link rel="stylesheet" href="./../../css/style.css" />' +
+        '<link href=\"print.css\" rel=\"stylesheet\" type=\"text/css\"/>' +
+        '<link rel=\"stylesheet\" href=\"./../../css/style.css\" />' +
         '</head>' +
-        '<body onload="window.print(); window.close();">' + divToPrint.innerHTML + '</body>' +
+        '<body onload="\window.print(); window.close();\">' + divToPrint.innerHTML + '</body>' +
         '</html>';
 
     var popupWin = window.open();
+
     popupWin.document.open();
     popupWin.document.write(html); //โหลด print.css ให้ทำงานก่อนสั่งพิมพ์
     popupWin.document.close();
+   
 }
