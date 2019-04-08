@@ -14,6 +14,7 @@ var emp = require('./router/emp')
 var recieve = require('./router/carRecieve')
 var customer = require('./router/Costum')
 var path = require('path');
+var deal = require('./router/deal')
 app.use(express.static('public'));
 app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname,'public', 'login.html'));
@@ -36,6 +37,7 @@ app.use(repair)
 
 // app.use(regis)
 app.use(emp)
+app.use(deal)
 app.listen(process.env.PORT || 3000, () => {
   console.log('Start server at port 3000.')
 })
