@@ -117,14 +117,11 @@ app.post("/api/buy/invoice/insert", (req, res) => {
     MongoClient.connect(url, function (err, db) {
         if (err) throw err;
         var dbo = db.db("gigabug");
-        var sort = { $natural: -1 };
+       
         dbo.collection("TRN_buy_taxInvoice").find().count(function (err, result) {
             if (err) throw err;
-       
-            var idb = 10000+result
-            
-         
-            
+          
+            var idb = 10000 + result
             var data = {
                 ID_TRN_buy_taxInvoice: idb,
                 date: req.body.date,
