@@ -29,7 +29,7 @@
 						
 						<br />
 						
-						<form method="post" action="#" class="BVform">
+						<form method="post" action="#" class="BVform" id="forms">
 							<div class="BVfields">
 
 									<ul style="list-style-type:none;text-align: left">
@@ -67,20 +67,15 @@
 											<li>&nbsp; &nbsp; &nbsp; &nbsp;</li>
 										</ul>  
 									<ul style="list-style-type:none;text-align: left">
-										<li>วันที่</li>
-										<li><input id="date" type="date" style=" width: 100%" disabled></li>
+									
+										<li>วันที่ 	<p id="date" type="date" style=" display:inline;" disabled></p></li>
 			
-										<li>ประเภทลูกค้า</li>
-										<li><select id="type" style=" width: 100%" class="BVselect"  disabled>
-												<option value="license">พรบ</option>
-												<option value="buy">การซื้อ</option>
-												<option value="sale">การขาย</option>
-												<option value="repair">ซ่อม</option>
-										</select></li>
-										<li>ชื่อลูกค้า</li>
-										<li><input id="name" type="text" style=" width: 100%" disabled></li>
-										<li>เบอร์โทร</li>
-										<li><input  id="tel" type="text" style=" width: 100%" disabled></li>
+									
+										<li>ประเภทใบภาษี 	<p id="typeCus" type="text" style=" display:inline;" disabled></p></li>
+									
+										<li>ชื่อลูกค้า 	<p id="name" type="text" style=" display:inline;" disabled></p></li>
+										
+										<li>เบอร์โทร 	<p  id="tel" type="text" style=" display:inline;" disabled></p></li>
 									</ul>   
 									<ul style="list-style-type:none;text-align: left">
 										<li>&nbsp; &nbsp; &nbsp; &nbsp;</li>
@@ -107,21 +102,7 @@
 												  <th class="BVth">ราคา</th>
 												  
 												</tr>
-												<tr class="BVtr">
-												  <td class="BVtd">1</td>
-												  <td class="BVtd">กต 6138</td>
-												  <td class="BVtd">4 ล้อ</td>
-												  <td class="BVtd">ดำ</td>
-												  <td class="BVtd">150000</td>
-												</tr>
-												<tr class="BVtr">
-														<td class="BVtd">2</td>
-														<td class="BVtd">กต 6138</td>
-														<td class="BVtd">4 ล้อ</td>
-														<td class="BVtd">ดำ</td>
-														<td class="BVtd">150000</td>
-												</tr>
-		
+												
 										</table>
 										
 								
@@ -129,7 +110,7 @@
 							    </br>
 								<div class="field" >
 										<ul style="list-style-type:none;text-align: right">
-												<li>ราคารวมทั้งสิ้น   <a id="priceAll">   30000 </a></li>
+												<li>ราคา   <a id="priceAll">   30000 </a></li>
 												<li>ภาษีมูลค่าเพิ่ม    <a id="inv">  .....0 </a></li>
 												<li>จำนวนเงินรวม    <a id= "priceAddinv">  30000 </a></li>										
 										</ul> 

@@ -54,7 +54,18 @@ app.post("/api/buy/bill/getItem", (req, res) => {
                                             res.sendStatus(404)
                                         } else {
                                             respons.push(result)
-                                            res.send(respons)
+
+                                            dbo.collection('TRN_buy_bill').find().count((err, result) => {
+                                                if (err) {
+                                                    res.sendStatus(404)
+                                                } else {
+                                                     
+                                                     respons.push(result)
+                                                     res.send(respons)
+                                                }
+                                            })
+
+                                           
 
                                         }
 
@@ -81,7 +92,7 @@ app.post("/api/buy/bill/insert", (req, res) => {
             if (err) throw err;
 
             var id = 10000 + result
-           
+
             var data = {
                 ID_TRN_buy_bill: id,
                 date: req.body.date,
@@ -117,10 +128,10 @@ app.post("/api/buy/invoice/insert", (req, res) => {
     MongoClient.connect(url, function (err, db) {
         if (err) throw err;
         var dbo = db.db("gigabug");
-       
+
         dbo.collection("TRN_buy_taxInvoice").find().count(function (err, result) {
             if (err) throw err;
-          
+
             var idb = 10000 + result
             var data = {
                 ID_TRN_buy_taxInvoice: idb,
@@ -132,7 +143,7 @@ app.post("/api/buy/invoice/insert", (req, res) => {
                 if (err) {
                     res.sendStatus(404)
                 } else {
-                    res.send("true")
+                    res.sendStatus(200)
                     db.close()
                 }
 
@@ -147,68 +158,74 @@ app.post("/api/buy/invoice/getItem", (req, res) => {
         if (err) throw err;
         var dbo = db.db("gigabug");
         var id = {
-            ID_TRN_buy_bill: req.body.id
+            ID_TRN_buy_bill: parseInt( req.body.id)
         }
+        console.log(id)
         var respons = [];
         dbo.collection('TRN_buy_bill').find(id).toArray((err, result) => {
             if (err) {
                 res.sendStatus(404)
             } else {
+                if (result.length == 0) {
 
-                var idc = {
-                    ID_TRN_buy_contract: result[0].ID_TRN_buy_contract
-                }
-                respons.push(result)
+                    res.sendStatus(404)
+                } else {
 
-                dbo.collection('TRN_buy_contract').find(idc).toArray((err, result) => {
-                    if (err) {
-                        res.sendStatus(404)
-                    } else {
-                        respons.push(result)
-                        var idcustomer = {
-                            ID_MST_costomer: result[0].ID_MST_customer
-                        }
-                        var idstock = {
-                            ID_MST_stock: result[0].ID_MST_stock
-                        }
-                        var idemployee = {
-                            ID_MST_employee: result[0].ID_MST_employee
-                        }
-                        dbo.collection('MST_customer').find(idcustomer).toArray((err, result) => {
-                            if (err) {
-                                res.sendStatus(404)
-                            } else {
-                                respons.push(result)
 
-                                dbo.collection('MST_employee').find(idemployee).toArray((err, result) => {
-                                    if (err) {
-                                        res.sendStatus(404)
-                                    } else {
-                                        respons.push(result)
-
-                                        dbo.collection('MST_stock').find(idstock).toArray((err, result) => {
-                                            if (err) {
-                                                res.sendStatus(404)
-                                            } else {
-                                                respons.push(result)
-                                                dbo.collection('TRN_buy_bill').find({}).count((err, result) => {
-                                                    if (err) {
-                                                        res.sendStatus(404)
-                                                    } else {
-                                                        respons.push(result)
-                                                        res.send(respons)
-                                                    }
-                                                })
-                                            }
-                                        })
-                                    }
-                                })
-                            }
-                        })
+                    var idc = {
+                        ID_TRN_buy_contract: result[0].ID_TRN_buy_contract
                     }
+                    respons.push(result)
 
-                })
+                    dbo.collection('TRN_buy_contract').find(idc).toArray((err, result) => {
+                        if (err) {
+                            res.sendStatus(404)
+                        } else {
+                            respons.push(result)
+                            var idcustomer = {
+                                ID_MST_costomer: result[0].ID_MST_customer
+                            }
+                            var idstock = {
+                                ID_MST_stock: result[0].ID_MST_stock
+                            }
+                            var idemployee = {
+                                ID_MST_employee: result[0].ID_MST_employee
+                            }
+                            dbo.collection('MST_customer').find(idcustomer).toArray((err, result) => {
+                                if (err) {
+                                    res.sendStatus(404)
+                                } else {
+                                    respons.push(result)
 
+                                    dbo.collection('MST_employee').find(idemployee).toArray((err, result) => {
+                                        if (err) {
+                                            res.sendStatus(404)
+                                        } else {
+                                            respons.push(result)
+
+                                            dbo.collection('MST_stock').find(idstock).toArray((err, result) => {
+                                                if (err) {
+                                                    res.sendStatus(404)
+                                                } else {
+                                                    respons.push(result)
+                                                    dbo.collection('TRN_buy_bill').find({}).count((err, result) => {
+                                                        if (err) {
+                                                            res.sendStatus(404)
+                                                        } else {
+                                                            respons.push(result)
+                                                            res.send(respons)
+                                                        }
+                                                    })
+                                                }
+                                            })
+                                        }
+                                    })
+                                }
+                            })
+                        }
+
+                    })
+                }
             }
 
         })
