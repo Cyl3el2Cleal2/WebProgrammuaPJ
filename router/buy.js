@@ -231,63 +231,7 @@ app.post("/api/buy/invoice/getItem", (req, res) => {
 
     });
 });
-app.post("/api/buy/deal/getItem", (req, res) => {
-    console.log(req.body)
-    // MongoClient.connect(url, function (err, db) {
-    //     if (err) throw err;
-    //     var dbo = db.db("gigabug");
-    //     var idc = {
-    //         ID_TRN_buy_contract: req.body.id
-    //     }
-    //     var respons = [];
 
-    //     dbo.collection('TRN_buy_contract').find(idc).toArray((err, result) => {
-    //         if (err) {
-    //             res.sendStatus(404)
-    //         } else {
-    //             respons.push(result)
-    //             var idcustomer = {
-    //                 ID_MST_costomer: result[0].ID_MST_customer
-    //             }
-    //             var idstock = {
-    //                 ID_MST_stock: result[0].ID_MST_stock
-    //             }
-    //             var idemployee = {
-    //                 ID_MST_employee: result[0].ID_MST_employee
-    //             }
-    //             dbo.collection('MST_customer').find(idcustomer).toArray((err, result) => {
-    //                 if (err) {
-    //                     res.sendStatus(404)
-    //                 } else {
-    //                     respons.push(result)
-
-    //                     dbo.collection('MST_employee').find(idemployee).toArray((err, result) => {
-    //                         if (err) {
-    //                             res.sendStatus(404)
-    //                         } else {
-    //                             respons.push(result)
-    //                             dbo.collection('MST_stock').find(idstock).toArray((err, result) => {
-    //                                 if (err) {
-    //                                     res.sendStatus(404)
-    //                                 } else {
-    //                                     respons.push(result)
-    //                                     res.send(respons)
-
-    //                                 }
-
-    //                             })
-    //                         }
-
-    //                     })
-    //                 }
-
-    //             })
-
-    //         }
-
-    //     })
-    // })
-})
 app.post("/api/sale/bill/getItem", (req, res) => {
     MongoClient.connect(url, function (err, db) {
         if (err) throw err;
@@ -405,6 +349,114 @@ app.post("/api/sale/bill/insert", (req, res) => {
         });
     })
 })
+app.post("/api/sale/invoice/getItem", (req, res) => {
+    MongoClient.connect(url, function (err, db) {
+        if (err) throw err;
+        var dbo = db.db("gigabug");
+        var id = {
+            ID_TRN_sale_bill: parseInt( req.body.id)
+        }
+        console.log(id)
+        var respons = [];
+        dbo.collection('TRN_sale_bill').find(id).toArray((err, result) => {
+            if (err) {
+                res.sendStatus(404)
+            } else {
+                if (result.length == 0) {
 
+                    res.sendStatus(404)
+                } else {
+
+
+                    var idc = {
+                        ID_TRN_buy_contract: result[0].ID_TRN_buy_contract
+                    }
+                    respons.push(result)
+
+                    dbo.collection('TRN_sale_contract').find(idc).toArray((err, result) => {
+                        if (err) {
+                            res.sendStatus(404)
+                        } else {
+                            respons.push(result)
+                            var idcustomer = {
+                                ID_MST_costomer: result[0].ID_MST_customer
+                            }
+                            var idstock = {
+                                ID_MST_stock: result[0].ID_MST_stock
+                            }
+                            var idemployee = {
+                                ID_MST_employee: result[0].ID_MST_employee
+                            }
+                            dbo.collection('MST_customer').find(idcustomer).toArray((err, result) => {
+                                if (err) {
+                                    res.sendStatus(404)
+                                } else {
+                                    respons.push(result)
+
+                                    dbo.collection('MST_employee').find(idemployee).toArray((err, result) => {
+                                        if (err) {
+                                            res.sendStatus(404)
+                                        } else {
+                                            respons.push(result)
+
+                                            dbo.collection('MST_stock').find(idstock).toArray((err, result) => {
+                                                if (err) {
+                                                    res.sendStatus(404)
+                                                } else {
+                                                    respons.push(result)
+                                                    dbo.collection('TRN_sale_bill').find({}).count((err, result) => {
+                                                        if (err) {
+                                                            res.sendStatus(404)
+                                                        } else {
+                                                            respons.push(result)
+                                                            res.send(respons)
+                                                        }
+                                                    })
+                                                }
+                                            })
+                                        }
+                                    })
+                                }
+                            })
+                        }
+
+                    })
+                }
+            }
+
+        })
+
+    });
+});
+app.post("/api/sale/invoice/insert", (req, res) => {
+    MongoClient.connect(url, function (err, db) {
+        if (err) throw err;
+        var dbo = db.db("gigabug");
+
+        dbo.collection("TRN_sale_taxInvoice").find().count(function (err, result) {
+            if (err) throw err;
+
+            var idb = 10000 + result
+            var data = {
+                ID_TRN_sale_taxInvoice: idb,
+                date: req.body.date,
+                ID_TRN_sale_bill: req.body.ID_TRN_sale_bill
+            }
+            console.log(data)
+            dbo.collection('TRN_sale_taxInvoice').insertOne(data, (err, result) => {
+                if (err) {
+                    res.sendStatus(404)
+                } else {
+                    console.log("insert invoice sale")
+                    res.sendStatus(200)
+                    db.close()
+                }
+
+            })
+
+        });
+
+    })
+})
 
 module.exports = app;
