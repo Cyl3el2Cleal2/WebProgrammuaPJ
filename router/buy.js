@@ -16,6 +16,7 @@ app.post("/api/buy/bill/getItem", (req, res) => {
         }
 
         var respons = [];
+     
 
         dbo.collection('TRN_buy_contract').find(idc).toArray((err, result) => {
             if (err) {
@@ -63,9 +64,7 @@ app.post("/api/buy/bill/getItem", (req, res) => {
                                                      respons.push(result)
                                                      res.send(respons)
                                                 }
-                                            })
-
-                                           
+                                            })                                        
 
                                         }
 
@@ -289,8 +288,123 @@ app.post("/api/buy/deal/getItem", (req, res) => {
     //     })
     // })
 })
+app.post("/api/sale/bill/getItem", (req, res) => {
+    MongoClient.connect(url, function (err, db) {
+        if (err) throw err;
+        var dbo = db.db("gigabug");
+        var idc = {
+            ID_TRN_sale_contract: req.body.id
+        }
+
+        var respons = [];
+        console.log("conenct sale")
+
+        dbo.collection('TRN_sale_contract').find(idc).toArray((err, result) => {
+            if (err) {
+                res.sendStatus(404)
+            } else {
+
+                if (result.length == 0) {
+
+                    res.sendStatus(404)
+                } else {
+                    console.log("conenct sale TRN_sale_contract")
+
+                    respons.push(result)
+                    var idcustomer = {
+                        ID_MST_costomer: result[0].ID_MST_customer
+                    }
+                    var idstock = {
+                        ID_MST_stock: result[0].ID_MST_stock
+                    }
+                    var idemployee = {
+                        ID_MST_employee: result[0].ID_MST_employee
+                    }
+                    dbo.collection('MST_customer').find(idcustomer).toArray((err, result) => {
+                        if (err) {
+                            res.sendStatus(404)
+                        } else {
+                            console.log("conenct sale MST_customer")
+                            respons.push(result)
+
+                            dbo.collection('MST_employee').find(idemployee).toArray((err, result) => {
+                                if (err) {
+                                    res.sendStatus(404)
+                                } else {
+                                    console.log("conenct sale MST_employee")
+                                    respons.push(result)
+                                    dbo.collection('MST_stock').find(idstock).toArray((err, result) => {
+                                        if (err) {
+                                            res.sendStatus(404)
+                                        } else {
+                                            console.log("conenct sale MST_stock")
+                                            respons.push(result)
+
+                                            dbo.collection('TRN_sale_bill').find().count((err, result) => {
+                                                if (err) {
+                                                    res.sendStatus(404)
+                                                } else {
+                                                    console.log("conenct sale  TRN_sale_bill")
+                                                     respons.push(result)
+                                                     res.send(respons)
+                                                }
+                                            })                                        
+
+                                        }
+
+                                    })
+                                }
+
+                            })
+                        }
+
+                    })
+
+                }
+            }
+        })
+    })
+
+})
+app.post("/api/sale/bill/insert", (req, res) => {
+    MongoClient.connect(url, function (err, db) {
+        if (err) throw err;
+        var dbo = db.db("gigabug");
+
+        dbo.collection("TRN_sale_bill").find().count(function (err, result) {
+            if (err) throw err;
+
+            var id = 10000 + result
+
+            var data = {
+                ID_TRN_sale_bill: id,
+                date: req.body.date,
+                type: req.body.type,
+                total: req.body.total,
+                vat: req.body.vat,
+                insure: req.body.insure,
+                price: req.body.price,
+                ID_TRN_sale_contract: req.body.ID_TRN_sale_contract
+            }
+            console.log(data)
 
 
+            dbo.collection('TRN_sale_bill').insertOne(data, (err, result) => {
+                if (err) {
+                    res.sendStatus(404)
+                } else {
+                    var idu = {
+                        id: id
+                    }
+                    res.send(idu)
+                    db.close()
+                }
+
+            })
+
+        });
+    })
+})
 
 
 module.exports = app;
