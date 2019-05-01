@@ -9,9 +9,11 @@
 	<link rel="stylesheet" href="./../../css/style.css" />
 	<noscript>
 		<link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<script src="../../js/bBuy.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 
-<body class="is-preload">
+<body onload="getData()" class="is-preload">
 
 	<div id="wrapper">
 
@@ -25,11 +27,11 @@
 			
 				<div class="fields">
 					<div class="field t1">
-						<h3>วันที่</h3><input type="date" name="date" id="date" placeholder="วันที่" />	
+						<h3>วันที่</h3><input type="date" name="date" id="date" placeholder="วันที่"  />	
 					</div>
 
 					<div class="field t1">
-						<h3>ชื่อลูกค้า</h3><input type="text" name="name" id="name" placeholder="กรอกชื่อ" />	
+						<h3>ชื่อลูกค้า</h3><input type="text" name="name" id="name" placeholder="กรอกชื่อ" disabled />	
 					</div>
 
 					<div class="field t1">
@@ -50,7 +52,7 @@
 
 
 
-					<a href="bDeal.html" class="button savesellBT">บันทึก</a>
+					<a onclick="addStock()" class="button savesellBT">บันทึก</a>
 
 		</section>
 

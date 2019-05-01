@@ -5,79 +5,84 @@ var mongodb = require('mongodb');
 var MongoClient = mongodb.MongoClient;
 var url = "mongodb://gigabug:gigabug1234@ds141351.mlab.com:41351/gigabug";
 app.use(bodyParser.json());
-
+var  ObjectID = require('mongodb').ObjectID
 
 app.post("/api/buy/bill/getItem", (req, res) => {
     MongoClient.connect(url, function (err, db) {
         if (err) throw err;
         var dbo = db.db("gigabug");
         var idc = {
-            ID_TRN_buy_contract: req.body.id
+            _id: mongodb.ObjectID(req.body.id)
         }
 
         var respons = [];
-     
+
 
         dbo.collection('TRN_buy_contract').find(idc).toArray((err, result) => {
             if (err) {
                 res.sendStatus(404)
             } else {
 
-                if (result.length == 0) {
-
-                    res.sendStatus(404)
-                } else {
 
 
-                    respons.push(result)
-                    var idcustomer = {
-                        ID_MST_costomer: result[0].ID_MST_customer
-                    }
-                    var idstock = {
-                        ID_MST_stock: result[0].ID_MST_stock
-                    }
-                    var idemployee = {
-                        ID_MST_employee: result[0].ID_MST_employee
-                    }
-                    dbo.collection('MST_customer').find(idcustomer).toArray((err, result) => {
-                        if (err) {
-                            res.sendStatus(404)
-                        } else {
-                            respons.push(result)
-
-                            dbo.collection('MST_employee').find(idemployee).toArray((err, result) => {
-                                if (err) {
-                                    res.sendStatus(404)
-                                } else {
-                                    respons.push(result)
-                                    dbo.collection('MST_stock').find(idstock).toArray((err, result) => {
-                                        if (err) {
-                                            res.sendStatus(404)
-                                        } else {
-                                            respons.push(result)
-
-                                            dbo.collection('TRN_buy_bill').find().count((err, result) => {
-                                                if (err) {
-                                                    res.sendStatus(404)
-                                                } else {
-                                                     
-                                                     respons.push(result)
-                                                     res.send(respons)
-                                                }
-                                            })                                        
-
-                                        }
-
-                                    })
-                                }
-
-                            })
-                        }
-
-                    })
-
+                console.log(result)
+                respons.push(result)
+                var idcustomer = {
+                    _id: mongodb.ObjectID(result[0].ID_MST_customer)
                 }
+                var idstock = {
+                    _id: mongodb.ObjectID(result[0].ID_MST_stock)
+                }
+                var idemployee = {
+                    ID_MST_employee: result[0].ID_MST_employee
+                }
+                dbo.collection('MST_customer').find(idcustomer).toArray((err, result) => {
+                    if (err) {
+                        res.sendStatus(404)
+                    } else {
+                        console.log(result)
+                        respons.push(result)
+
+                        dbo.collection('MST_employee').find(idemployee).toArray((err, result) => {
+                            if (err) {
+                                res.sendStatus(404)
+                            } else {
+                                console.log(result)
+                                respons.push(result)
+                                dbo.collection('MST_stock').find(idstock).toArray((err, result) => {
+                                    if (err) {
+                                        res.sendStatus(404)
+                                    } else {
+                                        console.log(result)
+                                        respons.push(result)
+
+                                        dbo.collection('TRN_buy_bill').find({}).count((err, result) => {
+                                            if (err) {
+                                                res.sendStatus(404)
+                                            } else {
+                                                console.log(result)
+                                                respons.push(result)
+        
+        
+                                                
+                                                res.send(respons)
+                                            }
+        
+                                        })
+
+                                      
+                                    }
+
+                                })
+                            }
+
+                        })
+                    }
+
+                })
+
             }
+
         })
     })
 
@@ -86,14 +91,10 @@ app.post("/api/buy/bill/insert", (req, res) => {
     MongoClient.connect(url, function (err, db) {
         if (err) throw err;
         var dbo = db.db("gigabug");
-
-        dbo.collection("TRN_buy_bill").find().count(function (err, result) {
-            if (err) throw err;
-
-            var id = 10000 + result
-
+        var objectId = new ObjectID();
+  
             var data = {
-                ID_TRN_buy_bill: id,
+                ID_TRN_buy_bill: objectId,
                 date: req.body.date,
                 type: req.body.type,
                 total: req.body.total,
@@ -110,17 +111,13 @@ app.post("/api/buy/bill/insert", (req, res) => {
                     res.sendStatus(404)
                 } else {
                     var idu = {
-                        id: id
+                        id: result.ops[0]._id
                     }
                     res.send(idu)
                     db.close()
                 }
 
             })
-
-
-
-        });
     })
 })
 app.post("/api/buy/invoice/insert", (req, res) => {
@@ -130,19 +127,19 @@ app.post("/api/buy/invoice/insert", (req, res) => {
 
         dbo.collection("TRN_buy_taxInvoice").find().count(function (err, result) {
             if (err) throw err;
-
-            var idb = 10000 + result
+            var objectId = new ObjectID();
+         
             var data = {
-                ID_TRN_buy_taxInvoice: idb,
+                ID_TRN_buy_taxInvoice: objectId,
                 date: req.body.date,
                 ID_TRN_buy_bill: req.body.ID_TRN_buy_bill
             }
             console.log(data)
             dbo.collection('TRN_buy_taxInvoice').insertOne(data, (err, result) => {
                 if (err) {
-                    res.sendStatus(404)
+                    res.send(false)
                 } else {
-                    res.sendStatus(200)
+                    res.send(true)
                     db.close()
                 }
 
@@ -157,7 +154,7 @@ app.post("/api/buy/invoice/getItem", (req, res) => {
         if (err) throw err;
         var dbo = db.db("gigabug");
         var id = {
-            ID_TRN_buy_bill: parseInt( req.body.id)
+            _id:mongodb.ObjectID(req.body.id)
         }
         console.log(id)
         var respons = [];
@@ -165,14 +162,11 @@ app.post("/api/buy/invoice/getItem", (req, res) => {
             if (err) {
                 res.sendStatus(404)
             } else {
-                if (result.length == 0) {
-
-                    res.sendStatus(404)
-                } else {
+            
 
 
                     var idc = {
-                        ID_TRN_buy_contract: result[0].ID_TRN_buy_contract
+                        _id: mongodb.ObjectID(result[0].ID_TRN_buy_contract)
                     }
                     respons.push(result)
 
@@ -182,10 +176,10 @@ app.post("/api/buy/invoice/getItem", (req, res) => {
                         } else {
                             respons.push(result)
                             var idcustomer = {
-                                ID_MST_costomer: result[0].ID_MST_customer
+                                _id: mongodb.ObjectID(result[0].ID_MST_customer)
                             }
                             var idstock = {
-                                ID_MST_stock: result[0].ID_MST_stock
+                                _id: mongodb.ObjectID(result[0].ID_MST_stock)
                             }
                             var idemployee = {
                                 ID_MST_employee: result[0].ID_MST_employee
@@ -225,7 +219,7 @@ app.post("/api/buy/invoice/getItem", (req, res) => {
 
                     })
                 }
-            }
+            
 
         })
 
@@ -289,10 +283,10 @@ app.post("/api/sale/bill/getItem", (req, res) => {
                                                     res.sendStatus(404)
                                                 } else {
                                                     console.log("conenct sale  TRN_sale_bill")
-                                                     respons.push(result)
-                                                     res.send(respons)
+                                                    respons.push(result)
+                                                    res.send(respons)
                                                 }
-                                            })                                        
+                                            })
 
                                         }
 
@@ -354,7 +348,7 @@ app.post("/api/sale/invoice/getItem", (req, res) => {
         if (err) throw err;
         var dbo = db.db("gigabug");
         var id = {
-            ID_TRN_sale_bill: parseInt( req.body.id)
+            ID_TRN_sale_bill: parseInt(req.body.id)
         }
         console.log(id)
         var respons = [];

@@ -4,14 +4,16 @@ var bodyParser = require('body-parser')
 var mongodb = require('mongodb');
 var MongoClient = mongodb.MongoClient;
 var url = "mongodb://gigabug:gigabug1234@ds141351.mlab.com:41351/gigabug";
+var ObjectID = require('mongodb').ObjectID
 app.use(bodyParser.json());
 
 app.post("/api/Custum", (req, res) => {
     MongoClient.connect(url, function (err, db) {
         if (err) throw err;
         var dbo = db.db("gigabug");
+        var objectId = new ObjectID();
         var userdata = {
-            "ID_MST_costomer": req.body.costum_id,
+            "ID_MST_costomer": objectId,
             "email": req.body.email,
             "gender": req.body.gender,
             "tel": req.body.tel,
@@ -20,14 +22,21 @@ app.post("/api/Custum", (req, res) => {
             "firstname": req.body.name,
             "lastname": req.body.sername
         }
-        console.log(userdata)
+
         dbo.collection('MST_customer').insertOne(userdata, (err, result) => {
             if (err) {
                 res.sendStatus(404)
                 res.send('false')
             } else {
-                console.log(result)
-                res.send('true')
+               
+                  
+                    var result2 = {
+                        status: "true",
+                        id: result.ops[0]._id
+                    }
+                    res.send(result2)
+                
+
             }
         })
     });

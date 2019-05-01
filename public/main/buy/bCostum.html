@@ -6,7 +6,8 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<link rel="stylesheet" href="./../../css/style.css" />
-
+	<script src="../../js/Costum.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<noscript>
 		<link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 </head>
@@ -22,19 +23,19 @@
 					<div class="field">
 
 						<h3 class="isleft">ประเภท</h3>
-						<select class="aomselect">
+						<select class="aomselect" id="type">
 							<option value="one">ประเภทที่ 1</option>
 							<option value="two">ประเภทที่ 2</option>
 							<option value="tree">ประเภทที่ 3</option>
 						</select>
 
 						<h3 class="isleft">ชื่อ</h3>
-						<input type="text" name="name" placeholder="ชื่อ" />
+						<input type="text" name="name" id="name" placeholder="ชื่อ" />
 
 
 
 						<h3 class="isleft">นามสกุล</h3>
-						<input type="text" name="sername" placeholder="นามสกุล" />
+						<input type="text" name="sername" id="sername" placeholder="นามสกุล" />
 
 
 					<h3 class="isleft">เพศ</h3>
@@ -54,7 +55,7 @@
 
 
 						<h3 class="isleft">เบอร์โทรศัพท์</h3>
-						<input type="text" name="tel" id="sername" placeholder="เบอร์โทรศัพท์" />
+						<input type="text" name="tel" id="tel" placeholder="เบอร์โทรศัพท์" />
 
 
 
@@ -69,7 +70,7 @@
 
 
 
-						<a href="bBuy.html" class="button">บันทึก</a>
+						<a  onclick="save()" class="button">บันทึก</a>
 					</div>
 				</div>
 			</form>

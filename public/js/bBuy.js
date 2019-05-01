@@ -4,15 +4,11 @@ document.onreadystatechange = () => {
     }
 };
 var id_mst_customer;
-function url() {
-    var para = location.search.split(':');
-    var tel = para[para.length - 1];
-    return tel;
-}
+
 
 function getData() {
     var data = {
-        tell: url()
+        tell: location.search.substring(1),
     };
     $.ajax({
         type: "POST",
@@ -26,7 +22,7 @@ function getData() {
             // alert(result)
             document.getElementById("name").value = customer.firstname + " " + customer.lastname;
             //alert(customer);
-            id_mst_customer = customer.ID_MST_costomer;
+            id_mst_customer = customer._id;
         },
         error: function (e) {
             alert("Not found customer")

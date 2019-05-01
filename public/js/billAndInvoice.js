@@ -23,9 +23,7 @@ function getbuy() {
         dataType: 'json',           //type data
         success: function (res) {
             console.log(res)
-            if (res.length < 5) {
-                alert("เกิดข้อผิดพลาด")
-            } else {
+          
 
                 var contract = res[0];      //array of contract
                 var customer = res[1];  //array of customer
@@ -34,11 +32,12 @@ function getbuy() {
                     alert("เกิดข้อผิดพลาด")
                 } else {
                     var json = []
+                    console.log(stock[0])
                     var table = {            //data of table
-                        ID_TRN_buy_bill: stock[0].ID_MST_stock,
+                        ID_TRN_buy: stock[0].ID_TRN_buy,
                         license_plate: stock[0].license_plate,
                         model: stock[0].model,
-                        ID_MST_stock: stock[0].ID_MST_stock,
+                        ID_MST_stock: stock[0]._id,
                         weight: "-"
                     }
                     json.push(table)
@@ -56,13 +55,12 @@ function getbuy() {
                     var p;
                     for (i = 0; i < json.length; i++) {
                         tableContent = tableContent + "<tr class=" + tr + ">"
-                            + "<td class=" + td + ">" + json[i].ID_TRN_buy_bill +
+                            + "<td class=" + td + ">" + json[i].ID_TRN_buy +
                             "</td> <td class=" + td + ">" + json[i].model +
                             "</td> <td class=" + td + ">" + json[i].license_plate +
                             "</td> <td class=" + td + ">" + json[i].ID_MST_stock +
                             "</td> <td class=" + td + ">  " + json[i].weight +
                             "</tr>";
-
                     }
                     var tableFooter = "</table>";
                     /************ calculate price*****************/
@@ -89,7 +87,7 @@ function getbuy() {
                     document.getElementById("idbuy").innerHTML = idc
                 }
 
-            }
+            
 
 
             ////query
@@ -124,11 +122,12 @@ function getbillSale() {
                     alert("เกิดข้อผิดพลาด")
                 } else {
                     var json = []
+                    console.log(stock[0])
                     var table = {            //data of table
-                        ID_TRN_buy_bill: stock[0].ID_MST_stock,
+                        _id: stock[0].ID_TRN_buy,
                         license_plate: stock[0].license_plate,
                         model: stock[0].model,
-                        ID_MST_stock: stock[0].ID_MST_stock,
+                        ID_MST_stock: stock[0]._id,
                         weight: "-"
                     }
                     json.push(table)
@@ -146,7 +145,7 @@ function getbillSale() {
                     var p;
                     for (i = 0; i < json.length; i++) {
                         tableContent = tableContent + "<tr class=" + tr + ">"
-                            + "<td class=" + td + ">" + json[i].ID_TRN_buy_bill +
+                            + "<td class=" + td + ">" + json[i]._id +
                             "</td> <td class=" + td + ">" + json[i].model +
                             "</td> <td class=" + td + ">" + json[i].license_plate +
                             "</td> <td class=" + td + ">" + json[i].ID_MST_stock +
@@ -443,10 +442,14 @@ function insertItemInvoie(collection) {
             data: JSON.stringify(data),
             dataType: 'json',
             success: function (res) {
-                console.log(res)
+                if(res == true){
+                    alert("ทำรายการ " + $('#typeCus').text() + " " + "สำเร็จ")
+                    window.location.href = "./../main.html"
+                }else{
+                    alert("ทำรายการ " + $('#typeCus').text() + " " + "ไม่สำเร็จ")
+                }
 
-                alert("ทำรายการ " + $('#type').text() + " " + "สำเร็จ")
-                window.location.href = "./../main.html"
+                
 
 
             },

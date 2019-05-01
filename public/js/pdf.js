@@ -47,7 +47,7 @@ var color;
 
 function getData() {
     var id = {
-        id: window.location.href.split("?")[1]
+        id: location.search.substring(1)
     }
     $.ajax({
         type: "POST",
@@ -64,6 +64,7 @@ function getData() {
             ID_buy = res[0];
             ID_customer = res[1]
             ID_stock = res[2]
+            money = res[7]
             init()
         },
         error: function (e) {
@@ -78,8 +79,9 @@ function init() {
     $("#address").val("130/1 อาคารปานศรี ซอยรัชดาภิเษก")
     $("#type").val(model)
     $("#license").val(license)
-    $("#gen").val("Yalis")
+    $("#gen").val(model)
     $("#color").val(color)
+    $("#money").val(money)
     showPdf();
 }
 
@@ -87,7 +89,7 @@ function init() {
 function insertToDB() {
 
     var data = {
-        ID_buy_contract: "BC000" + Math.floor(Math.random() * 50),
+   
         ID_CUS: ID_customer,
         ID_EMP: ID_employee,
         ID_buy: ID_buy,
@@ -103,9 +105,9 @@ function insertToDB() {
         dataType: 'json',
         success: function (res) {
             console.log(res);
-            if (JSON.stringify(res) == 'true') {
+            if (res.status == 'true') {
                 alert("insert Successful!")
-                window.location.href = "bBill.html?" + data.ID_buy_contract
+                window.location.href = "bBill.html?" + res._id
             } else {
                 alert("insert Incorrect!");
             }

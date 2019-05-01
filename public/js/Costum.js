@@ -47,9 +47,9 @@ function save() {
             success: function (customer) {
                 var result = JSON.stringify(customer);
                 console.log(result);
-                if (JSON.stringify(customer) == "true") {
+                if (customer.status == 'true') {
                     alert("Save Successful!");
-                    window.location = "../buy/bBuy.html?tel:" + tel
+                    window.location = "../buy/bBuy.html?" + customer.id
                 } else {
                     alert("Save Incorrect!");
                 }
