@@ -53,7 +53,7 @@ app.post('/api/deal/getItem', (req, res) => {
                 res.send(false)
                 db.close;
             } else {
-                // console.log(result);
+                //console.log(result);
                 data.push(result[0].ID_TRN_buy);
                 data.push(result[0].ID_MST_customer);
                 data.push(result[0].ID_MST_stock);
