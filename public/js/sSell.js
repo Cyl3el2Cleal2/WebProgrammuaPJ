@@ -12,14 +12,6 @@ function updateRow() {
 
 
 function queryData() {
-    var table = document.getElementById("fixed_header");
-    var row =   table.insertRow(1);
-    var cell1 = row.insertCell(0);
-    var cell2 = row.insertCell(1);
-    var cell3 = row.insertCell(2);
-    var cell4 = row.insertCell(3);
-    var cell5 = row.insertCell(4);
-    var cell6 = row.insertCell(5);
     var data = {
         id: document.getElementById('car').value
     }
@@ -38,6 +30,15 @@ function queryData() {
                 console.log('false')
                 alert('ไม่มีไอดีที่ค้นหา');
             } else {
+                var table = document.getElementById("fixed_header");
+                var row =   table.insertRow(1);
+                var cell1 = row.insertCell(0);
+                var cell2 = row.insertCell(1);
+                var cell3 = row.insertCell(2);
+                var cell4 = row.insertCell(3);
+                var cell5 = row.insertCell(4);
+                var cell6 = row.insertCell(5);
+               
                 c1 = getData[0].license_plate;
                 c2 = getData[0].model;
                 c3 = getData[0].color;

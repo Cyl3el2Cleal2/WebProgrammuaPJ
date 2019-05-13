@@ -9,7 +9,7 @@ app.use(bodyParser.json());
 //insert
 app.post("/api/sSell", (req, res) => {
     var data = {
-        "ID_MST_stock": req.body.id
+        "license_plate": req.body.id
     }
     // var c1, c2, c3, c4, c5, c6;
 
