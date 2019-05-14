@@ -98,50 +98,53 @@
 				<!-- fieldset เพื่อให้มีกรอบ -->
 				<fieldset>
 					<!-- แบ่ง row เพื่อ input ข้อมูลก่อนถึงตาราง -->
-					<div class="bestRow">
-						<div class="bestColumn ">
+					<div class="rowPop">
+						<div class="columnPop ">
 							<label>อะไหล่</label>
 						</div>
-						<div class="bestColumn">
-							<input id="nameSpare" type="text" maxlength="15" placeholder="กรอกอะไหล่" onkeypress="isInputLetter(event)">
+						<div class="columnPop">
+							<input id=nameSpare type="text" onkeypress="isInputLetter(event)" required>
 						</div>
-						<div class="bestColumn">
+						<div class="columnPop">
+							<label>จำนวน</label>
+						</div>
+						<div class="columnPop">
+							<input id="numSpare" type="text" onkeypress="isInputNumber(event)" required>
+						</div>
+						<div class="columnPop">
 							<label>ราคา</label>
 						</div>
-						<div class="bestColumn">
-							<input id="priceSpare" type="text" maxlength="10" placeholder="กรอกราคา" onkeypress="isInputNumber(event)">
+						<div class="columnPop">
+							<input id="priceSpare" type="text" onkeypress="isInputNumber(event)" required>
 						</div>
-						<div class="bestColumn">
-							<a onclick="addToTable()" href="#" class="button search">เพิ่ม</a>
+						<div class="columnPop">
+							<a onclick="addToTable()" class="button search">เพิ่ม</a>
 						</div>
 					</div>
 					<!-- ตาราง -->
 					<table id="listTable" class="tableBest">
 						<tr>
-							<!-- ส่วนหัวตาราง -->
-							<th class="thBest">อะไหล่</th>
-							<th class="thBest">ราคา</th>
-							<th class="thBest"></th>
+							<th class="thPop">อะไหล่</th>
+							<th class="thPop">จำนวน</th>
+							<th class="thPop">รวม</th>
+							<th class="thPop"></th>
 						</tr>
 						<tr>
-							<!-- ส่วนข้อมูลตาราง -->
-							<td class="tdBest">xxx</td>
-							<td class="tdBest">xxx</td>
-							<td class="tdBest">
-								<!-- centerใหุ้่มอยู่ตรงกลาง -->
+							<td class="tdPop">xxx</td>
+							<td class="tdPop">xxx</td>
+							<td class="tdPop">xxx</td>
+							<td class="tdPop">
 								<center><a onclick="deleteToTable()" class="button delete">ลบ</a></center>
 							</td>
 						</tr>
 						<tr>
-							<!-- ส่วนข้อมูลตาราง -->
-							<td class="tdBest">xxx</td>
-							<td class="tdBest">xxx</td>
-							<td class="tdBest">
-								<!-- centerใหุ้่มอยู่ตรงกลาง -->
+							<td class="tdPop">xxx</td>
+							<td class="tdPop">xxx</td>
+							<td class="tdPop">xxx</td>
+							<td class="tdPop">
 								<center><a onclick="deleteToTable()" class="button delete">ลบ</a></center>
 							</td>
 						</tr>
-
 					</table>
 					<br>
 				</fieldset>

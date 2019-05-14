@@ -2,9 +2,10 @@ var check = 0;
 //addRow
 function addToTable() {
     var v1 = document.getElementById("nameSpare").value;
-    var v2 = document.getElementById("priceSpare").value;
+    var v2 = document.getElementById("numSpare").value;
+    var v3 = document.getElementById("priceSpare").value * v2;
 
-    if (v1 !== "" && v2 !== "") {
+    if (v1 !== "" && v2 !== "" && v3 !== "") {
         if (check == 0) {
             document.getElementById("listTable").deleteRow(1);
             document.getElementById("listTable").deleteRow(1);
@@ -14,13 +15,16 @@ function addToTable() {
         var cell1 = row.insertCell(0);
         var cell2 = row.insertCell(1);
         var cell3 = row.insertCell(2);
+        var cell4 = row.insertCell(3);
         cell1.innerHTML = '<td >' + v1 + '</td>';
         cell2.innerHTML = '<td >' + v2 + '</td>';
-        cell3.innerHTML = '<td ><center><a onclick="deleteToTable()" class="button delete">ลบ</a></center></td>';
+        cell3.innerHTML = '<td >' + v3 + '</td>';
+        cell4.innerHTML = '<td ><center><a onclick="deleteToTable()" class="button delete">ลบ</a></center></td>';
         check = check + 1;
     } else {
         window.alert("กรุณากรอกข้อมูลให้ถูกต้องและครบถ้วน")
     }
+    console.log(v1 + " " + v2 + " " + v3)
 
 }
 
@@ -28,8 +32,7 @@ function addToTable() {
 function deleteToTable() {
     var index, table = document.getElementById('listTable');
     for (var i = 1; i < table.rows.length; i++) {
-        table.rows[i].cells[2].onclick = function () {
-
+        table.rows[i].cells[3].onclick = function () {
             index = this.parentElement.rowIndex;
             table.deleteRow(index);
             console.log(index);
@@ -39,11 +42,12 @@ function deleteToTable() {
 }
 
 
+
 //insert
 function insertToDB() {
     var id = "MDR00002"
     var empID = document.getElementById("empID").value;
-    var date = document.getElementById("date").value;;
+    var date = document.getElementById("date").value;
     var carLicense = document.getElementById("carLicense").value;
     var carModel = document.getElementById("carModel").value;
     var carColor = document.getElementById("carColor").value;
@@ -55,9 +59,10 @@ function insertToDB() {
     for (i = 1; i <= (row.length - 1); i++) {
         var value1 = table.rows[i].cells[0].innerHTML
         var value2 = table.rows[i].cells[1].innerHTML
+        var value3 = table.rows[i].cells[2].innerHTML
 
         if (value1 !== "xxx" && value2 !== "xxx") {
-            var obj = { "nameSpare": value1, "priceSpare": value2 };
+            var obj = { "nameSpare": value1, "numSpare": value2, "priceSpare": value3  };
             spare.push(obj)
         }
     }

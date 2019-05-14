@@ -13,6 +13,16 @@
 	<link rel="stylesheet" href="./../../css/style.css" />
 	<noscript>
 		<link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	<script src="./../../js/serviceRegister.js"></script>
+
+	<style>
+		td {
+			border: 1px solid black;
+			border-collapse: collapse;
+			padding: 5px;
+			text-align: left;
+		}
+	</style>
 
 </head>
 
@@ -37,7 +47,8 @@
 						<label>ชื่อลูกค้า</label>
 					</div>
 					<div class="bestColumn">
-						<input class="input " type="text" placeholder="กรอกชื่อลูกค้า" />
+						<input id="name" class="input " type="text" placeholder="กรอกชื่อลูกค้า"
+							onkeypress="isInputLetter(event)" />
 					</div>
 					<div class="bestColumn"></div>
 				</div>
@@ -48,7 +59,7 @@
 						<label>เลขทะเบียน</label>
 					</div>
 					<div class="bestColumn">
-						<input class="input " type="text" placeholder="กรอกเลขทะเบียน" />
+						<input id="carNumber" class="input " type="text" placeholder="กรอกเลขทะเบียน" />
 					</div>
 					<div class="bestColumn"></div>
 				</div>
@@ -59,7 +70,7 @@
 						<label>ชื่อรถ/ยี่ห้อ/รุ่น</label>
 					</div>
 					<div class="bestColumn">
-						<input class="input " type="text" placeholder="กรอกชื่อรถ/ยี่ห้อ/รุ่น" />
+						<input id="carModel" class="input " type="text" placeholder="กรอกชื่อรถ/ยี่ห้อ/รุ่น" />
 					</div>
 					<div class="bestColumn"></div>
 				</div>
@@ -70,7 +81,8 @@
 						<label>ราคา</label>
 					</div>
 					<div class="bestColumn">
-						<input class="input " type="text" placeholder="กรอกราคา" />
+						<input id="price" class="input " type="text" placeholder="กรอกราคา"
+							onkeypress="isInputNumber(event)" />
 					</div>
 					<div class="bestColumn"></div>
 				</div>
@@ -79,16 +91,16 @@
 				<div class="bestRow">
 					<div class="bestColumn"></div>
 					<div class="bestColumn">
-						<a href="#" class="button search">เพิ่ม</a>
+						<a href="#" class="button search" onclick="addToTable()">เพิ่ม</a>
 					</div>
 					<div class="bestColumn"></div>
 				</div>
 
 				<!-- ตาราง -->
-				<table class="tableBest">
+				<table id="listTable" class="tableBest">
 					<tr>
 						<!-- ส่วนหัวตาราง -->
-						<th class="thBest">ลำดับที่</th>
+						<th class="thBest">ชื่อลูกค้า</th>
 						<th class="thBest">เลขทะเบียน</th>
 						<th class="thBest">ชื่อ/ยี่ห้อ/รุ่น</th>
 						<th class="thBest">ราคา</th>
@@ -102,7 +114,7 @@
 						<td class="tdBest">xxx</td>
 						<td class="tdBest">
 							<!-- centerใหุ้่มอยู่ตรงกลาง -->
-							<center><a href="#" class="button delete">ลบ</a></center> 
+							<center><a href="#" class="button delete">ลบ</a></center>
 						</td>
 					</tr>
 					<tr>
