@@ -11,83 +11,122 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<link rel="stylesheet" href="./../../css/style.css" />
+	<script src="../../js/pdf.js" type="text/javascript"> </script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<noscript>
 		<link rel="stylesheet" href="assets/css/noscript.css" />
 	</noscript>
 </head>
 
-<body id="wrapper">
+<body id="wrapper" onload="getData()">
 	<!-- Wrapper -->
 	<div class="alexRow">
 		<div class="alexColumn left">
 			<section class="main contracts">
 				<form method="post" action="#">
 					<h3 class="isleft">
-						วันที่<input type="date" name="date" id="date" placeholder="วันที่" />
+						สถานที่<input type="text" maxlength="30" placeholder="กรอกสถานที่" id="location"
+							oninput="showPdf()" />
 					</h3>
 					<h3 class="isleft">
-						ชื่อลูกค้า<input type="email" placeholder="กรอกชื่อ" />
+						วันที่<input type="date" name="date" id="date" placeholder="วันที่" id="date"
+							oninput="showPdf()" />
 					</h3>
 					<h3 class="isleft">
-						พนักงาน<input type="email" placeholder="กรอกชื่อพนักงาน" />
+						ชื่อลูกค้า<input type="email" placeholder="กรอกชื่อ" id="name" oninput="showPdf()" disabled />
 					</h3>
 					<h3 class="isleft">
-						ที่อยู่ลูกค้า<input type="email" placeholder="กรอกที่อยู่ลูกค้า" />
+						พนักงาน<input type="email" placeholder="กรอกชื่อพนักงาน" id="emp" oninput="showPdf()"  disabled />
 					</h3>
 					<h3 class="isleft">
-						ซื้อขายรถยนต์ประเภท<input type="email" placeholder="กรอกซื้อขายรถยนต์ประเภท" />
+						ที่อยู่ลูกค้า<input type="email" placeholder="กรอกที่อยู่ลูกค้า" id="address"
+							oninput="showPdf()"  disabled />
 					</h3>
 					<h3 class="isleft">
-						เลขทะเบียน<input type="email" placeholder="กรอกเลขทะเบียน" />
+						ยี่ห้อ<input type="email" placeholder="ยี่ห้อ" id="type" oninput="showPdf()"  disabled />
 					</h3>
 					<h3 class="isleft">
-						ปี<input type="email" placeholder="กรอกปี" />
+						เลขทะเบียน<input type="text" placeholder="กรอกเลขทะเบียน" id="license" oninput="showPdf()"  disabled />
 					</h3>
 					<h3 class="isleft">
-						รุ่น<input type="email" placeholder="กรอกรุ่น" />
+						รุ่น<input type="email" placeholder="กรอกรุ่น" id="gen" oninput="showPdf()"  disabled />
 					</h3>
 					<h3 class="isleft">
-						สี<input type="email" name="num" id="num" placeholder="กรอกสี" />
+						สี<input type="email" placeholder="กรอกสี" id="color" oninput="showPdf()"  disabled />
 					</h3>
 					<h3 class="isleft">
-						จำนวนเงิน<input type="email" name="num" id="num" placeholder="กรอกจำนวนเงิน" />
+						จำนวนเงิน<input type="text" placeholder="กรอกจำนวนเงิน" id="money" oninput="showPdf()" disabled />
 					</h3>
 				</form>
 			</section>
 		</div>
 		<div class="alexColumn right">
-			<div class>
-				<page size="A4">
-					<br><br><br>
-					<h1 style="text-align: center;">สัญญาซื้อขาย</h1>
-					<p style="text-align: center;">............................................</p>
-					<p style="text-align: center;">...................................................................
-					</p>
-					<p style="text-align: center;">...................................................................
-					</p>
-					<p style="text-align: center;">...................................................................
-					</p>
-					<p style="text-align: center;">...................................................................
-					</p>
-					<p style="text-align: center;">...................................................................
-					</p>
-					<p style="text-align: center;">...................................................................
-					</p>
-					<p style="text-align: center;">...................................................................
-					</p>
-					<p style="text-align: center;">...................................................................
-					</p>
-					<p style="text-align: center;">...................................................................
-					</p>
-					<p style="text-align: center;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-						&nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;ลงชื่อ</p>
-					<p style="text-align: center;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-						&nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;
-						................................</p>
+			<div>
+				<page size="A4" id="print">
+					<br>
+					<h1 style="text-align: center;">สัญญาซื้อขาย</h1><br>
+					&nbsp &nbsp &nbsp &nbsp สัญญาฉบับนี้จัดทำขึ้น ณ <p id="pdf_location" maxlength="30">....
+						มหาวิทยาลัยบูรพา จังหวัดชลบุรี ....</p>
+					เมื่อวันที่ <p id="pdf_date" maxlength="12">.. 02/20/5264 ..</p>
+					ระหว่าง <p>... บริษัทโชคทวี ออโต้เซลล์ ...</p>
+					ที่อยู่ <p>... ถนนลงหาดบางแสน ที่อยู่ห่างไกล...</p>
+					ออกให้โดยพนักงานชื่อ <p id="pdf_emp">... นาย ประวิท ทะยาสาส ...</p> ซึ่ง ต่อไปในสัญญาจะเรียกว่า <p>
+						"ผู้ขาย"</p> <br>
+					<br>
+					<!-- ซื้อ -->
+					&nbsp &nbsp &nbsp &nbsp ฝ่ายหนึ่งกับ
+					<p id="pdf_name">... นาย ประยุทธ์ จานโอชา ...</p> อายุ <p id="pdf_age">.. 25 ..</p> ปี
+					อาศัยอยู่ที่ <p id="pdf_address">... 250 สว. พลังประชารัฐ 00000 กรุงพนมเปญ...</p>
+					บัตรประจำตัวประชาชน <p id="pdf_id">... 1100202150211 ...</p>
+					ออกให้โดย <p id="pdf_emp2">... นาย ประวิท ทะยาสาส ...</p> ซึ่ง ต่อไปในสัญญาจะเรียกว่า <p>"ผู้ซื้อ"
+					</p> <br><br>
+					<!-- ข้อตกลง -->
+					&nbsp &nbsp &nbsp &nbsp คู่สัญญาทั้งสองฝ่ายตกลงเงื่อนไขสัญญากันไว้โดยมีรายละเอียดดังนี้<br>
+					&nbsp &nbsp &nbsp &nbspข้อ 1. ผู้ซื้อตกลงซื้อและผู้ขายตกลงขายรถยนต์ ยี่ห้อ <p id="pdf_type">..
+						TOYOTA ..</p>
+					รุ่น <p id="pdf_gen">.. VIOS ..</p> สี <p id="pdf_color">.. แดง ..</p> หมายเลขทะเบียน <p
+						id="pdf_license">.. สว250พปช ยะลา..</p>
+					ทั้งนี้รายละเอียดของรถยนต์ปรากฏตามสมุดคู่มือทะเบียนรถยนต์แนบท้ายสัญญาและถือเป็นส่วนหนึ่งของสัญญานี้
+					<br>&nbsp &nbsp &nbsp &nbspข้อ 2. คู่สัญญาทั้งสองฝ่ายตกลงซื้อขายรถยนต์คันดังกล่าว
+					ในราคาทั้งสิ้น <p id="pdf_money">250000</p> บาท
+					<br>&nbsp &nbsp &nbsp &nbspข้อ 3. ผู้ขายได้ทำการส่งมอบรถให้กับผู้ซื้อแล้ว
+					ในสภาพเรียบร้อยตรงตามวัตถุประสงค์ของผู้ซื้อทุกประการ
+					และให้ถือว่ากรรมสิทธิ์ในรถยนต์ได้โอนให้กับผู้ซื้อเรียบร้อยแล้วในวันที่ทำสัญญานี้
+					<br>&nbsp &nbsp &nbsp &nbspข้อ4.
+					ผู้ซื้อตกลงจะดำเนินการเปลี่ยนแปลงชื่อเจ้าของรถยนต์ในสมุดคู่มือทะเบียนรถยนต์ด้วยค่าใชจ่ายของผู้ซื้อเอง
+					ทั้งสิ้น โดยผู้ขายได้จัดทำ หนังสือมอบอำนาจ
+					และเอกสารที่เกี่ยวข้องกับการดำเนินการดังกล่าวมอบให้ผู้ซื้อเรียบร้อยแล้วในวันที่ทำสัญญานี้<br>
+					<!-- จบ4ข้อ -->
+					&nbsp &nbsp &nbsp &nbsp
+					ทั้งนี้ในระหว่างที่ผู้ซื้อดำเนินการตามวรรคแรก หากผู้ซื้อกระทำการใดๆ
+					หรือยินยอมให้บุคคลภายนอกกระทำการใดๆ ที่มีผลให้ผู้ขายได้รับความเดือดร้อน
+					หรือได้รับความเสียหาย ผู้ขายมีสิทธิที่จะเรียกร้องความเสียหายจากผู้ซื้อได้ทันที <br>
+					&nbsp &nbsp &nbsp &nbsp
+					สัญญานี้ทำขึ้นเป็นสองฉบับ มีข้อความถูกต้องตรงกัน ทั้งสองฝ่ายได้ทราบและเข้าใจข้อความโดยตลอดดีแล้ว
+					ดห็นว่าตรงตามเจตนาของตน จึงได้ลงลายฃื่อไว้เป็นสำคัญต่อหน้าพยาน
+					และต่างยึดถือไว้ฝ่ายละฉบับ<br><br><br>
+
+
+					ลงชื่อ.......................................(ผู้ขาย)&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;
+					&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;
+					&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;
+					&nbsp;ลงชื่อ.......................................(ผู้ซื้อ)
+					&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;(..............................................)&nbsp;
+					&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;
+					&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+					&nbsp;&nbsp;&nbsp;(..............................................)
+					ลงชื่อ.......................................(พยาน)&nbsp; &nbsp; &nbsp; &nbsp;
+					&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;
+					&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;
+					&nbsp;ลงชื่อ.......................................(พยาน)
+					&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;(..............................................)&nbsp; &nbsp; &nbsp;
+					&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;
+					&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+					&nbsp;&nbsp;&nbsp;(..............................................)
 				</page>
 				<div class="alexRightbtn">
-					<a href ="javascript:alert('PRINT!');" class="button print">พิมพ์</a>
-					<a href = "sBill.html" class="button next">ถัดไป</a>
+					<a onclick="PrintDiv()" class="button print">พิมพ์</a>
+					<a class="button next" onclick="fill(2)">ถัดไป</a>
 				</div>
 			</div>
 		</div>

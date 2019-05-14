@@ -8,7 +8,7 @@ var url = "mongodb://gigabug:gigabug1234@ds141351.mlab.com:41351/gigabug";
 app.use(bodyParser.json());
 var  ObjectID = require('mongodb').ObjectID
 
-////////
+////////BUY
 app.post('/api/buy/deal/insertContract', (req, res) => {
     var objectId = new ObjectID();
     var data = {
@@ -42,7 +42,40 @@ app.post('/api/buy/deal/insertContract', (req, res) => {
         });
     });
 })
+////////Sale
+app.post('/api/sale/deal/insertContract', (req, res) => {
+    var objectId = new ObjectID();
+    var data = {
+        ID_TRN_buy_contract: objectId,
+        ID_MST_customer: req.body.ID_CUS,
+        ID_MST_stock: req.body.ID_stock,
+        ID_MST_employee: req.body.ID_EMP,
+        ID_TRN_buy: req.body.ID_buy,
+        date: req.body.DATE
+    }
 
+    // /console.log(data)
+    MongoClient.connect(url, function (err, db) {
+        if (err) throw err;
+        var dbo = db.db("gigabug");
+
+        dbo.collection("TRN_sale_contract").insert(data, (err, result) => {
+            if (err) {
+                res.send("false")
+                db.close();
+            } else {
+                 var resp = {
+                     "status":"true",
+                     "_id":result.ops[0]._id
+                 }
+                res.send(resp)
+                db.close();
+
+            }
+
+        });
+    });
+})
 
 app.post('/api/deal/getItem', (req, res) => {
 
