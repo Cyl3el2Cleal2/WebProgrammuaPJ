@@ -50,7 +50,7 @@ function addToTable() {
     } else {
         window.alert("กรุณากรอกข้อมูลให้ถูกต้องและครบถ้วน")
     }
-    console.log(v1 + " " + v2 + " " + v3)
+    //console.log(v1 + " " + v2 + " " + v3)
 
 }
 
@@ -61,7 +61,7 @@ function deleteToTable() {
         table.rows[i].cells[3].onclick = function () {
             index = this.parentElement.rowIndex;
             table.deleteRow(index);
-            console.log(index);
+            //console.log(index);
         };
 
     }

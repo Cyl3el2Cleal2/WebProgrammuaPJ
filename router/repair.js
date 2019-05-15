@@ -21,7 +21,7 @@ app.post("/api/insertToDB", (req, res) => {
         carSpare: req.body.carSpare,
     }
 
-    console.log(data)
+    //console.log(data)
     MongoClient.connect(url, function (err, db) {
         if (err) throw err;
         var dbo = db.db("gigabug");
@@ -30,7 +30,7 @@ app.post("/api/insertToDB", (req, res) => {
             if (err) {
                 console.log("error edit ID");
             } else {
-                console.log("Count = " + result)
+                //console.log("Count = " + result)
                 if (result > 0) {
                     if (result < 9) {
                         data.ID_TRNmaintennance_detail_repairman = "MDR0000" + (result + 1);
