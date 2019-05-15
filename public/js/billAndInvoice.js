@@ -1,5 +1,10 @@
 
 /******************getTalbeBill**************************** */
+
+/*********invoice sale get insert *************************/
+/*********invoice car_re get insert***************************/
+/*********invoice rg get insert ***********************************************/
+
 function getTableBill(collection) {
 
     if (collection == 'TRN_buy_contract') {
@@ -198,6 +203,7 @@ function getbillCarRecieve() {
     var id = {
         id: location.search.substring(1),
     }
+    console.log(id)
     $.ajax({    ///req post
         type: "POST",
         contentType: "application/json",   //type hearder data 
@@ -300,21 +306,33 @@ function getbillLicense(){
           
 
                 var contract = res[0];      //array of contract
-                var customer = res[1];  //array of customer
-                var stock = res[3];      //array of stock 
+                var customer = res[2];  //array of customer
+                var stock = res[1]; 
+                var pricetotal = 0;
+                     //array of stock 
                 if (res[0].length == 0 || res[1].length == 0 || res[2].length == 0 || res[3].length == 0) {
                     alert("เกิดข้อผิดพลาด")
                 } else {
                     var json = []
                     console.log(stock[0])
-                    var table = {            //data of table
-                        ID_TRN_buy: stock[0].ID_TRN_buy,
-                        license_plate: stock[0].license_plate,
-                        model: stock[0].model,
-                        ID_MST_stock: stock[0]._id,
-                        weight: "-"
+                    var detail = stock[0].detail
+                   
+                    console.log(detail)
+                    for(var i =0 ;i<detail.length;i++){
+                        var table = {            //data of table
+                            ID_TRN_buy: i,
+                            license_plate: detail[i].car_number, 
+                            model: detail[i].name,
+                            ID_MST_stock: detail[i].generation,
+                            weight: "-"
+                        
+                        }
+                        
+                        pricetotal = pricetotal + parseInt(detail[i].price)
+
+                        json.push(table)
                     }
-                    json.push(table)
+                   
                     /**************** css*////************** */
                     var td = "BVtd"
                     var th = "BVth"
@@ -325,8 +343,8 @@ function getbillLicense(){
                     var tableContent = "";
 
 
-                    var pr = 0;
-                    var p;
+                    console.log(pricetotal)
+
                     for (i = 0; i < json.length; i++) {
                         tableContent = tableContent + "<tr class=" + tr + ">"
                             + "<td class=" + td + ">" + json[i].ID_TRN_buy +
@@ -338,26 +356,26 @@ function getbillLicense(){
                     }
                     var tableFooter = "</table>";
                     /************ calculate price*****************/
-                    p = stock[0].price.split(",")
-                    var x = "";
-                    for (var i = 0; i < p.length; i++) {
-                        x = x + p[i]
-                    }
-                    pr = parseInt(x);
+                    //p = stock[0].price.split(",")
+                    // var x = "";
+                    // for (var i = 0; i < p.length; i++) {
+                    //     x = x + p[i]
+                    // }
+                   // pr = parseInt(x);
 
                     /************render table and data using *****************/
                     document.getElementById("BVtable").innerHTML = tableHeader + tableContent + tableFooter;
-                    document.getElementById("priceHeader").innerHTML = pr
+                    document.getElementById("priceHeader").innerHTML = pricetotal
                     document.getElementById("invB").innerHTML = " -"
                     var vat = 0.5;
-                    var prs = pr * (vat / 100)
+                    var prs = pricetotal * (vat / 100)
                     document.getElementById("invH").innerHTML = prs
-                    document.getElementById("priceH2").innerHTML = pr
-                    document.getElementById("total").innerHTML = pr + prs
-                    document.getElementById("date").innerHTML = contract[0].date
+                    document.getElementById("priceH2").innerHTML = pricetotal
+                    document.getElementById("total").innerHTML = pricetotal + prs
+                    document.getElementById("date").innerHTML = stock[0].dateEnd
                     document.getElementById("customer").innerHTML = customer[0].firstname + " " + customer[0].lastname
-                    var idc = 10000 + res[4]
-                    console.log(idc)
+                    var idc = 10000 + res[3]
+                    
                     document.getElementById("idbuy").innerHTML = idc
                 }
 
@@ -378,15 +396,22 @@ function getbillLicense(){
 function insertItemBill(collection) {
     console.log(collection)
     if (collection == "TRN_buy_contract") {
-        insertBillBuy()
-    } else if (collection == "TRN_sale_contract") {
-        insertBillSale()
+        insertBill("http://localhost:3000/api/buy/bill/insert","bVat.html?")
+    }else if (collection == "TRN_sale_contract") {
+        insertBill("http://localhost:3000/api/sale/bill/insert","sVat.html?")
       
+    }else if(collection == "TRN_car_recieve"){
+        insertBill("http://localhost:3000/api/recieve/bill/insert","rpVat.html?")
+
+    }else if(collection == "TRN_license_bill"){
+        insertBill("http://localhost:3000/api/license/bill/insert","rgTicket.html?")
     }
 
 
 }
-function insertBillBuy(){
+function insertBill(url,next){
+
+
     var data = {
         date: $('#date').text(),
         type: $('#type').text(),
@@ -394,20 +419,20 @@ function insertBillBuy(){
         vat: $('#invH').text(),
         insure: "",
         price: $('#priceH2').text(),
-        ID_TRN_buy_contract: location.search.substring(1)
+        fk: location.search.substring(1)
     }
 
     $.ajax({
         type: "POST",
         contentType: "application/json",
-        url: "http://localhost:3000/api/buy/bill/insert",
+        url: url,
         data: JSON.stringify(data),
         dataType: 'json',
         success: function (res) {
             console.log(res.id)
             if (res != null) {
                 alert("ทำรายการ " + $('#type').text() + " " + "สำเร็จ")
-                window.location.href = "bVat.html?" + res.id
+                window.location.href = next + res.id
             }
 
         },
@@ -416,36 +441,66 @@ function insertBillBuy(){
         }
     })
 }
-function insertBillSale(){
-    var data = {
-        date: $('#date').text(),
-        type: $('#type').text(),
-        total: $('#total').text(),
-        vat: $('#invH').text(),
-        insure: "",
-        price: $('#priceH2').text(),
-        ID_TRN_sale_contract: location.search.substring(1)
-    }
+// function insertBillSale(){
+//     var data = {
+//         date: $('#date').text(),
+//         type: $('#type').text(),
+//         total: $('#total').text(),
+//         vat: $('#invH').text(),
+//         insure: "",
+//         price: $('#priceH2').text(),
+//         ID_TRN_sale_contract: location.search.substring(1)
+//     }
 
-    $.ajax({
-        type: "POST",
-        contentType: "application/json",
-        url: "http://localhost:3000/api/sale/bill/insert",
-        data: JSON.stringify(data),
-        dataType: 'json',
-        success: function (res) {
-            console.log(res.id)
-            if (res != null) {
-                alert("ทำรายการ " + $('#type').text() + " " + "สำเร็จ")
-                window.location.href = "sVat.html?" + res.id
-            }
+//     $.ajax({
+//         type: "POST",
+//         contentType: "application/json",
+//         url: "http://localhost:3000/api/sale/bill/insert",
+//         data: JSON.stringify(data),
+//         dataType: 'json',
+//         success: function (res) {
+//             console.log(res.id)
+//             if (res != null) {
+//                 alert("ทำรายการ " + $('#type').text() + " " + "สำเร็จ")
+//                 window.location.href = "sVat.html?" + res.id
+//             }
 
-        },
-        error: function (e) {
-            alert("เกิดข้อผิดพลาด")
-        }
-    })
-}
+//         },
+//         error: function (e) {
+//             alert("เกิดข้อผิดพลาด")
+//         }
+//     })
+// }
+// function insertBillCarRe(){
+//     var data = {
+//         date: $('#date').text(),
+//         type: $('#type').text(),
+//         total: $('#total').text(),
+//         vat: $('#invH').text(),
+//         insure: "",
+//         price: $('#priceH2').text(),
+//         ID_TRN_sale_contract: location.search.substring(1)
+//     }
+
+//     $.ajax({
+//         type: "POST",
+//         contentType: "application/json",
+//         url: "http://localhost:3000/api/sale/bill/insert",
+//         data: JSON.stringify(data),
+//         dataType: 'json',
+//         success: function (res) {
+//             console.log(res.id)
+//             if (res != null) {
+//                 alert("ทำรายการ " + $('#type').text() + " " + "สำเร็จ")
+//                 window.location.href = "sVat.html?" + res.id
+//             }
+
+//         },
+//         error: function (e) {
+//             alert("เกิดข้อผิดพลาด")
+//         }
+//     })
+// }
 
 
 
