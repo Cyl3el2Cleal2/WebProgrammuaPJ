@@ -1,8 +1,3 @@
-//print Ticket without form
-function myFunction(){
-    window.print();
-}
-
 function getTableCarRecieve() {
 
     var id = {
@@ -14,7 +9,7 @@ function getTableCarRecieve() {
         url: "http://localhost:3000/mm/Repair/carRecieve/getTable",
         data: JSON.stringify(id),
         dataType: 'json',
-        success: function (res) {
+        success: function(res) {
             console.log(res.length)
 
             console.log(res)
@@ -49,21 +44,40 @@ function getTableCarRecieve() {
             var pr = 0;
             var p;
             for (i = 0; i < json.length; i++) {
-                tableContent = tableContent + "<tr class=" + tr + ">"
-                    + "<td class=" + td + ">" + json[i].ID_TRN_car_Recieve +
-                    "</td> <td class=" + td + ">" + json[i].license_platcar + 
+                tableContent = tableContent + "<tr class=" + tr + ">" +
+                    "<td class=" + td + ">" + json[i].ID_TRN_car_Recieve +
+                    "</td> <td class=" + td + ">" + json[i].license_platcar +
                     "</td> <td class=" + td + ">" + json[i].type + json[i].color +
                     "</td> <td class=" + td + ">" + json[i].price +
                     "</tr>";
 
             }
             var tableFooter = "</table>";
+
             document.getElementById("mmtable").innerHTML = tableHeader + tableContent + tableFooter
 
         },
-        error: function (e) {
-            console.log("ERROR: ", e);
+        error: function(e) {
+            alert("เกิดข้อผิดพลาด")
         }
     });
+
+}
+
+function PrintDiv() {
+    var divToPrint = document.getElementById('mmform'); // เลือก div id ที่เราต้องการพิมพ์
+    var html = '<!DOCTYPE HTML>' + '<html>' + // 
+        '<head>' +
+        '<link href=\"print.css\" rel=\"stylesheet\" type=\"text/css\"/>' +
+        '<link rel=\"stylesheet\" href=\"./../../css/style.css\" />' +
+        '</head>' +
+        '<body onload="\window.print(); window.close();\">' + divToPrint.innerHTML + '</body>' +
+        '</html>';
+
+    var popupWin = window.open();
+
+    popupWin.document.open();
+    popupWin.document.write(html); //โหลด print.css ให้ทำงานก่อนสั่งพิมพ์
+    popupWin.document.close();
 
 }
