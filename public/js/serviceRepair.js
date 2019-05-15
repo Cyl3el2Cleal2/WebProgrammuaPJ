@@ -1,3 +1,29 @@
+
+var id_mst_customer;
+function getData() {
+    var data = {
+        tell: location.search.substring(1),
+    };
+    // $.ajax({
+    //     type: "POST",
+    //     contentType: "application/json",
+    //     url: "http://localhost:3000/api/bBuy/getCostum",
+    //     data: JSON.stringify(data),
+    //     dataType: "json",
+    //     success: function (customer) {
+    //         var result = JSON.stringify(customer);
+    //         console.log(result);
+    //         // alert(result)
+    //         document.getElementById("name").value = customer.firstname + " " + customer.lastname;
+    //         //alert(customer);
+    //         id_mst_customer = customer._id;
+    //     },
+    //     error: function (e) {
+    //         alert("Not found customer")
+    //     }
+    // });
+}
+
 var check = 0;
 //addRow
 function addToTable() {
@@ -67,12 +93,12 @@ function insertToDB() {
         }
     }
 
-    console.log(empID);
-    console.log(date);
-    console.log(carLicense);
-    console.log(carModel);
-    console.log(carColor);
-    console.log(spare);
+    // console.log(empID);
+    // console.log(date);
+    // console.log(carLicense);
+    // console.log(carModel);
+    // console.log(carColor);
+    // console.log(spare);
 
     //check input value
     if (empID == "") {
@@ -99,10 +125,11 @@ function insertToDB() {
             carModel: carModel,
             carColor: carColor,
             ID_MST_employee: empID,
+            ID_MST_customer: "5cdbec9726d4b323a4479bd0",
             carSpare: spare
 
         }
-        console.log(data1)
+        // console.log(data1)
 
         $.ajax({
             type: "POST",
@@ -112,10 +139,13 @@ function insertToDB() {
             dataType: 'json',
             success: function (customer) {
                 var result = JSON.stringify(customer);
-                console.log(result);
-                if (JSON.stringify(customer) == 'true') {
+                // console.log("AAA**");
+                // console.log(result);
+                id_mst_customer = customer._id;
+                // console.log(id_mst_customer)
+                 if (customer.status == 'true') {
                     alert("insert Successful!")
-                    window.location = "./../../main/repair/rpDetailEmp.html"
+                    window.location.href = "./../../main/repair/rpDetailEmp.html?" + customer._id
 
                 } else {
                     alert("insert Incorrect!");
