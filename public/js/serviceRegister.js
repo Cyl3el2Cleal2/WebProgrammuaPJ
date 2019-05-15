@@ -128,7 +128,7 @@ function insert() {
             var result = JSON.stringify(customer);
             if (JSON.stringify(customer) == 'true') {
                 alert("สมัครสมาชิกสำเร็จ!")
-                window.location.reload();
+                window.location = 'login.html'
 
             } else {
                 alert("กรุณาสมัครใหม่อีกครั้ง!");
