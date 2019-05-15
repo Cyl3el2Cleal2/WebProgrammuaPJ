@@ -20,7 +20,6 @@ app.post("/api/emp", (req, res) => {
             "age" : req.body.age,
             "employee_type":req.body.employee_type,
             "address":req.body.address,
-            "picture": req.body.picture,
             "salary" : req.body.salary,
             "name":splite[0],
             "lastname":splite[1],

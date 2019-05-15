@@ -1,17 +1,17 @@
-var pic = ""
-function readURL(input) {
-  if (input.files && input.files[0]) {
-    var reader = new FileReader();
+// var pic = ""
+// function readURL(input) {
+//   if (input.files && input.files[0]) {
+//     var reader = new FileReader();
 
-    reader.onload = function (e) {
-     $('#blah').attr('src', e.target.result);
-       pic = e.target.result
-    }
-    console.log(input.files[0])
-    reader.readAsDataURL(input.files[0]);
+//     reader.onload = function (e) {
+//      $('#blah').attr('src', e.target.result);
+//        pic = e.target.result
+//     }
+//     console.log(input.files[0])
+//     reader.readAsDataURL(input.files[0]);
 
-  }
-}
+//   }
+// }
 function save() {
   // var pic = $('#blah').attr('src',base64Img)
   var tell = document.getElementById("tell").value;
@@ -28,7 +28,7 @@ function save() {
     window.alert("กรุณากรอกข้อมูลให้ครบถ้วนและถูกต้อง")
   } else {
     var data = {
-      picture: pic,
+      // picture: pic,
       id: id,
       email: email,
       gender: gender,
@@ -131,7 +131,6 @@ function showdata(id) {
   document.getElementById("gender").value = result[id].gender;
   document.getElementById("age").value = result[id].age;
   document.getElementById("address").value = result[id].address;
-  document.getElementById('blah').src = result[id].picture;
 
   document.getElementById('tell').disabled = true
   document.getElementById("mail").disabled = true
@@ -143,7 +142,6 @@ function showdata(id) {
   document.getElementById("gender").disabled = true
   document.getElementById("age").disabled = true
   document.getElementById("address").disabled = true
-  document.getElementById('upload').disabled = true
   // console.log(id)
   // console.log(result)
 }
