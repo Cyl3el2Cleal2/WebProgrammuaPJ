@@ -11,10 +11,11 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<link rel="stylesheet" href="./../../css/style.css" />
-	
+	<script src="../../js/billAndInvoice.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 
-<body>
+<body onload="getTableBill('TRN_license_bill')">
 
 	<!-- Wrapper -->
 	<div id="wrapper">
@@ -29,48 +30,47 @@
 
 			<br />
 
-			<form method="post" action="#" class="BVform">
-				<div class="BVfields">
+			<form method="post" action="#" class="BVform" id="forms">
+				<div class="BVfields" style="padding:0.5em">
 
 
 					<ul style="list-style-type:none;text-align: left">
 						<li>ได้รับเงินจาก</li>
-						<li>..............................</li>
-						<li>จำนวนเงิน..................</li>
+						<li>
+							<p id="customer" style="display:inline;">
+						</li>
+						<li>จำนวนเงิน <p id="priceHeader" style="display:inline;"></p>
+						</li>
 					</ul>
 					<ul style="list-style-type:none;text-align: left">
 						<li>&nbsp; &nbsp; &nbsp; &nbsp;</li>
 					</ul>
 					<ul style="list-style-type:none;text-align: left">
-						<li>เบี้ยประกัน</li>
-						<li>VAT</li>
-						<li>ราคา</li>
-						<li>รวม</li>
+						<li>เบี้ยประกัน <p id="invB" style="display:inline;"></p>
+						</li>
+						<li>VAT <p id="invH" style="display:inline;"></p>
+						</li>
+						<li>ราคา <p id="priceH2" style="display:inline;"></p>
+						</li>
+						<li>รวม <p id="total" style="display:inline;"></p>
+						</li>
 					</ul>
-					<ul style="list-style-type:none;text-align: left">
-						<li>......................................................</li>
-						<li>......................................................</li>
-						<li>......................................................</li>
-						<li>......................................................</li>
-					</ul>
+
 				</div>
 				<div class="field">
 
 
 					<ul style="list-style-type:none;text-align: left">
-						<li>เลชที่ใบเสร็จ 1101-11253</li>
+						<li>เลขที่ใบเสร็จ <p id="idbuy" style="display:inline;"></p>
+						</li>
 
 					</ul>
 					<ul style="list-style-type:none;text-align: left">
 						<li>&nbsp; &nbsp; &nbsp; &nbsp;</li>
 					</ul>
 					<ul style="list-style-type:none;text-align: left">
-						<li>ประเภทใบเสร็จ <select class="BVselect">
-								<option value="volvo">พรบ</option>
-								<option value="saab">การซื้อ</option>
-								<option value="opel">การขาย</option>
-								<option value="audi">ซ่อม</option>
-							</select>
+						<li>ประเภทใบเสร็จ <p id="type" style="display:inline;">การซื้อ</p>
+
 						</li>
 
 					</ul>
@@ -78,13 +78,13 @@
 
 						<li>&nbsp; &nbsp; &nbsp; &nbsp;</li>
 					</ul>
-					
+
 				</div>
 
 
 				<div class="field">
-					<table class="BVtable" >
-						<tr >
+					<table id="BVtable" class="BVtable">
+						<tr>
 							<th class="BVth">รหัสรถยนต์</th>
 							<th class="BVth">ชื่อรถยนต์/รุ่น</th>
 							<th class="BVth">เลขทะเบียน</th>
@@ -92,48 +92,27 @@
 							<th class="BVth">น้ำหนัก</th>
 
 						</tr>
-						<tr class="BVtr">
-							<td class="BVtd">11010001</td>
-							<td class="BVtd">R10</td>
-							<td class="BVtd">กต 6138</td>
-							<td class="BVtd">201TH001</td>
-							<td class="BVtd">-</td>
-						</tr>
-						<tr class="BVtr">
-							<td class="BVtd">11010002</td>
-							<td class="BVtd">R11</td>
-							<td class="BVtd">สส 333</td>
-							<td class="BVtd">201TH002</td>
-							<td class="BVtd">-</td>
-						</tr>
-						<tr class="BVtr">
-							<td class="BVtd">11010003</td>
-							<td class="BVtd">R12</td>
-							<td class="BVtd">สส 433</td>
-							<td class="BVtd">201TH003</td>
-							<td class="BVtd">-</td>
-						</tr>
-
 					</table>
 
 				</div>
 				</br>
 				<div class="field">
 					<ul style="list-style-type:none;text-align: left">
-						<li>วันที่....../...../.....</li>
+						<li>วันที่ <p id="date" style="display:inline">....../...../.....</p>
+						</li>
 					</ul>
 
 				</div>
 				<hr>
-				
+
 			</form>
-			
 
 
-			<a href="#" class="button print" style="position: absolute; right: 9em;" >พิมพ์</a>
-			<a href="rgTicket.html" class="button" style="position: absolute; right: 2em;">ถัดไป</a>
 
-			
+
+			<a onclick="PrintDiv()" class="button print" style="position: absolute; right: 9em;">พิมพ์</a>
+			<a onclick="insertItemBill('TRN_license_bill')" class="button"
+				style="position: absolute; right: 2em;">ถัดไป</a>
 
 		</section>
 
@@ -148,7 +127,7 @@
 	<!-- Scripts -->
 	<script>
 
-		
+
 
 
 

@@ -17,10 +17,11 @@ app.post("/api/insertToDB", (req, res) => {
         carModel: req.body.carModel,
         carColor: req.body.carColor,
         ID_MST_employee: req.body.ID_MST_employee,
+        ID_MST_customer:req.body.ID_MST_customer,
         carSpare: req.body.carSpare,
     }
 
-    console.log(data)
+    //console.log(data)
     MongoClient.connect(url, function (err, db) {
         if (err) throw err;
         var dbo = db.db("gigabug");
@@ -29,7 +30,7 @@ app.post("/api/insertToDB", (req, res) => {
             if (err) {
                 console.log("error edit ID");
             } else {
-                console.log("Count = " + result)
+                //console.log("Count = " + result)
                 if (result > 0) {
                     if (result < 9) {
                         data.ID_TRNmaintennance_detail_repairman = "MDR0000" + (result + 1);
@@ -50,8 +51,14 @@ app.post("/api/insertToDB", (req, res) => {
                     res.sendStatus(404)
                     res.send('false')
                 } else {
-                    console.log(result)
-                    res.send('true')
+                    // console.log(result)
+                    // res.send('true')
+                    var dataresult = {
+                        _id: result.ops[0]._id,
+                        status: 'true'
+                    }
+                    
+                    res.send(dataresult)
                 }
 
             });
