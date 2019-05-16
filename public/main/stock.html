@@ -8,10 +8,12 @@
     <link rel="stylesheet" href="./../css/style.css" />
     <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css'
         integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
+    <script src="../js/stock.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <title>จัดการสต็อก</title>
 </head>
 
-<body>
+<body onload="loadTable()">
     <div id="wrapper">
         <section class="main area2">
             <header>
@@ -22,103 +24,52 @@
                     <div class="field">
                         <div class="aomcol-40">
                             <img src="./../image/delivery.png" alt="car" height="150" width="200">
-                            <div>
-                                <button class="upload">อัพโหลด</button>
-                            </div><br>
+                            <br>
                             <div class="field">
                                 <h3>ID</h3>
-                                <input class="aominput" type="text" name="ID" placeholder="ID" />
+                                <input class="aominput" type="text" value="" id="ID" name="ID" placeholder="ID" />
                             </div>
                             <div class="field">
                                 <h3>เลขทะเบียน</h3>
-                                <input class="aominput" type="text" name="เลขทะเบียน" placeholder="เลขทะเบียน" />
+                                <input class="aominput" maxlength="6" value="" type="text" id="license_plate" name="เลขทะเบียน" placeholder="เลขทะเบียน" />
                             </div>
                             <div class="field">
                                 <h3>รุ่น</h3>
-                                <input class="aominput" type="text" name="รุ่น" placeholder="รุ่น" />
+                                <input class="aominput" type="text" value="" id="model" name="รุ่น" placeholder="รุ่น" />
                             </div>
                             <div class="field">
                                 <h3>สี</h3>
-                                <input class="aominput" type="text" name="สี" placeholder="สี" />
+                                <input class="aominput" type="text" value="" id="color" onkeypress="isInputLetter(event)"  name="สี" placeholder="สี" />
                             </div>
                             <div class="field">
                                 <h3>ราคา</h3>
-                                <input class="aominput" type="text" name="ราคา" placeholder="ราคา" />
+                                <input class="aominput" type="text" value="" id="price" onkeypress="isInputNumber(event)" name="ราคา" placeholder="ราคา" />
                             </div><br>
                             <div class="field">
-                                <a class="button edit" style="margin-right:1em;margin-left:4em;">แก้ไข</button>
-                                <a class="button save" href="./main.html">บันทึก</a>
+                                <a class="button edit" onclick="edit()" style="margin-right:1em;margin-left:4em;">แก้ไข</button>
+                                <a class="button save" onclick="save()">บันทึก</a>
                             </div>
                         </div>
                         <div class="aomcol-60">
                             <div class="aomfields">
                                 <div class="field">
 
-                                    <input type="text" class="aomsearchTerm" placeholder="Search...">
-                                    <button type="submit" class="aomsearchButton">
+
+                                    <input type="text" id="myInput"  class="aomsearchTerm" placeholder="กรอกเลขทะเบียน...">
+                                    <a onclick="myFunction()" class="aomsearchButton">
                                         <i class="fa fa-search"></i>
-                                    </button>
+                                    </a>
+
 
 
                                 </div><br>
                                 <div class="field">
-                                    <table class="aomtable">
+                                    <table id="table" class="aomtable">
                                         <tr>
                                             <th>ID</th>
                                             <th>เลขทะเบียน</th>
                                             <th>ยี่ห้อ</th>
-                                        </tr>
-                                        <tr>
-                                            <td>0001</td>
-                                            <td>xxxxx</td>
-                                            <td>xxx</td>
-                                        </tr>
-                                        <tr>
-                                            <td>0002</td>
-                                            <td>xxxxx</td>
-                                            <td>xxx</td>
-                                        </tr>
-                                        <tr>
-                                            <td>0003</td>
-                                            <td>xxxxx</td>
-                                            <td>xxx</td>
-                                        </tr>
-                                        <tr>
-                                            <td>0004</td>
-                                            <td>xxxxx</td>
-                                            <td>xxx</td>
-                                        </tr>
-                                        <tr>
-                                            <td>0005</td>
-                                            <td>xxxxx</td>
-                                            <td>xxx</td>
-                                        </tr>
-                                        <tr>
-                                            <td>0006</td>
-                                            <td>xxxxx</td>
-                                            <td>xxx</td>
-                                        </tr>
-                                        <tr>
-                                            <td>0007</td>
-                                            <td>xxxxx</td>
-                                            <td>xxx</td>
-                                        </tr>
-                                        <tr>
-                                            <td>0008</td>
-                                            <td>xxxxx</td>
-                                            <td>xxx</td>
-                                        </tr>
-                                        <tr>
-                                            <td>0009</td>
-                                            <td>xxxxx</td>
-                                            <td>xxx</td>
-                                        </tr>
-                                        <tr>
-                                            <td>0010</td>
-                                            <td>xxxxx</td>
-                                            <td>xxx</td>
-                                        </tr>
-                                        <tr>
+                                        </tr>                                       
                                     </table>
                                 </div>
                             </div>

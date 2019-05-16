@@ -6,7 +6,8 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<link rel="stylesheet" href="./../../css/style.css" />
-
+	<script src="../../js/Costum.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<noscript>
 		<link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 </head>
@@ -22,26 +23,27 @@
 					<div class="field">
 
 						<h3 class="isleft">ประเภท</h3>
-						<select class="aomselect">
-							<option value="one">ประเภทที่ 1</option>
-							<option value="two">ประเภทที่ 2</option>
-							<option value="tree">ประเภทที่ 3</option>
+						<select class="aomselect" id="type">
+							<option value="buy">ซื้อรถ</option>
+							<option value="sell">ขายรถ</option>
+							<option value="repair">ซ่อมรถ</option>
+							<option value="regis">ต่อทะเบียนรถ</option>
 						</select>
 
 						<h3 class="isleft">ชื่อ</h3>
-						<input type="text" name="name" placeholder="ชื่อ" />
+						<input type="text" id="name" onkeypress="isInputLetter(event)" value="" placeholder="ชื่อ" />
 
 
 
 						<h3 class="isleft">นามสกุล</h3>
-						<input type="text" name="sername" placeholder="นามสกุล" />
+						<input type="text" id="sername" onkeypress="isInputLetter(event)" value="" placeholder="นามสกุล" />
 
 
 					<h3 class="isleft">เพศ</h3>
-					<h3 class="isleft"><input type="radio" id="r1" name="rr" />
+						<h3 class="isleft"><input type="radio" id="r1" value="male" />
 						<label for="r1"><span></span>ชาย</label></h3>
 						
-					<h3 class="isleft"><input type="radio" id="r2" name="rr" />
+						<h3 class="isleft"><input type="radio" id="r2" value="female" />
 						<label for="r2"><span></span>หญิง</label></h3>
 
 
@@ -49,27 +51,27 @@
 
 					
 						<h3 class="isleft">อายุ</h3>
-						<input type="text" name="age" id="age" placeholder="อายุ" />
+						<input type="text" value="" id="age" onkeypress="isInputNumber(event)" placeholder="อายุ" />
 
 
 
 						<h3 class="isleft">เบอร์โทรศัพท์</h3>
-						<input type="text" name="tel" id="sername" placeholder="เบอร์โทรศัพท์" />
+						<input type="tel" maxlength="10" id="tel" onkeypress="isInputNumber(event)" value="" placeholder="เบอร์โทรศัพท์" />
 
 
 
 						<h3 class="isleft">Email</h3>
-						<input type="text" name="email" id="email" placeholder="xxx@example.com" />
+						<input type="email" value="" id="email" placeholder="xxx@example.com" />
 
 
 
 						<h3 class="isleft">เลขบัตรประชาชน</h3>
-						<input type="text" name="IDcard" id="IDcard" placeholder="เลขบัตรประชาชน" />
+						<input type="text" maxlength="13"  onkeypress="isInputNumber(event)" value="" id="IDcard" placeholder="เลขบัตรประชาชน" />
 						<br>
 
 
 
-						<a href="rgDetail.html" class="button">บันทึก</a>
+						<a  onclick="rgsave()" class="button">บันทึก</a>
 					</div>
 				</div>
 			</form>
