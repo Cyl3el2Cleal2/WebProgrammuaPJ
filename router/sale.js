@@ -6,7 +6,7 @@ var MongoClient = mongodb.MongoClient;
 var url = "mongodb://gigabug:gigabug1234@ds141351.mlab.com:41351/gigabug";
 app.use(bodyParser.json());
 
-//insert
+//query
 app.post("/api/sSell", (req, res) => {
     var data = {
         "license_plate": req.body.id
@@ -20,9 +20,9 @@ app.post("/api/sSell", (req, res) => {
         dbo.collection("MST_stock").find(data).toArray((err, result) => {
             console.log('Get: '+result);
             if (err) {
-                console.log(err)
-                res.sendStatus(404)
-                res.send('false')
+                console.log(err);
+                res.sendStatus(404);
+                res.send('false');
             } else {
                 if(result[0] == null){
                     console.log('No data');
@@ -35,6 +35,25 @@ app.post("/api/sSell", (req, res) => {
             }
 
         });
+    });
+
+})
+
+
+//save
+app.post("/api/sSell/save", (req, res) => {
+    var data = req.body;
+    console.log(data)
+    MongoClient.connect(url, function (err, db) {
+        if (err) throw err;
+        var dbo = db.db("gigabug");
+        dbo.collection("TRN_sale").insert(data,(err,result)=>{
+            if(err){
+                res.send(err.code);
+            }else{
+                res.send(result);
+            }
+        })
     });
 
 })

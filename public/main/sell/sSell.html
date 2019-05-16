@@ -17,7 +17,7 @@
 			document.getElementById("fixed_header").deleteRow(i);
 			var table = document.getElementById("fixed_header");
 			for (var i = 1; i < table.clientHeight; i++) {
-				table.rows[i].cells[0].innerHTML = i ;
+				table.rows[i].cells[0].innerHTML = i;
 			}
 		}
 // 		function myCreateFunction() {
@@ -96,7 +96,7 @@
 							<hr>
 							<div>
 								<ul class="actions special">
-									<a href="sDeal.html" class="button savesellBT">บันทึก</a>
+									<a onclick="sSellSave()" class="button savesellBT">บันทึก</a>
 								</ul>
 							</div>
 
@@ -117,7 +117,7 @@
 									<th>ลบ</th>
 								</tr>
 
-<!-- 
+								<!-- 
 								<tr>
 									<td>0001</td>
 									<td>xxxxx</td>
