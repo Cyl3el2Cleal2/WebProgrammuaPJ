@@ -1,9 +1,10 @@
 
 var id_mst_customer;
 function getData() {
-    var data = {
-        tell: location.search.substring(1),
-    };
+
+    id_mst_customer = location.search.substring(1)
+    console.log(id_mst_customer)
+
     // $.ajax({
     //     type: "POST",
     //     contentType: "application/json",
@@ -125,7 +126,7 @@ function insertToDB() {
             carModel: carModel,
             carColor: carColor,
             ID_MST_employee: empID,
-            ID_MST_customer: "5cdbec9726d4b323a4479bd0",
+            ID_MST_customer: ID_MST_customer,
             carSpare: spare
 
         }
@@ -141,8 +142,6 @@ function insertToDB() {
                 var result = JSON.stringify(customer);
                 // console.log("AAA**");
                 // console.log(result);
-                id_mst_customer = customer._id;
-                // console.log(id_mst_customer)
                  if (customer.status == 'true') {
                     alert("insert Successful!")
                     window.location.href = "./../../main/repair/rpDetailEmp.html?" + customer._id

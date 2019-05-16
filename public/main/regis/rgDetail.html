@@ -13,7 +13,8 @@
 	<link rel="stylesheet" href="./../../css/style.css" />
 	<noscript>
 		<link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-	<script src="./../../js/serviceRegister.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="./../../js/serviceRegisterDetail.js"></script>
 
 	<style>
 		td {
@@ -26,7 +27,7 @@
 
 </head>
 
-<body class="is-preload">
+<body onload="getData()" class="is-preload">
 
 	<!-- Wrapper -->
 	<div id="wrapper">
@@ -42,108 +43,86 @@
 
 				<!-- ชื่อลูกค้า -->
 				<!-- ใช้ row เพื่อให้อยู่บรรทัดเดียวกัน ใช้ column เพื่อแบ่งเป็น 3 ส่วน -->
-				<div class="bestRow">
-					<div class="bestColumn">
-						<label>ชื่อลูกค้า</label>
-					</div>
-					<div class="bestColumn">
-						<input id="name" class="input " type="text" placeholder="กรอกชื่อลูกค้า"
-							onkeypress="isInputLetter(event)" />
-					</div>
-					<div class="bestColumn"></div>
+				<div class="field">
+					<h3 style="float: left; margin-top: 30px">ชื่อลูกค้า</h3>
+					<input id="name" class="input " type="text" placeholder="กรอกชื่อลูกค้า"
+						onkeypress="isInputLetter(event)" />
 				</div>
 
 				<!-- เลขทะเบียน -->
-				<div class="bestRow">
-					<div class="bestColumn">
-						<label>เลขทะเบียน</label>
-					</div>
-					<div class="bestColumn">
-						<input id="carNumber" class="input " type="text" placeholder="กรอกเลขทะเบียน" />
-					</div>
-					<div class="bestColumn"></div>
+				<div class="field">
+					<h3 style="float: left; margin-top: 30px">เลขทะเบียน</h3>
+					<input id="carNumber" class="input " type="text" placeholder="กรอกเลขทะเบียน" />
 				</div>
 
 				<!-- ชื่อรถ/ยี่ห้อ/รุ่น -->
-				<div class="bestRow">
-					<div class="bestColumn">
-						<label>ชื่อรถ/ยี่ห้อ/รุ่น</label>
-					</div>
-					<div class="bestColumn">
-						<input id="carModel" class="input " type="text" placeholder="กรอกชื่อรถ/ยี่ห้อ/รุ่น" />
-					</div>
-					<div class="bestColumn"></div>
+				<div class="field">
+					<h3 style="float: left; margin-top: 30px">ชื่อรถ/ยี่ห้อ/รุ่น</h3>
+					<input id="carModel" class="input " type="text" placeholder="กรอกชื่อรถ/ยี่ห้อ/รุ่น" />
 				</div>
 
 				<!-- ราคา -->
-				<div class="bestRow">
-					<div class="bestColumn">
-						<label>ราคา</label>
-					</div>
-					<div class="bestColumn">
-						<input id="price" class="input " type="text" placeholder="กรอกราคา"
-							onkeypress="isInputNumber(event)" />
-					</div>
-					<div class="bestColumn"></div>
+				<div class="field">
+					<h3 style="float: left; margin-top: 30px">ราคา</h3>
+					<input id="price" class="input " type="text" placeholder="กรอกราคา"
+						onkeypress="isInputNumber(event)" />
 				</div>
 
 				<!-- ปุ่มเพิ่ม -->
-				<div class="bestRow">
-					<div class="bestColumn"></div>
-					<div class="bestColumn">
-						<a href="#" class="button search" onclick="addToTable()">เพิ่ม</a>
-					</div>
-					<div class="bestColumn"></div>
-				</div>
 
-				<!-- ตาราง -->
-				<table id="listTable" class="tableBest">
-					<tr>
-						<!-- ส่วนหัวตาราง -->
-						<th class="thBest">ชื่อลูกค้า</th>
-						<th class="thBest">เลขทะเบียน</th>
-						<th class="thBest">ชื่อ/ยี่ห้อ/รุ่น</th>
-						<th class="thBest">ราคา</th>
-						<th class="thBest"></th>
-					</tr>
-					<tr>
-						<!-- ส่วนข้อมูลตาราง -->
-						<td class="tdBest">xxx</td>
-						<td class="tdBest">xxx</td>
-						<td class="tdBest">xxx</td>
-						<td class="tdBest">xxx</td>
-						<td class="tdBest">
-							<!-- centerใหุ้่มอยู่ตรงกลาง -->
-							<center><a href="#" class="button delete">ลบ</a></center>
-						</td>
-					</tr>
-					<tr>
-						<!-- ส่วนข้อมูลตาราง -->
-						<td class="tdBest">xxx</td>
-						<td class="tdBest">xxx</td>
-						<td class="tdBest">xxx</td>
-						<td class="tdBest">xxx</td>
-						<td class="tdBest">
-							<!-- centerใหุ้่มอยู่ตรงกลาง -->
-							<center><a href="#" class="button delete">ลบ</a></center>
-						</td>
-					</tr>
-				</table>
-
-				<!-- เว้นวรรค เส้นขีด เว้นวรรค -->
 				<br>
-				<hr>
+				<a href="#" class="button search" onclick="addToTable()">เพิ่ม</a>
+				<br>
 				<br>
 
-				<!-- ปุ่มถัดไป -->
-				<a href="rgBill.html" class="button" style="position: absolute; right: 8%;">ถัดไป</a>
-				<br>
+	<!-- ตาราง -->
+	<table id="listTable" class="tableBest">
+		<tr>
+			<!-- ส่วนหัวตาราง -->
+			<th class="thBest">ชื่อลูกค้า</th>
+			<th class="thBest">เลขทะเบียน</th>
+			<th class="thBest">ชื่อ/ยี่ห้อ/รุ่น</th>
+			<th class="thBest">ราคา</th>
+			<th class="thBest"></th>
+		</tr>
+		<tr>
+			<!-- ส่วนข้อมูลตาราง -->
+			<td class="tdBest">xxx</td>
+			<td class="tdBest">xxx</td>
+			<td class="tdBest">xxx</td>
+			<td class="tdBest">xxx</td>
+			<td class="tdBest">
+				<!-- centerใหุ้่มอยู่ตรงกลาง -->
+				<center><a href="#" onclick="deleteToTable()" class="button delete">ลบ</a></center>
+			</td>
+		</tr>
+		<tr>
+			<!-- ส่วนข้อมูลตาราง -->
+			<td class="tdBest">xxx</td>
+			<td class="tdBest">xxx</td>
+			<td class="tdBest">xxx</td>
+			<td class="tdBest">xxx</td>
+			<td class="tdBest">
+				<!-- centerใหุ้่มอยู่ตรงกลาง -->
+				<center><a onclick="deleteToTable()" class="button delete">ลบ</a></center>
+			</td>
+		</tr>
+	</table>
+
+	<!-- เว้นวรรค เส้นขีด เว้นวรรค -->
+	<br>
+	<hr>
+	<br>
+
+	<!-- ปุ่มถัดไป -->
+	<a onclick="insertToDB()" class="button" style="position: absolute; right: 8%;">ถัดไป</a>
+	<br>
 
 
-			</form>
+	</form>
 
 
-		</section>
+	</section>
 
 
 

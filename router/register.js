@@ -70,4 +70,80 @@ app.post('/api/register/insert', (req, res) => {
     });
 });
 
+//-----------------------------------------------------rgDetail-----------------------------------------------------
+
+//insert
+app.post("/api/register/insertToDB", (req, res) => {
+    var data = {
+        ID_TRN_per_license_plate_detail: req.body.ID_TRN_per_license_plate_detail,
+        ID_MST_customer:req.body.ID_MST_customer,
+        detail: req.body.detail,
+    }
+
+    //console.log(data)
+    MongoClient.connect(url, function (err, db) {
+        if (err) throw err;
+        var dbo = db.db("gigabug");
+
+        dbo.collection('TRN_per_license_plate_detail').find().count((err, result) => {
+            if (err) {
+                console.log("error edit ID");
+            } else {
+                console.log("Count = " + result)
+                if (result > 0) {
+                    if (result < 9) {
+                        data.ID_TRN_per_license_plate_detail = "PLP0000" + (result + 1);
+                    } else if (result < 99) {
+                        data.ID_TRN_per_license_plate_detail = "PLP000" + (result + 1);
+                    } else if (result < 999) {
+                        data.ID_TRN_per_license_plate_detail = "PLP00" + (result + 1);
+                    } else if (result < 9999) {
+                        data.ID_TRN_per_license_plate_detail = "PLP0" + (result + 1);
+                    }
+                } else {
+                    data.ID_TRN_per_license_plate_detail = "PLP00001";
+                }
+            }
+
+            dbo.collection("TRN_per_license_plate_detail").insert(data, (err, result) => {
+                if (err) {
+                    res.sendStatus(404)
+                    res.send('false')
+                } else {
+                    var dataresult = {
+                        _id: result.ops[0]._id,
+                        status: 'true'
+                    }
+                    
+                    res.send(dataresult)
+                }
+
+            });
+        })
+
+
+    });
+})
+
+//getCustomer
+app.post("/api/register/getCustomer", (req, res) => {
+    MongoClient.connect(url, function (err, db) {
+        if (err) throw err;
+        var dbo = db.db("gigabug");
+        var condi = {
+            _id: mongodb.ObjectID(req.body.tell)
+           
+        }
+      
+        dbo.collection('MST_customer').find(condi).toArray((err, result) => {
+            if (err) {
+                res.status(404).send(null);
+            } else {
+                res.send(result[0])
+             
+            }
+        })
+    });
+})
+
 module.exports = app;

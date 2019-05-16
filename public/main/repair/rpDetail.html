@@ -26,7 +26,7 @@
 
 </head>
 
-<body class="is-preload">
+<body onload="getData()" class="is-preload">
 
 	<!-- Wrapper -->
 	<div id="wrapper">
@@ -41,59 +41,37 @@
 
 				<!-- ชื่อพนักงาน -->
 				<!-- ใช้ row เพื่อให้อยู่บรรทัดเดียวกัน ใช้ column เพื่อแบ่งเป็น 3 ส่วน -->
-				<div class="bestRow">
-					<div class="bestColumn">
-						<label>รหัสพนักงาน</label>
-					</div>
-					<div class="bestColumn">
-						<input id="empID" class="input " type="text" maxlength="10" placeholder="กรอกรหัสพนักงาน" />
-					</div>
-					<div class="bestColumn"></div>
+				<div class="field">
+					<h3 style="float: left; margin-top: 30px">รหัสพนักงาน</h3>
+					<input id="empID" class="input " type="text" maxlength="10" placeholder="กรอกรหัสพนักงาน" />
 				</div>
 
 				<!-- วันที่ -->
-				<div class="bestRow">
-					<div class="bestColumn">
-						<label>วันที่</label>
-					</div>
-					<div class="bestColumn">
-						<input id="date" type="date" name="date" placeholder="วันที่" />
-					</div>
-					<div class="bestColumn"></div>
+				<div class="field">
+					<h3 style="float: left; margin-top: 30px">วันที่</h3>
+					<input id="date" type="date" name="date" placeholder="วันที่" />
 				</div>
 
 				<!-- เลขทะเบียน -->
-				<div class="bestRow">
-					<div class="bestColumn">
-						<label>เลขทะเบียน</label>
-					</div>
-					<div class="bestColumn">
-						<input id="carLicense" class="input " type="text" maxlength="10" placeholder="กรอกเลขทะเบียน" />
-					</div>
-					<div class="bestColumn"></div>
+				<div class="field">
+					<h3 style="float: left; margin-top: 30px">เลขทะเบียน</h3>
+					<input id="carLicense" class="input " type="text" maxlength="10" placeholder="กรอกเลขทะเบียน" />
 				</div>
 
 				<!-- รุ่น -->
-				<div class="bestRow">
-					<div class="bestColumn">
-						<label>รุ่น</label>
-					</div>
-					<div class="bestColumn">
-						<input id="carModel" class="input " type="text" maxlength="15" placeholder="กรอกรุ่นรถ" />
-					</div>
-					<div class="bestColumn"></div>
+				<div class="field">
+					<h3 style="float: left; margin-top: 30px">รุ่น</h3>
+					<input id="carModel" class="input " type="text" maxlength="15" placeholder="กรอกรุ่นรถ" />
 				</div>
 
 				<!-- สี -->
-				<div class="bestRow">
-					<div class="bestColumn">
-						<label>สี</label>
-					</div>
-					<div class="bestColumn">
-						<input id="carColor" class="input " type="text" maxlength="15" placeholder="กรอกสีรถ"  onkeypress="isInputLetter(event)"/>
-					</div>
-					<div class="bestColumn"></div>
+				<div class="field">
+					<h3 style="float: left; margin-top: 30px">สี</h3>
+					<input id="carColor" class="input " type="text" maxlength="15" placeholder="กรอกสีรถ"
+						onkeypress="isInputLetter(event)" />
 				</div>
+				<br>
+				<br>
 
 				<!-- fieldset เพื่อให้มีกรอบ -->
 				<fieldset>
