@@ -11,14 +11,14 @@ function getTableBill(collection) {
         getbillBuy()
     } else if (collection == 'TRN_sale_contract') {
         getbillSale()
-    }else if(collection == 'TRN_car_recieve'){
+    } else if (collection == 'TRN_car_recieve') {
         getbillCarRecieve()
-    }else if(collection == 'TRN_license_bill'){
+    } else if (collection == 'TRN_license_bill') {
         getbillLicense()
     }
 
 }
-function  getbillBuy() {
+function getbillBuy() {
     var id = {
         id: location.search.substring(1),
 
@@ -32,71 +32,71 @@ function  getbillBuy() {
         dataType: 'json',           //type data
         success: function (res) {
             console.log(res)
-          
-
-                var contract = res[0];      //array of contract
-                var customer = res[1];  //array of customer
-                var stock = res[3];      //array of stock 
-                if (res[0].length == 0 || res[1].length == 0 || res[2].length == 0 || res[3].length == 0) {
-                    alert("เกิดข้อผิดพลาด")
-                } else {
-                    var json = []
-                    console.log(stock[0])
-                    var table = {            //data of table
-                        ID_TRN_buy: stock[0].ID_TRN_buy,
-                        license_plate: stock[0].license_plate,
-                        model: stock[0].model,
-                        ID_MST_stock: stock[0]._id,
-                        weight: "-"
-                    }
-                    json.push(table)
-                    /**************** css*////************** */
-                    var td = "BVtd"
-                    var th = "BVth"
-                    var table = "BVtable"
-                    var tr = "BVtr"
-                    /**************** *////************** */
-                    var tableHeader = "<table class=" + table + "><tr><th class=" + th + ">รหัสรถยนต์</th ><th class=" + th + ">ชื่อรถยนต์/รุ่น</th><th class=" + th + ">เลขทะเบียน</th><th class=" + th + ">เลขเครื่อง</th><th class=" + th + ">น้ำหนัก</th></tr>";
-                    var tableContent = "";
 
 
-                    var pr = 0;
-                    var p;
-                    for (i = 0; i < json.length; i++) {
-                        tableContent = tableContent + "<tr class=" + tr + ">"
-                            + "<td class=" + td + ">" + json[i].ID_TRN_buy +
-                            "</td> <td class=" + td + ">" + json[i].model +
-                            "</td> <td class=" + td + ">" + json[i].license_plate +
-                            "</td> <td class=" + td + ">" + json[i].ID_MST_stock +
-                            "</td> <td class=" + td + ">  " + json[i].weight +
-                            "</tr>";
-                    }
-                    var tableFooter = "</table>";
-                    /************ calculate price*****************/
-                    p = stock[0].price.split(",")
-                    var x = "";
-                    for (var i = 0; i < p.length; i++) {
-                        x = x + p[i]
-                    }
-                    pr = parseInt(x);
-
-                    /************render table and data using *****************/
-                    document.getElementById("BVtable").innerHTML = tableHeader + tableContent + tableFooter;
-                    document.getElementById("priceHeader").innerHTML = pr
-                    document.getElementById("invB").innerHTML = " -"
-                    var vat = 0.5;
-                    var prs = pr * (vat / 100)
-                    document.getElementById("invH").innerHTML = prs
-                    document.getElementById("priceH2").innerHTML = pr
-                    document.getElementById("total").innerHTML = pr + prs
-                    document.getElementById("date").innerHTML = contract[0].date
-                    document.getElementById("customer").innerHTML = customer[0].firstname + " " + customer[0].lastname
-                    var idc = 10000 + res[4]
-                    console.log(idc)
-                    document.getElementById("idbuy").innerHTML = idc
+            var contract = res[0];      //array of contract
+            var customer = res[1];  //array of customer
+            var stock = res[3];      //array of stock 
+            if (res[0].length == 0 || res[1].length == 0 || res[2].length == 0 || res[3].length == 0) {
+                alert("เกิดข้อผิดพลาด")
+            } else {
+                var json = []
+                console.log(stock[0])
+                var table = {            //data of table
+                    ID_TRN_buy: stock[0].ID_TRN_buy,
+                    license_plate: stock[0].license_plate,
+                    model: stock[0].model,
+                    ID_MST_stock: stock[0]._id,
+                    weight: "-"
                 }
+                json.push(table)
+                /**************** css*////************** */
+                var td = "BVtd"
+                var th = "BVth"
+                var table = "BVtable"
+                var tr = "BVtr"
+                /**************** *////************** */
+                var tableHeader = "<table class=" + table + "><tr><th class=" + th + ">รหัสรถยนต์</th ><th class=" + th + ">ชื่อรถยนต์/รุ่น</th><th class=" + th + ">เลขทะเบียน</th><th class=" + th + ">เลขเครื่อง</th><th class=" + th + ">น้ำหนัก</th></tr>";
+                var tableContent = "";
 
-            
+
+                var pr = 0;
+                var p;
+                for (i = 0; i < json.length; i++) {
+                    tableContent = tableContent + "<tr class=" + tr + ">"
+                        + "<td class=" + td + ">" + json[i].ID_TRN_buy +
+                        "</td> <td class=" + td + ">" + json[i].model +
+                        "</td> <td class=" + td + ">" + json[i].license_plate +
+                        "</td> <td class=" + td + ">" + json[i].ID_MST_stock +
+                        "</td> <td class=" + td + ">  " + json[i].weight +
+                        "</tr>";
+                }
+                var tableFooter = "</table>";
+                /************ calculate price*****************/
+                p = stock[0].price.split(",")
+                var x = "";
+                for (var i = 0; i < p.length; i++) {
+                    x = x + p[i]
+                }
+                pr = parseInt(x);
+
+                /************render table and data using *****************/
+                document.getElementById("BVtable").innerHTML = tableHeader + tableContent + tableFooter;
+                document.getElementById("priceHeader").innerHTML = pr
+                document.getElementById("invB").innerHTML = " -"
+                var vat = 0.5;
+                var prs = pr * (vat / 100)
+                document.getElementById("invH").innerHTML = prs
+                document.getElementById("priceH2").innerHTML = pr
+                document.getElementById("total").innerHTML = pr + prs
+                document.getElementById("date").innerHTML = contract[0].date
+                document.getElementById("customer").innerHTML = customer[0].firstname + " " + customer[0].lastname
+                var idc = 10000 + res[4]
+                console.log(idc)
+                document.getElementById("idbuy").innerHTML = idc
+            }
+
+
 
 
             ////query
@@ -199,7 +199,7 @@ function getbillSale() {
 }
 
 function getbillCarRecieve() {
-   
+
     var id = {
         id: location.search.substring(1),
     }
@@ -215,7 +215,7 @@ function getbillCarRecieve() {
             if (res.length < 5) {
                 alert("เกิดข้อผิดพลาด")
             } else {
-
+                var pricetotal = 0
                 var contract = res[0];      //array of contract
                 var customer = res[3];  //array of customer
                 var stock = res[2];      //array of stock 
@@ -223,22 +223,28 @@ function getbillCarRecieve() {
                     alert("เกิดข้อผิดพลาด")
                 } else {
                     var json = []
-                    console.log(stock[0])
-                    var table = {            //data of table
-                        _id: stock[0]._id,
-                        license_plate: stock[0].carLicense,
-                        model: stock[0].carModel,
-                        ID_MST_stock: stock[0]._id,
-                        weight: "-"
+                    console.log(stock[0].carSpare)
+                    var detail = stock[0].carSpare
+                    for (var i = 0; i < detail.length; i++) {
+                        var table = {            //data of table
+                            _id: i,
+                            license_plate: detail[0].nameSpare,
+                            model: detail[0].numSpare,
+                            ID_MST_stock: detail[0].priceSpare,
+
+                        }
+                        json.push(table)
+                        pricetotal = pricetotal + parseInt(detail[i].priceSpare) * detail[0].numSpare
                     }
-                    json.push(table)
+
+
                     /**************** css*////************** */
                     var td = "BVtd"
                     var th = "BVth"
                     var table = "BVtable"
                     var tr = "BVtr"
                     /**************** *////************** */
-                    var tableHeader = "<table class=" + table + "><tr><th class=" + th + ">รหัสรถยนต์</th ><th class=" + th + ">ชื่อรถยนต์/รุ่น</th><th class=" + th + ">เลขทะเบียน</th><th class=" + th + ">เลขเครื่อง</th><th class=" + th + ">น้ำหนัก</th></tr>";
+                    var tableHeader = "<table class=" + table + "><tr><th class=" + th + ">ลำดับ</th><th class=" + th + ">ชิ้นส่วน</th ><th class=" + th + ">จำนวน</th><th class=" + th + ">ราคา</th></tr>";
                     var tableContent = "";
 
 
@@ -247,33 +253,33 @@ function getbillCarRecieve() {
                     for (i = 0; i < json.length; i++) {
                         tableContent = tableContent + "<tr class=" + tr + ">"
                             + "<td class=" + td + ">" + json[i]._id +
-                            "</td> <td class=" + td + ">" + json[i].model +
                             "</td> <td class=" + td + ">" + json[i].license_plate +
+                            "</td> <td class=" + td + ">" + json[i].model +
                             "</td> <td class=" + td + ">" + json[i].ID_MST_stock +
-                            "</td> <td class=" + td + ">  " + json[i].weight +
+
                             "</tr>";
 
                     }
                     var tableFooter = "</table>";
                     /************ calculate price*****************/
-                    p = stock[0].carSpare[0].priceSpare.split(",")
-                    // var x = "";
-                    // for (var i = 0; i < p.length; i++) {
-                    //     x = x + p[i]
-                    // }
-                    pr = parseInt(p);
+                    // p = stock[0].carSpare[0].priceSpare.split(",")
+                    // // var x = "";
+                    // // for (var i = 0; i < p.length; i++) {
+                    // //     x = x + p[i]
+                    // // }
+                    // pr = parseInt(p);
 
                     /************render table and data using *****************/
                     document.getElementById("BVtable").innerHTML = tableHeader + tableContent + tableFooter;
-                    document.getElementById("priceHeader").innerHTML = pr
+                    document.getElementById("priceHeader").innerHTML = pricetotal
                     document.getElementById("invB").innerHTML = " -"
                     var vat = 0.5;
-                    var prs = pr * (vat / 100)
+                    var prs = pricetotal * (vat / 100)
                     document.getElementById("invH").innerHTML = prs
-                    document.getElementById("priceH2").innerHTML = pr
-                    document.getElementById("total").innerHTML = pr + prs
+                    document.getElementById("priceH2").innerHTML = pricetotal
+                    document.getElementById("total").innerHTML = pricetotal + prs
                     document.getElementById("date").innerHTML = contract[0].date
-                     document.getElementById("customer").innerHTML = contract[0].recieveName
+                    document.getElementById("customer").innerHTML = customer[0].firstname + " " + customer[0].lastname
                     var idc = 10000 + res[4]
                     console.log(idc)
                     document.getElementById("idbuy").innerHTML = idc
@@ -288,8 +294,8 @@ function getbillCarRecieve() {
             alert("เกิดข้อผิดพลาด")
         }
     })
-} 
-function getbillLicense(){
+}
+function getbillLicense() {
     var id = {
         id: location.search.substring(1),
 
@@ -303,81 +309,81 @@ function getbillLicense(){
         dataType: 'json',           //type data
         success: function (res) {
             console.log(res)
-          
 
-                var contract = res[0];      //array of contract
-                var customer = res[2];  //array of customer
-                var stock = res[1]; 
-                var pricetotal = 0;
-                     //array of stock 
-                if (res[0].length == 0 || res[1].length == 0 || res[2].length == 0 || res[3].length == 0) {
-                    alert("เกิดข้อผิดพลาด")
-                } else {
-                    var json = []
-                    console.log(stock[0])
-                    var detail = stock[0].detail
-                   
-                    console.log(detail)
-                    for(var i =0 ;i<detail.length;i++){
-                        var table = {            //data of table
-                            ID_TRN_buy: i,
-                            license_plate: detail[i].car_number, 
-                            model: detail[i].name,
-                            ID_MST_stock: detail[i].generation,
-                            weight: "-"
-                        
-                        }
-                        
-                        pricetotal = pricetotal + parseInt(detail[i].price)
 
-                        json.push(table)
+            var contract = res[0];      //array of contract
+            var customer = res[2];  //array of customer
+            var stock = res[1];
+            var pricetotal = 0;
+            //array of stock 
+            if (res[0].length == 0 || res[1].length == 0 || res[2].length == 0 || res[3].length == 0) {
+                alert("เกิดข้อผิดพลาด")
+            } else {
+                var json = []
+                console.log(stock[0])
+                var detail = stock[0].detail
+
+                console.log(detail)
+                for (var i = 0; i < detail.length; i++) {
+                    var table = {            //data of table
+                        ID_TRN_buy: i,
+                        license_plate: detail[i].car_number,
+                        model: detail[i].name,
+                        ID_MST_stock: detail[i].generation,
+                        weight: "-"
+
                     }
-                   
-                    /**************** css*////************** */
-                    var td = "BVtd"
-                    var th = "BVth"
-                    var table = "BVtable"
-                    var tr = "BVtr"
-                    /**************** *////************** */
-                    var tableHeader = "<table class=" + table + "><tr><th class=" + th + ">รหัสรถยนต์</th ><th class=" + th + ">ชื่อรถยนต์/รุ่น</th><th class=" + th + ">เลขทะเบียน</th><th class=" + th + ">เลขเครื่อง</th><th class=" + th + ">น้ำหนัก</th></tr>";
-                    var tableContent = "";
 
+                    pricetotal = pricetotal + parseInt(detail[i].price)
 
-                    console.log(pricetotal)
-
-                    for (i = 0; i < json.length; i++) {
-                        tableContent = tableContent + "<tr class=" + tr + ">"
-                            + "<td class=" + td + ">" + json[i].ID_TRN_buy +
-                            "</td> <td class=" + td + ">" + json[i].model +
-                            "</td> <td class=" + td + ">" + json[i].license_plate +
-                            "</td> <td class=" + td + ">" + json[i].ID_MST_stock +
-                            "</td> <td class=" + td + ">  " + json[i].weight +
-                            "</tr>";
-                    }
-                    var tableFooter = "</table>";
-                    /************ calculate price*****************/
-                    //p = stock[0].price.split(",")
-                    // var x = "";
-                    // for (var i = 0; i < p.length; i++) {
-                    //     x = x + p[i]
-                    // }
-                   // pr = parseInt(x);
-
-                    /************render table and data using *****************/
-                    document.getElementById("BVtable").innerHTML = tableHeader + tableContent + tableFooter;
-                    document.getElementById("priceHeader").innerHTML = pricetotal
-                    document.getElementById("invB").innerHTML = " -"
-                    var vat = 0.5;
-                    var prs = pricetotal * (vat / 100)
-                    document.getElementById("invH").innerHTML = prs
-                    document.getElementById("priceH2").innerHTML = pricetotal
-                    document.getElementById("total").innerHTML = pricetotal + prs
-                    document.getElementById("date").innerHTML = stock[0].dateEnd
-                    document.getElementById("customer").innerHTML = customer[0].firstname + " " + customer[0].lastname
-                    var idc = 10000 + res[3]
-                    
-                    document.getElementById("idbuy").innerHTML = idc
+                    json.push(table)
                 }
+
+                /**************** css*////************** */
+                var td = "BVtd"
+                var th = "BVth"
+                var table = "BVtable"
+                var tr = "BVtr"
+                /**************** *////************** */
+                var tableHeader = "<table class=" + table + "><tr><th class=" + th + ">รหัสรถยนต์</th ><th class=" + th + ">ชื่อรถยนต์/รุ่น</th><th class=" + th + ">เลขทะเบียน</th><th class=" + th + ">เลขเครื่อง</th><th class=" + th + ">น้ำหนัก</th></tr>";
+                var tableContent = "";
+
+
+                console.log(pricetotal)
+
+                for (i = 0; i < json.length; i++) {
+                    tableContent = tableContent + "<tr class=" + tr + ">"
+                        + "<td class=" + td + ">" + json[i].ID_TRN_buy +
+                        "</td> <td class=" + td + ">" + json[i].model +
+                        "</td> <td class=" + td + ">" + json[i].license_plate +
+                        "</td> <td class=" + td + ">" + json[i].ID_MST_stock +
+                        "</td> <td class=" + td + ">  " + json[i].weight +
+                        "</tr>";
+                }
+                var tableFooter = "</table>";
+                /************ calculate price*****************/
+                //p = stock[0].price.split(",")
+                // var x = "";
+                // for (var i = 0; i < p.length; i++) {
+                //     x = x + p[i]
+                // }
+                // pr = parseInt(x);
+
+                /************render table and data using *****************/
+                document.getElementById("BVtable").innerHTML = tableHeader + tableContent + tableFooter;
+                document.getElementById("priceHeader").innerHTML = pricetotal
+                document.getElementById("invB").innerHTML = " -"
+                var vat = 0.5;
+                var prs = pricetotal * (vat / 100)
+                document.getElementById("invH").innerHTML = prs
+                document.getElementById("priceH2").innerHTML = pricetotal
+                document.getElementById("total").innerHTML = pricetotal + prs
+                document.getElementById("date").innerHTML = stock[0].dateEnd
+                document.getElementById("customer").innerHTML = customer[0].firstname + " " + customer[0].lastname
+                var idc = 10000 + res[3]
+
+                document.getElementById("idbuy").innerHTML = idc
+            }
 
 
             ////query
@@ -396,20 +402,19 @@ function getbillLicense(){
 function insertItemBill(collection) {
     console.log(collection)
     if (collection == "TRN_buy_contract") {
-        insertBill("http://localhost:3000/api/buy/bill/insert","bVat.html?")
-    }else if (collection == "TRN_sale_contract") {
-        insertBill("http://localhost:3000/api/sale/bill/insert","sVat.html?")
-      
-    }else if(collection == "TRN_car_recieve"){
-        insertBill("http://localhost:3000/api/recieve/bill/insert","rpVat.html?")
+        insertBill("http://localhost:3000/api/buy/bill/insert", "bVat.html?")
+    } else if (collection == "TRN_sale_contract") {
+        insertBill("http://localhost:3000/api/sale/bill/insert", "sVat.html?")
 
-    }else if(collection == "TRN_license_bill"){
-        insertBill("http://localhost:3000/api/license/bill/insert","rgTicket.html?")
+    } else if (collection == "TRN_car_recieve") {
+        insertBill("http://localhost:3000/api/Car_recieve/invoice/insert", "rpVat.html?")
+
+    } else if (collection == "TRN_license_bill") {
+        insertBill("http://localhost:3000/api/license/bill/insert", "rgTicket.html?")
     }
 
-
 }
-function insertBill(url,next){
+function insertBill(url, next) {
 
 
     var data = {
@@ -441,66 +446,7 @@ function insertBill(url,next){
         }
     })
 }
-// function insertBillSale(){
-//     var data = {
-//         date: $('#date').text(),
-//         type: $('#type').text(),
-//         total: $('#total').text(),
-//         vat: $('#invH').text(),
-//         insure: "",
-//         price: $('#priceH2').text(),
-//         ID_TRN_sale_contract: location.search.substring(1)
-//     }
 
-//     $.ajax({
-//         type: "POST",
-//         contentType: "application/json",
-//         url: "http://localhost:3000/api/sale/bill/insert",
-//         data: JSON.stringify(data),
-//         dataType: 'json',
-//         success: function (res) {
-//             console.log(res.id)
-//             if (res != null) {
-//                 alert("ทำรายการ " + $('#type').text() + " " + "สำเร็จ")
-//                 window.location.href = "sVat.html?" + res.id
-//             }
-
-//         },
-//         error: function (e) {
-//             alert("เกิดข้อผิดพลาด")
-//         }
-//     })
-// }
-// function insertBillCarRe(){
-//     var data = {
-//         date: $('#date').text(),
-//         type: $('#type').text(),
-//         total: $('#total').text(),
-//         vat: $('#invH').text(),
-//         insure: "",
-//         price: $('#priceH2').text(),
-//         ID_TRN_sale_contract: location.search.substring(1)
-//     }
-
-//     $.ajax({
-//         type: "POST",
-//         contentType: "application/json",
-//         url: "http://localhost:3000/api/sale/bill/insert",
-//         data: JSON.stringify(data),
-//         dataType: 'json',
-//         success: function (res) {
-//             console.log(res.id)
-//             if (res != null) {
-//                 alert("ทำรายการ " + $('#type').text() + " " + "สำเร็จ")
-//                 window.location.href = "sVat.html?" + res.id
-//             }
-
-//         },
-//         error: function (e) {
-//             alert("เกิดข้อผิดพลาด")
-//         }
-//     })
-// }
 
 
 
@@ -526,13 +472,18 @@ function insertBill(url,next){
 function getTableInvoice(collection) {
     if (collection == "TRN_buy_bill") {
         getTableBuyInvoice()
-    }else if(collection == "TRN_sale_bill"){
+    } else if (collection == "TRN_sale_bill") {
         getTableSaleInvoice()
+    } else if (collection == "TRN_car_recieve_bill") {
+        getTableCarInvoice()
+    } else if (collection == "TRN_license_bill") {
+        console.log("lic")
+        getTableLicenseInvoice()
     }
 }
 
 
-function getTableBuyInvoice(){
+function getTableBuyInvoice() {
     var id = {
         id: location.search.substring(1)
     }
@@ -612,7 +563,7 @@ function getTableBuyInvoice(){
         }
     });
 }
-function  getTableSaleInvoice(){
+function getTableSaleInvoice() {
     var id = {
         id: location.search.substring(1)
     }
@@ -693,63 +644,321 @@ function  getTableSaleInvoice(){
     });
 }
 
+function getTableCarInvoice() {
+    var id = {
+        id: location.search.substring(1)
+    }
+    $.ajax({
+        type: "POST",
+        contentType: "application/json",
+        url: "http://localhost:3000/api/car_recieve/invoice/getItem",
+        data: JSON.stringify(id),
+        dataType: 'json',
+        success: function (res) {
+            console.log(res.length)
+
+            console.log(res)
+            var bill = res[0];
+            var customer = res[4];
+            var stock = res[3];
+
+            var vat = parseInt(bill[0].vat);
+            var detail = stock[0].carSpare
+            var json = []
+            for (var i = 0; i < detail.length; i++) {
+                var table = {
+                    ID_TRN_taxlnvoice: i,
+                    nameSpare: detail[i].nameSpare,
+                    numSpare: detail[i].numSpare,
+
+                    price: detail[i].priceSpare
+                }
+
+                json.push(table)
+            }
+
+            document.getElementById("num1").innerHTML = res[5];
+            document.getElementById("num2").innerHTML = bill[0].ID_TRN_maintainance_bill;
+            document.getElementById("date").innerHTML = bill[0].date;
+            document.getElementById("typeCus").innerHTML = bill[0].type;
+            document.getElementById('name').innerHTML = customer[0].firstname + " " + customer[0].lastname
+            document.getElementById('tel').innerHTML = customer[0].tel
+
+
+
+            var td = "BVtd"
+            var th = "BVth"
+            var table = "BVtable"
+            var tr = "BVtr"
+
+            var tableHeader = "<table class=" + table + "><tr><th class=" + th + ">ลำดับที่</th ><th class=" + th + ">ชิ้นส่วน</th><th class=" + th + ">จำนวน</th><th class=" + th + ">ราคา</th></tr>";
+            var tableContent = "";
+
+            var pr = 0;
+            var p;
+            for (i = 0; i < json.length; i++) {
+                tableContent = tableContent + "<tr class=" + tr + ">"
+                    + "<td class=" + td + ">" + json[i].ID_TRN_taxlnvoice +
+                    "</td> <td class=" + td + ">" + json[i].nameSpare +
+                    "</td> <td class=" + td + ">" + json[i].numSpare +
+                    "</td> <td class=" + td + ">  " + json[i].price +
+                    "</tr>";
+
+
+            }
+            var tableFooter = "</table>";
+            document.getElementById("BVtable").innerHTML = tableHeader + tableContent + tableFooter;
+
+            document.getElementById("priceAll").innerHTML = bill[0].price;
+
+            document.getElementById("inv").innerHTML = bill[0].vat;
+
+
+            document.getElementById("priceAddinv").innerHTML = bill[0].total;
+
+
+        },
+        error: function (e) {
+            alert("เกิดข้อผิดพลาด")
+        }
+    });
+}
+function getTableLicenseInvoice(){
+    var id = {
+        id: location.search.substring(1)
+    }
+    $.ajax({
+        type: "POST",
+        contentType: "application/json",
+        url: "http://localhost:3000/api/repair/invoice/getItem",
+        data: JSON.stringify(id),
+        dataType: 'json',
+        success: function (res) {
+            console.log(res.length)
+
+            console.log(res)
+            var bill = res[0];
+            var customer = res[3];
+            var stock = res[2];
+            var detail = stock[0].detail
+
+            var vat = parseInt(bill[0].vat);
+            var json = []
+           
+            for (var i = 0; i < detail.length; i++) {
+                var table = {            //data of table
+                    ID_TRN_buy: i,
+                    license_plate: detail[i].car_number,
+                    model: detail[i].name,
+                    ID_MST_stock: detail[i].price,
+                    weight: "-",
+                  
+                    
+
+                }
+
+               
+                json.push(table)
+            }
+           
+            document.getElementById("num1").innerHTML = res[4];
+            document.getElementById("num2").innerHTML = bill[0].TRN_license_bill;
+            document.getElementById("date").innerHTML = bill[0].date;
+            document.getElementById("typeCus").innerHTML = bill[0].type;
+            document.getElementById('name').innerHTML = customer[0].firstname + " " + customer[0].lastname
+            document.getElementById('tel').innerHTML = customer[0].tel
+
+           
+
+            var td = "BVtd"
+            var th = "BVth"
+            var table = "BVtable"
+            var tr = "BVtr"
+
+            var tableHeader = "<table class=" + table + "><tr><th class=" + th + ">ลำดับที่</th ><th class=" + th + ">เลขทะเบียน</th><th class=" + th + ">ประเภทรถ</th><th class=" + th + ">ราคา</th></tr>";
+            var tableContent = "";
+
+         
+            for (i = 0; i < json.length; i++) {
+                tableContent = tableContent + "<tr class=" + tr + ">"
+                    + "<td class=" + td + ">" + json[i].ID_TRN_buy +
+                    "</td> <td class=" + td + ">" + json[i].license_plate +
+                    "</td> <td class=" + td + ">" + json[i]. model +
+                    "</td> <td class=" + td + ">  " + json[i].ID_MST_stock +
+                    "</tr>";
+
+               
+            }
+            var tableFooter = "</table>";
+            document.getElementById("BVtable").innerHTML = tableHeader + tableContent + tableFooter;
+
+            document.getElementById("priceAll").innerHTML =bill[0].price ;
+          
+            document.getElementById("inv").innerHTML = bill[0].vat;
+
+            document.getElementById("priceAddinv").innerHTML =  bill[0].total;
+
+
+
+        },
+        error: function (e) {
+            alert("เกิดข้อผิดพลาด")
+        }
+    });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 function insertItemInvoie(collection) {
     if (collection == "TRN_buy_bill") {
-        var data = {
-            date: $('#date').text(),
-            ID_TRN_buy_bill: location.search.substring(1)
-        }
-
-        $.ajax({
-            type: "POST",
-            contentType: "application/json",
-            url: "http://localhost:3000/api/buy/invoice/insert",
-            data: JSON.stringify(data),
-            dataType: 'json',
-            success: function (res) {
-                if(res == true){
-                    alert("ทำรายการ " + $('#typeCus').text() + " " + "สำเร็จ")
-                    window.location.href = "./../main.html"
-                }else{
-                    alert("ทำรายการ " + $('#typeCus').text() + " " + "ไม่สำเร็จ")
-                }
-
-                
-
-
-            },
-            error: function (e) {
-                alert("เกิดข้อผิดพลาด")
-            }
-        })
+        insertInvoieBill()
     } else if (collection == "TRN_sale_bill") {
-        var data = {
-            date: $('#date').text(),
-            ID_TRN_sale_bill: location.search.substring(1)
-        }
-
-        $.ajax({
-            type: "POST",
-            contentType: "application/json",
-            url: "http://localhost:3000/api/sale/invoice/insert",
-            data: JSON.stringify(data),
-            dataType: 'json',
-            success: function (res) {
-                console.log(res)
-
-                alert("ทำรายการ " + $('#type').text() + " " + "สำเร็จ")
-                window.location.href = "./../main.html"
-
-
-            },
-            error: function (e) {
-                alert("เกิดข้อผิดพลาด")
-            }
-        })
+        insertInvoieSale()
+    } else if (collection == "TRN_car_recieve_bill") {
+        console.log("car")
+        insertInvoieRepair()
+    }else if(collection == "TRN_license_bill"){
+        insertInvoieLicense()
     }
 
+}
+function insertInvoieBill() {
+    var data = {
+        date: $('#date').text(),
+        ID_TRN_buy_bill: location.search.substring(1)
+    }
+
+    $.ajax({
+        type: "POST",
+        contentType: "application/json",
+        url: "http://localhost:3000/api/buy/invoice/insert",
+        data: JSON.stringify(data),
+        dataType: 'json',
+        success: function (res) {
+            if (res == true) {
+                alert("ทำรายการ " + $('#typeCus').text() + " " + "สำเร็จ")
+                window.location.href = "./../main.html"
+            } else {
+                alert("ทำรายการ " + $('#typeCus').text() + " " + "ไม่สำเร็จ")
+            }
+
+
+
+
+        },
+        error: function (e) {
+            alert("เกิดข้อผิดพลาด")
+        }
+    })
+}
+function insertInvoieSale() {
+    var data = {
+        date: $('#date').text(),
+        ID_TRN_sale_bill: location.search.substring(1)
+    }
+
+    $.ajax({
+        type: "POST",
+        contentType: "application/json",
+        url: "http://localhost:3000/api/sale/invoice/insert",
+        data: JSON.stringify(data),
+        dataType: 'json',
+        success: function (res) {
+            console.log(res)
+
+            alert("ทำรายการ " + $('#type').text() + " " + "สำเร็จ")
+            window.location.href = "./../main.html"
+
+
+        },
+        error: function (e) {
+            alert("เกิดข้อผิดพลาด")
+        }
+    })
+}
+function insertInvoieRepair() {
+    var data = {
+        date: $('#date').text(),
+        ID_TRN_car_bill: location.search.substring(1)
+    }
+
+    $.ajax({
+        type: "POST",
+        contentType: "application/json",
+        url: "http://localhost:3000/api/Car_recieve/invoice/insert",
+        data: JSON.stringify(data),
+        dataType: 'json',
+        success: function (res) {
+            console.log(res)
+            if (res == true) {
+                alert("ทำรายการ " + $('#type').text() + " " + "สำเร็จ")
+                window.location.href = "./../main.html"
+            }
+
+
+
+        },
+        error: function (e) {
+            alert("เกิดข้อผิดพลาด")
+        }
+    })
+}
+function insertInvoieLicense() {
+    var data = {
+        date: $('#date').text(),
+        ID_TRN_repair_bill: location.search.substring(1)
+    }
+
+    $.ajax({
+        type: "POST",
+        contentType: "application/json",
+        url: "http://localhost:3000/api/license/invoice/insert",
+        data: JSON.stringify(data),
+        dataType: 'json',
+        success: function (res) {
+            console.log(res)
+            if (res == true) {
+                alert("ทำรายการ " + $('#type').text() + " " + "สำเร็จ")
+                window.location.href = "./../main.html"
+            }
+
+
+
+        },
+        error: function (e) {
+            alert("เกิดข้อผิดพลาด")
+        }
+    })
 }
 function PrintDiv() {
     var divToPrint = document.getElementById('forms'); // เลือก div id ที่เราต้องการพิมพ์

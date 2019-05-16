@@ -495,7 +495,7 @@ app.post("/api/car_recieve/bill/getItem", (req, res) => {
                             console.log("conenct TRN_maintennance_detail_repairman")
                             respons.push(result)
                             var repairman = {
-                                _id: mongodb.ObjectID(result[0].ID_TRN_maintennance_detail_repairman)
+                                _id: mongodb.ObjectID(result[0].ID_TRNmaintennance_detail_repairman)
                             }
 
                             dbo.collection('TRN_maintennance_detail_repairman').find(repairman).toArray((err, result) => {
@@ -503,23 +503,23 @@ app.post("/api/car_recieve/bill/getItem", (req, res) => {
                                     res.sendStatus(404)
                                 } else {
                                     console.log("conenct employee")
-
+                                    console.log(result)
                                     respons.push(result)
                                     var emp = {
-                                        _id: mongodb.ObjectID(result[0].ID_MST_employee)
+                                        _id: mongodb.ObjectID(result[0].ID_MST_customer)
                                     }
-                                    dbo.collection('MST_employee').find(emp).toArray((err, result) => {
+                                    dbo.collection('MST_customer').find(emp).toArray((err, result) => {
                                         if (err) {
                                             res.sendStatus(404)
                                         } else {
-                                            console.log("conenct car_recieve MST_employee")
+                                            console.log("conenct car_recieve MST_customer")
                                             respons.push(result)
 
-                                            dbo.collection('TRN_car_recieve').find().count((err, result) => {
+                                            dbo.collection('TRN_maintainance_bill').find().count((err, result) => {
                                                 if (err) {
                                                     res.sendStatus(404)
                                                 } else {
-                                                    console.log("conenct car_recieve  TRN_car_recieve_bill")
+                                                    console.log("conenct car_recieve  TRN_maintainance_bill")
                                                     respons.push(result)
                                                     res.send(respons)
                                                 }
@@ -541,9 +541,171 @@ app.post("/api/car_recieve/bill/getItem", (req, res) => {
     })
 
 })
+app.post("/api/car_recieve/bill/insert", (req, res) => {
+    MongoClient.connect(url, function (err, db) {
+        if (err) throw err;
+        var dbo = db.db("gigabug");
 
 
-/***insert car_rre */
+
+        var objectId = new ObjectID();
+        var data = {
+            ID_TRN_maintainance_bill: objectId,
+            date: req.body.date,
+            type: req.body.type,
+            total: req.body.total,
+            vat: req.body.vat,
+            insure: req.body.insure,
+            price: req.body.price,
+            ID_TRN_car_recieve: req.body.fk
+        }
+        console.log(data)
+
+
+        dbo.collection('TRN_maintainance_bill').insertOne(data, (err, result) => {
+            if (err) {
+                res.sendStatus(404)
+            } else {
+
+                var idu = {
+                    id: result.ops[0]._id
+                }
+                res.send(idu)
+                db.close()
+            }
+
+        })
+
+    })
+})
+
+app.post("/api/car_recieve/invoice/getItem", (req, res) => {
+    MongoClient.connect(url, function (err, db) {
+        if (err) throw err;
+        var dbo = db.db("gigabug");
+
+        var id = {
+            _id: mongodb.ObjectID(req.body.id)
+        }
+        console.log(id)
+        var respons = [];
+        dbo.collection('TRN_maintainance_bill').find(id).toArray((err, result) => {
+            if (err) {
+                res.sendStatus(404)
+            } else {
+                if (result.length == 0) {
+
+                    res.sendStatus(404)
+                } else {
+
+                    var idc = {
+                        _id: mongodb.ObjectID(result[0].ID_TRN_car_recieve)
+
+                    }
+                    respons.push(result)
+
+                    dbo.collection('TRN_car_recieve').find(idc).toArray((err, result) => {
+                        if (err) {
+                            res.sendStatus(404)
+                        } else {
+                            console.log(result)
+                            if (result.length == 0) {
+
+                                res.sendStatus(404)
+                            } else {
+
+                                console.log("conenct TRN_maintennance_detail_administer" + " " + result[0].TRN_maintennance_detail_administer)
+
+                                respons.push(result)
+                                var detail_administer = {
+                                    _id: mongodb.ObjectID(result[0].TRN_maintennance_detail_administer)
+                                }
+                                console.log(detail_administer)
+
+                                dbo.collection('TRN_maintennance_detail_administer').find(detail_administer).toArray((err, result) => {
+                                    if (err) {
+                                        res.sendStatus(404)
+                                    } else {
+
+                                        console.log("conenct TRN_maintennance_detail_repairman")
+                                        respons.push(result)
+                                        var repairman = {
+                                            _id: mongodb.ObjectID(result[0].ID_TRNmaintennance_detail_repairman)
+                                        }
+
+                                        dbo.collection('TRN_maintennance_detail_repairman').find(repairman).toArray((err, result) => {
+                                            if (err) {
+                                                res.sendStatus(404)
+                                            } else {
+                                                console.log("conenct customer")
+                                                console.log(result)
+                                                respons.push(result)
+                                                var emp = {
+                                                    _id: mongodb.ObjectID(result[0].ID_MST_customer)
+                                                }
+                                                dbo.collection('MST_customer').find(emp).toArray((err, result) => {
+                                                    if (err) {
+                                                        res.sendStatus(404)
+                                                    } else {
+                                                        console.log("conenct car_recieve MST_employee")
+                                                        respons.push(result)
+
+                                                        dbo.collection('TRN_maintainance_taxInvoice').find().count((err, result) => {
+                                                            if (err) {
+                                                                res.sendStatus(404)
+                                                            } else {
+                                                                console.log("conenct car_recieve  TRN_maintainance_bill")
+                                                                respons.push(result)
+                                                                res.send(respons)
+                                                            }
+                                                        })
+
+                                                    }
+
+                                                })
+                                            }
+
+                                        })
+                                    }
+
+                                })
+
+                            }
+                        }
+                    })
+                }
+            }
+
+        })
+
+    });
+});
+app.post("/api/Car_recieve/invoice/insert", (req, res) => {
+    MongoClient.connect(url, function (err, db) {
+        if (err) throw err;
+        var dbo = db.db("gigabug");
+
+
+        var objectId = new ObjectID();
+        var data = {
+            ID_TRN_maintainance_taxInvoice: objectId,
+            date: req.body.date,
+            ID_TRN_maintainance_bill: req.body.ID_TRN_car_bill
+        }
+        console.log(data)
+        dbo.collection('TRN_maintainance_taxInvoice').insertOne(data, (err, result) => {
+            if (err) {
+                res.send("false")
+            } else {
+                console.log("insert invoice car")
+                res.send("true")
+                db.close()
+            }
+
+        })
+
+    })
+})
 
 /*************** */
 
@@ -564,11 +726,11 @@ app.post("/api/license/bill/getItem", (req, res) => {
             if (err) {
                 res.sendStatus(404)
             } else {
-               
+
                 if (result.length == 0) {
 
                     res.sendStatus(404)
-                
+
                 } else {
                     respons.push(result)
                     var customerr = {
@@ -577,7 +739,7 @@ app.post("/api/license/bill/getItem", (req, res) => {
                     var getlicense = {
                         _id: mongodb.ObjectID(result[0].ID_TRN_get_licence_plate)
                     }
-                    
+
 
                     dbo.collection('TRN_get_license_plate').find(getlicense).toArray((err, result) => {
                         if (err) {
@@ -592,14 +754,14 @@ app.post("/api/license/bill/getItem", (req, res) => {
                                 if (err) {
                                     res.sendStatus(404)
                                 } else {
-                                   console.log(result)
+                                    console.log(result)
 
                                     respons.push(result)
 
                                     dbo.collection('TRN_license_bill').find().count((err, result) => {
                                         if (err) {
                                             res.sendStatus(404)
-                                        } else {                                        
+                                        } else {
                                             respons.push(result)
                                             res.send(respons)
                                         }
@@ -627,14 +789,14 @@ app.post("/api/license/bill/insert", (req, res) => {
 
         var objectId = new ObjectID();
         var data = {
-            ID_TRN_sale_bill: objectId,
+            TRN_license_bill: objectId,
             date: req.body.date,
             type: req.body.type,
             total: req.body.total,
             vat: req.body.vat,
             insure: req.body.insure,
             price: req.body.price,
-            ID_TRN_sale_contract: req.body.fk
+            TRN_per_license_plate_detail: req.body.fk
         }
         console.log(data)
 
@@ -656,7 +818,119 @@ app.post("/api/license/bill/insert", (req, res) => {
     })
 })
 
+app.post("/api/repair/invoice/getItem", (req, res) => {
+    MongoClient.connect(url, function (err, db) {
+        if (err) throw err;
+        var dbo = db.db("gigabug");
 
+        var id = {
+            _id: mongodb.ObjectID(req.body.id)
+        }
+        console.log(id)
+        var respons = [];
+        dbo.collection('TRN_license_bill').find(id).toArray((err, result) => {
+            if (err) {
+                res.sendStatus(404)
+            } else {
+                if (result.length == 0) {
+
+                    res.sendStatus(404)
+                } else {
+
+                    var idc = {
+                        _id: mongodb.ObjectID(result[0].TRN_per_license_plate_detail)
+
+                    }
+                    respons.push(result)
+
+                    dbo.collection('TRN_per_license_plate_detail').find(idc).toArray((err, result) => {
+                        if (err) {
+                            res.sendStatus(404)
+                        } else {
+            
+                            if (result.length == 0) {
+            
+                                res.sendStatus(404)
+            
+                            } else {
+                                respons.push(result)
+                                var customerr = {
+                                    _id: mongodb.ObjectID(result[0].ID_MST_customer)
+                                }
+                                var getlicense = {
+                                    _id: mongodb.ObjectID(result[0].ID_TRN_get_licence_plate)
+                                }
+            
+            
+                                dbo.collection('TRN_get_license_plate').find(getlicense).toArray((err, result) => {
+                                    if (err) {
+                                        res.sendStatus(404)
+                                    } else {
+            
+                                        console.log("conenct getlicense")
+                                        respons.push(result)
+                                        console.log(result)
+            
+                                        dbo.collection('MST_customer').find(customerr).toArray((err, result) => {
+                                            if (err) {
+                                                res.sendStatus(404)
+                                            } else {
+                                                console.log(result)
+            
+                                                respons.push(result)
+            
+                                                dbo.collection('TRN_license_taxInvoice').find().count((err, result) => {
+                                                    if (err) {
+                                                        res.sendStatus(404)
+                                                    } else {
+                                                        respons.push(result)
+                                                        res.send(respons)
+                                                    }
+                                                })
+            
+                                            }
+            
+                                        })
+                                    }
+            
+                                })
+            
+                            }
+                        }
+                    })
+                }
+            }
+
+        })
+
+    });
+});
+app.post("/api/license/invoice/insert", (req, res) => {
+    MongoClient.connect(url, function (err, db) {
+        if (err) throw err;
+        var dbo = db.db("gigabug");
+
+
+        var objectId = new ObjectID();
+        var data = {
+           ID_TRN_license_taxInvoice: objectId,
+            date: req.body.date,
+            ID_TRN_license_bill: req.body.ID_TRN_repair_bill
+        }
+        console.log(data)
+        dbo.collection('TRN_license_taxInvoice').insertOne(data, (err, result) => {
+            if (err) {
+                res.send("false")
+            } else {
+                console.log("insert invoice car")
+                res.send("true")
+                db.close()
+            }
+
+        })
+
+    })
+})
 
 
 

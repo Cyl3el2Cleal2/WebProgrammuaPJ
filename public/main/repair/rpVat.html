@@ -10,9 +10,11 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="./../../css/style.css" />
+		<script src="../../js/billAndInvoice.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		
 	</head>
-	<body class="is-preload">
+	<body class="is-preload" onload="getTableInvoice('TRN_car_recieve_bill')">
 
 		<!-- Wrapper -->
 			<div id="wrapper">
@@ -27,7 +29,7 @@
 						
 						<br />
 						
-						<form method="post" action="#" class="BVform">
+						<form method="post" action="#" class="BVform" id="forms">
 							<div class="BVfields">
 
 									<ul style="list-style-type:none;text-align: left">
@@ -54,30 +56,26 @@
 										<li>&nbsp; &nbsp; &nbsp; &nbsp;</li>
 									</ul>  
 									<ul style="list-style-type:none;text-align: right;">
-											<li>เล่มที่.................... เลขที่................</li>
+											<label >เล่มที่  <p style="display:inline" id="num1">...............</p > เลขที่  <p style="display:inline" id="num2">..........................</p> </label>
+										
 										
 									</ul>   
 							</div>
 							
-							<div class="BVfields">
+							<div class="BVfields" style="padding:10px">
 									<ul style="list-style-type:none;text-align: left">
 											<li>&nbsp; &nbsp; &nbsp; &nbsp;</li>
 										</ul>  
 									<ul style="list-style-type:none;text-align: left">
-										<li>วันที่</li>
-										<li><input type="date" style=" width: 100%"></li>
+									
+										<li>วันที่ 	<p id="date" type="date" style=" display:inline;" disabled></p></li>
 			
-										<li>ประเภทลูกค้า</li>
-										<li><select style=" width: 100%" class="BVselect">
-												<option value="volvo">พรบ</option>
-												<option value="saab">การซื้อ</option>
-												<option value="opel">การขาย</option>
-												<option value="audi">ซ่อม</option>
-										</select></li>
-										<li>ชื่อลูกค้า</li>
-										<li><input type="date" style=" width: 100%"></li>
-										<li>เบอร์โทร</li>
-										<li><input type="date" style=" width: 100%"></li>
+									
+										<li>ประเภทใบภาษี 	<p id="typeCus" type="text" style=" display:inline;" disabled></p></li>
+									
+										<li>ชื่อลูกค้า 	<p id="name" type="text" style=" display:inline;" disabled></p></li>
+										
+										<li>เบอร์โทร 	<p  id="tel" type="text" style=" display:inline;" disabled></p></li>
 									</ul>   
 									<ul style="list-style-type:none;text-align: left">
 										<li>&nbsp; &nbsp; &nbsp; &nbsp;</li>
@@ -95,30 +93,16 @@
 						<br>
 						
 							  	<div class="field">
-										<table class="BVtable" >
+										<table id="BVtable" class="BVtable" >
 												<tr>
 												  <th class="BVth">ลำดับที่</th>
-												  <th class="BVth">เลขทะเบียน</th>
-												  <th class="BVth">ประเภทรถ</th>
-												  <th class="BVth">สี</th>
+												  <th class="BVth">ชิ้นส่วน</th>
+												  <th class="BVth">จำนวน</th>
+												
 												  <th class="BVth">ราคา</th>
 												  
 												</tr>
-												<tr class="BVtr">
-												  <td class="BVtd">1</td>
-												  <td class="BVtd">กต 6138</td>
-												  <td class="BVtd">4 ล้อ</td>
-												  <td class="BVtd">ดำ</td>
-												  <td class="BVtd">150000</td>
-												</tr>
-												<tr class="BVtr">
-														<td class="BVtd">2</td>
-														<td class="BVtd">กต 6138</td>
-														<td class="BVtd">4 ล้อ</td>
-														<td class="BVtd">ดำ</td>
-														<td class="BVtd">150000</td>
-												</tr>
-		
+												
 										</table>
 										
 								
@@ -126,9 +110,9 @@
 							    </br>
 								<div class="field" >
 										<ul style="list-style-type:none;text-align: right">
-												<li>ราคารวมทั้งสิ้น   <a>   30000 </a></li>
-												<li>ภาษีมูลค่าเพิ่ม    <a>  .....0 </a></li>
-												<li>จำนวนเงินรวม    <a>  30000 </a></li>										
+												<li>ราคา   <a id="priceAll">   30000 </a></li>
+												<li>ภาษีมูลค่าเพิ่ม    <a id="inv">  .....0 </a></li>
+												<li>จำนวนเงินรวม    <a id= "priceAddinv">  30000 </a></li>										
 										</ul> 
 								
 								</div>
@@ -165,7 +149,7 @@
 								</div>
 
 
-							 <hr>
+								<hr>
 							</form>
 
 
@@ -174,13 +158,13 @@
 				
 						
 						
-					
+						
 					
 						
 				
-						
-							<a href="#" class="button print" style="position: absolute; right: 9em;" >พิมพ์</a>
-							<a href="./../main.html" class="button" style="position: absolute; right: 2em;">ถัดไป</a>
+						<a onclick="PrintDiv()" class="button print" style="position: absolute; right: 9em;" >พิมพ์</a>
+			<a  onclick="insertItemInvoie('TRN_car_recieve_bill')" class="button" style="position: absolute; right: 2em;">ถัดไป</a>
+							
 					
 					</section>
 
