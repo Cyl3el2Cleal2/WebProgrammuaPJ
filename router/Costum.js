@@ -13,12 +13,12 @@ app.post("/api/Custum", (req, res) => {
         var dbo = db.db("gigabug");
         var objectId = new ObjectID();
         var userdata = {
-            "ID_MST_costomer": objectId,
+            "ID_MST_customer": objectId,
             "email": req.body.email,
             "gender": req.body.gender,
             "tel": req.body.tel,
             "age": req.body.age,
-            "employee_type": req.body.costum_type,
+            "customer_type": req.body.costum_type,
             "firstname": req.body.name,
             "lastname": req.body.sername
         }

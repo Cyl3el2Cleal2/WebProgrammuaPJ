@@ -41,7 +41,7 @@ function save(){
               console.log(result);
               if (JSON.stringify(customer) == "true") {
                 alert("Save Successful!");
-                window.location = "main.html";
+                window.location.reload();
               } else {
                 alert("Save Incorrect!");
               }
