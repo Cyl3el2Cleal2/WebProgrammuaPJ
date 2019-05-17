@@ -93,6 +93,13 @@ function getEmpData(){
 
 
 function queryData() {
+    var table = document.getElementById('fixed_header');
+
+    if(table.rows.length == 2){
+        window.open(window.location.href);
+    }else{
+
+    
     if(document.getElementById("fixed_header").rows.length>2){
         window.open(window.location.href +' '+document.getElementById('car').value)
     }
@@ -144,5 +151,5 @@ function queryData() {
             console.log("ERROR: ", e);
         }
     });
-
+    }
 }
