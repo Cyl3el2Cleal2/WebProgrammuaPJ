@@ -17,11 +17,8 @@ var costum = require('./router/Costum')
 var path = require('path');
 var bBuy = require('./router/bBuy')
 var rgTicket = require('./router/rgTicket')
-<<<<<<< HEAD
 var graph = require('./router/sum')
-=======
 var stock = require('./router/stock')
->>>>>>> 0f53398e8976c9de508f560525f4f7e332ee7f78
 app.use(express.static('public'));
 app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname, 'public', 'login.html'));
