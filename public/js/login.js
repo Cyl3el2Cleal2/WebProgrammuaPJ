@@ -21,9 +21,11 @@ function login() {
     success: function (customer) {
       var result = JSON.stringify(customer);
       console.log(result);
-      if (JSON.stringify(customer) == "true") {
+      result = JSON.parse(result);
+      if (result.status == "true") {
         alert("Login Successful!");
         sessionStorage.user = username;
+        
         window.location = "./../../main/main.html";
       } else {
         alert("Login Incorrect!");

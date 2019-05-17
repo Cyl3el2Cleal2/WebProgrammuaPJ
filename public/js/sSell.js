@@ -25,7 +25,10 @@ function sSellSave(){
         "date" : document.getElementById("date").value,
         "ID_MST_employee" : document.getElementById("nameEmp").value,
         "ID_MST_stock" : idCar.pop(),
-        "doc_number" : document.getElementById("num").value
+        "doc_number" : document.getElementById("num").value,
+        "ID_MST_customer" : window.location.href.split('?')[1].replace('#','')
+
+
     };
     console.log(data);
     
@@ -74,7 +77,7 @@ function getEmpData(){
     $.ajax({
         type: "POST",
         contentType: "application/json",
-        url: "http://localhost:3000/api/emp/search",
+        url: "http://localhost:3000/api/cus/search",
         data: JSON.stringify(data),
         dataType: "json",
         success: function (getData) {
