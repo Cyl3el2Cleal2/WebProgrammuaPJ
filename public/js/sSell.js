@@ -18,7 +18,14 @@ function sSellSave(){
         alert("กรุณาเพิ่มรถ")
         return
     }
-
+    var dateTx = document.getElementById('date');
+    var numTx = document.getElementById('num');
+    var nameEmpTx = document.getElementById('nameEmp');
+    var nameTx = document.getElementById('name');
+    if(dateTx.text == null || nameEmpTx.text == null || nameTx.text == null || numTx.text == null){
+        alert("กรุณากรอกข้อมูลให้ครบถ้วน")
+        
+    }
 
 
     var data = {
