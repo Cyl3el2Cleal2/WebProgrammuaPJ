@@ -17,6 +17,7 @@ app.post("/api/insertToDB", (req, res) => {
         carModel: req.body.carModel,
         carColor: req.body.carColor,
         ID_MST_employee: req.body.ID_MST_employee,
+        ID_MST_customer: req.body.ID_MST_customer,
         carSpare: req.body.carSpare,
     }
 
