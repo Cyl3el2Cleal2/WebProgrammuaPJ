@@ -29,7 +29,7 @@
                 <div class="registercolumn">
                     <img id="output" style="width: 150px;" src="./image/user.png" />
                     <br>
-                    
+
                     <!-- <div class="upload-btn-wrapper">
                         <a class="button upload">อัพโหลด</a>
                         <input type="file" accept="image/*" id="myfile" onchange="loadFile(event)"/>
@@ -58,12 +58,14 @@
                         <h3 class="isleft"><input type="text" id="lastname" placeholder="นามสกุล" /></h3>
                         <br>
                         <h3 class="isleft"></i> เพศ </h3>
-                        <div id="gender" class="isleft">
-                            <h3><input type="radio" id="r1" value="men" />
-                                <label for="r1"><span></span>ชาย</label></h3>
-                            <h3><input type="radio" id="r2" value="women" />
-                                <label for="r2"><span></span>หญิง</label></h3>
+                        <h3><div id="gender" class="isleft">
+                            <input type="radio" id="r1" name="rr" value="men" />
+                            <label for="r1"><span></span>ชาย</label>
+                            <p>
+                            <input type="radio" id="r2" name="rr" value="women" />
+                            <label for="r2"><span></span>หญิง</label>
                         </div>
+                        </h3>
 
                         <h3 class="isleft"></i> เบอร์โทร </h3>
                         <h3 class="isleft"><input type="text" id="tel" placeholder="เบอร์โทร" /></h3>
@@ -86,17 +88,17 @@
 
     </div>
     <script>
-            var loadFile = function (event) {
-                var reader = new FileReader();
-                reader.onload = function () {
-                    var output = document.getElementById('output');
-                    output.src = reader.result;
-                };
-                reader.readAsDataURL(event.target.files[0]);
-                document.getElementById("uploadFile").innerHTML =  document.getElementById("myfile").value;
-               
+        var loadFile = function (event) {
+            var reader = new FileReader();
+            reader.onload = function () {
+                var output = document.getElementById('output');
+                output.src = reader.result;
             };
-        </script>
+            reader.readAsDataURL(event.target.files[0]);
+            document.getElementById("uploadFile").innerHTML = document.getElementById("myfile").value;
+
+        };
+    </script>
 
 
 </body>
