@@ -1,22 +1,30 @@
-
+var idCar = [];
 function test() {
     // alert('Hi');
 }
 
-function sSellSave(){
-    var table = document.getElementsByClassName('tablePang')[0];
-    var temp = [];
-    for (var r = 1, n = table.rows.length; r < n; r++) {
+function checkQ(){
+    var table = document.getElementById('fixed_header');
 
-            temp.push(table.rows[r].cells[1].innerHTML);
-        
+    if(table.rows.length == 2){
+        window.open(window.location.href);
     }
+}
+
+function sSellSave(){
+    var table = document.getElementById('fixed_header');
+    var temp = [];
+    if( table.rows.length == 1){
+        alert("กรุณาเพิ่มรถ")
+        return
+    }
+
 
 
     var data = {
         "date" : document.getElementById("date").value,
         "ID_MST_employee" : document.getElementById("nameEmp").value,
-        "ID_MST_stock" : temp,
+        "ID_MST_stock" : idCar.pop(),
         "doc_number" : document.getElementById("num").value
     };
     console.log(data);
@@ -50,16 +58,47 @@ function sSellSave(){
 }
 
 function updateRow() {
-    var table = document.getElementById("fixed_header");
+    var table = document.getElementsByClassName("tablePang")[0];
+    console.log(table)
     for(var i=1;i<table.clientHeight;i++){
         table.rows[i].cells[0] = i;
     }
+
+}
+
+function getEmpData(){
+    var data = {
+        emp_id: window.location.href.split('?')[1]
+    }
+    console.log(data)
+    $.ajax({
+        type: "POST",
+        contentType: "application/json",
+        url: "http://localhost:3000/api/emp/search",
+        data: JSON.stringify(data),
+        dataType: "json",
+        success: function (getData) {
+            var result = JSON.stringify(getData);
+            console.log(result);
+            var item = document.getElementById("name");
+            result = JSON.parse(result)
+            item.value = result["firstname"]+" "+result["lastname"]
+
+        },
+        error: function (e) {
+            console.log("ERROR: ", e);
+        } 
+    })
 }
 
 
 function queryData() {
+    if(document.getElementById("fixed_header").rows.length>2){
+        window.open(window.location.href +' '+document.getElementById('car').value)
+    }
     var data = {
-        id: document.getElementById('car').value
+        id: document.getElementById('car').value,
+
     }
     console.log(data);
     var c1,c2,c3,c4,c5,c6;
@@ -89,6 +128,7 @@ function queryData() {
                 c2 = getData[0].model;
                 c3 = getData[0].color;
                 c4 = getData[0].price;
+                idCar.push(getData[0]._id)
                 console.log(c1 + c2 + c3);
 
                 cell1.innerHTML = '<td class = "tdPang">'+'1'+'</td>';

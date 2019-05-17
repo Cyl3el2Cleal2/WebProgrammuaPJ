@@ -24,6 +24,8 @@ app.post("/api/sSell", (req, res) => {
                 res.sendStatus(404);
                 res.send('false');
             } else {
+                
+
                 if(result[0] == null){
                     console.log('No data');
                     res.send('false');

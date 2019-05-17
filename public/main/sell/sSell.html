@@ -44,7 +44,7 @@
 	</script>
 </head>
 
-<body class="is-preload">
+<body class="is-preload" onload="getEmpData()">
 
 	<!-- Wrapper -->
 	<div id="wrapper">
@@ -76,7 +76,7 @@
 							</div>
 
 							<div class="field t1">
-								ชื่อลูกค้า<input type="text" name="name" id="name" placeholder="กรอกชื่อลูกค้า" />
+								ชื่อลูกค้า<input type="text" name="name" id="name" placeholder="กรอกชื่อลูกค้า" disabled/>
 							</div>
 							<br>
 							<hr>
@@ -86,7 +86,7 @@
 								กรอก เลขทะเบียนรถ เพื่อค้นหารถ
 								<img src="./../../image/icons8-search-100.png" width="20" />
 
-								<input type="search" name="car" id="car" placeholder="ID รถ" />
+								<input onclick="checkQ()" type="search" name="car" id="car" placeholder="ID รถ" />
 							</div>
 
 							<div class="field t2">
