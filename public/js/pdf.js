@@ -56,7 +56,7 @@ function showPdf() {
 var ID_buy_con;
 var ID_customer;
 var ID_stock;
-var ID_employee = "E00012";
+var ID_employee = "E00013";
 var ID_buy;
 // กรอก
 var location;

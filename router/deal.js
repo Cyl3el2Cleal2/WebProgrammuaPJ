@@ -76,6 +76,7 @@ app.post('/api/sale/deal/insertContract', (req, res) => {
         });
     });
 })
+// /////////************************************ INIT */
 
 app.post('/api/deal/getItem', (req, res) => {
 
