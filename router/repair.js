@@ -50,8 +50,11 @@ app.post("/api/insertToDB", (req, res) => {
                     res.sendStatus(404)
                     res.send('false')
                 } else {
-                    console.log(result)
-                    res.send('true')
+                    var dataresult = {
+                        _id: result.ops[0]._id,
+                        status: 'true'
+                    }
+                    res.send(dataresult)
                 }
 
             });
