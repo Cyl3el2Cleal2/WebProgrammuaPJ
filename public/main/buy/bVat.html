@@ -5,189 +5,199 @@
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
 <html>
-	<head>
-		<title>ใบกำกับภาษี</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="./../../css/style.css" />
-		<script src="../../js/billAndInvoice.js"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<head>
+	<title>ใบกำกับภาษี</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="./../../css/style.css" />
+	<script src="../../js/billAndInvoice.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+</head>
+
+<body class="is-preload" onload="getTableInvoice('TRN_buy_bill')">
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section class="mainsize">
+			<header>
+
+
+				<h1>ใบกำกับภาษี</h1>
+			</header>
+
+			<br />
+
+			<form method="post" action="#" class="BVform" id="forms">
+
+				<div class="BVfields">
+
+					<ul style="list-style-type:none;text-align: left">
+						<li>&nbsp; &nbsp; &nbsp; &nbsp;</li>
+					</ul>
+					<ul style="list-style-type:none;text-align: left">
+						<li>บริษัทโชคทวีออโต้เซลล์</li>
+						<li>เลขที่ 257 หมู่ 320230</li>
+						<li>อ.ศรีราชา จ.ชลบุรี</li>
+					</ul>
+					<ul style="list-style-type:none;text-align: left">
+						<li>&nbsp; &nbsp; &nbsp; &nbsp;</li>
+					</ul>
+					<ul style="list-style-type:none;text-align: left">
+						<li>&nbsp; &nbsp; &nbsp; &nbsp;</li>
+					</ul>
+					<ul style="list-style-type:none;text-align: left">
+						<li>&nbsp; &nbsp; &nbsp; &nbsp;</li>
+					</ul>
+					<ul style="list-style-type:none;text-align: left">
+						<li>&nbsp; &nbsp; &nbsp; &nbsp;</li>
+					</ul>
+					<ul style="list-style-type:none;text-align: left">
+						<li>&nbsp; &nbsp; &nbsp; &nbsp;</li>
+					</ul>
+					<ul style="list-style-type:none;text-align: right;">
+						<label>เล่มที่ <p style="display:inline" id="num1">...............</p> เลขที่ <p style="display:inline"
+								id="num2">.................</p> </label>
+
+
+					</ul>
+				</div>
+
+				<div class="BVfields" style="padding:10px">
+					<ul style="list-style-type:none;text-align: left">
+						<li>&nbsp; &nbsp; &nbsp; &nbsp;</li>
+					</ul>
+					<ul style="list-style-type:none;text-align: left">
+
+						<li>วันที่ <p id="date" type="date" style=" display:inline;" disabled></p>
+						</li>
+
+
+						<li>ประเภทใบภาษี <p id="typeCus" type="text" style=" display:inline;" disabled></p>
+						</li>
+
+						<li>ชื่อลูกค้า <p id="name" type="text" style=" display:inline;" disabled></p>
+						</li>
+
+						<li>เบอร์โทร <p id="tel" type="text" style=" display:inline;" disabled></p>
+						</li>
+					</ul>
+					<ul style="list-style-type:none;text-align: left">
+						<li>&nbsp; &nbsp; &nbsp; &nbsp;</li>
+					</ul>
+					<ul style="list-style-type:none;text-align: left">
+						<li>&nbsp; &nbsp; &nbsp; &nbsp;</li>
+					</ul>
+					<ul style="list-style-type:none;text-align: left">
+						<li>&nbsp; &nbsp; &nbsp; &nbsp;</li>
+					</ul>
+
+				</div>
+
+
+				<br>
+
+				<div class="field">
+					<table id="BVtable" class="BVtable">
+						<tr>
+							<th class="BVth">ลำดับที่</th>
+							<th class="BVth">เลขทะเบียน</th>
+							<th class="BVth">ประเภทรถ</th>
+							<th class="BVth">สี</th>
+							<th class="BVth">ราคา</th>
+
+						</tr>
+
+					</table>
+
+
+				</div>
+				</br>
+				<div class="field">
+					<ul style="list-style-type:none;text-align: right">
+						<li>ราคา <a id="priceAll"> 30000 </a></li>
+						<li>ภาษีมูลค่าเพิ่ม <a id="inv"> .....0 </a></li>
+						<li>จำนวนเงินรวม <a id="priceAddinv"> 30000 </a></li>
+					</ul>
+
+				</div>
+				</br>
+
+				<div class="BVfields">
+
+
+					<ul style="list-style-type:none;text-align: left">
+						<li>&nbsp; &nbsp; &nbsp; &nbsp;</li>
+					</ul>
+					<ul style="list-style-type:none;text-align: left">
+						<li>&nbsp; &nbsp; &nbsp; &nbsp;</li>
+					</ul>
+					<ul style="list-style-type:none;text-align: left">
+						<li>ลงชื่อ</li>
+						<li>......................................</li>
+						<li>เจ้าหน้าที่</li>
+					</ul>
+					<ul style="list-style-type:none;text-align: left">
+						<li>&nbsp; &nbsp; &nbsp; &nbsp;</li>
+					</ul>
+					<ul style="list-style-type:none;text-align: left">
+						<li>&nbsp; &nbsp; &nbsp; &nbsp;</li>
+					</ul>
+					<ul style="list-style-type:none;text-align: left">
+						<li>&nbsp; &nbsp; &nbsp; &nbsp;</li>
+					</ul>
+					<ul style="list-style-type:none;text-align: left;">
+						<li>ลงชื่อ</li>
+						<li>......................................</li>
+						<li>ลูกค้า</li>
+					</ul>
+				</div>
+
+
+				<hr>
+			</form>
+
+
+
+
+
+
+
+
+
+
+
 		
-	</head>
-	<body class="is-preload" onload="getTableInvoice('TRN_buy_bill')">
 
-		<!-- Wrapper -->
-			<div id="wrapper">
+    <a onclick="PrintDiv()" id="print" class="button print" style="position: absolute; right: 10em; ">พิมพ์</a>
+		<a onclick="insertItemInvoie('TRN_buy_bill')" id="insert" class="button" style="position: absolute; right: 3em; ">ถัดไป</a>
+		</section>
 
-				<!-- Main -->
-					<section class="mainsize">
-						<header>
-						
-						
-							<h1>ใบกำกับภาษี</h1>
-						</header>
-						
-						<br />
-						
-						<form method="post" action="#" class="BVform" id="forms">
-							<div class="BVfields">
-
-									<ul style="list-style-type:none;text-align: left">
-											<li>&nbsp; &nbsp; &nbsp; &nbsp;</li>
-										</ul>  
-									<ul style="list-style-type:none;text-align: left">
-											<li>บริษัทโชคทวีออโต้เซลล์</li>
-											<li>เลขที่ 257 หมู่ 320230</li>
-											<li>อ.ศรีราชา จ.ชลบุรี</li>
-									</ul> 
-									<ul style="list-style-type:none;text-align: left">
-									        <li>&nbsp; &nbsp; &nbsp; &nbsp;</li>
-									</ul> 	  
-									<ul style="list-style-type:none;text-align: left">
-										<li>&nbsp; &nbsp; &nbsp; &nbsp;</li>
-									</ul>   
-									<ul style="list-style-type:none;text-align: left">
-										<li>&nbsp; &nbsp; &nbsp; &nbsp;</li>
-									</ul>  
-									<ul style="list-style-type:none;text-align: left">
-										<li>&nbsp; &nbsp; &nbsp; &nbsp;</li>
-									</ul>  
-									<ul style="list-style-type:none;text-align: left">
-										<li>&nbsp; &nbsp; &nbsp; &nbsp;</li>
-									</ul>  
-									<ul style="list-style-type:none;text-align: right;">
-											<label >เล่มที่  <p style="display:inline" id="num1">...............</p > เลขที่  <p style="display:inline" id="num2">.................</p> </label>
-										
-										
-									</ul>   
-							</div>
-							
-							<div class="BVfields" style="padding:10px">
-									<ul style="list-style-type:none;text-align: left">
-											<li>&nbsp; &nbsp; &nbsp; &nbsp;</li>
-										</ul>  
-									<ul style="list-style-type:none;text-align: left">
-									
-										<li>วันที่ 	<p id="date" type="date" style=" display:inline;" disabled></p></li>
-			
-									
-										<li>ประเภทใบภาษี 	<p id="typeCus" type="text" style=" display:inline;" disabled></p></li>
-									
-										<li>ชื่อลูกค้า 	<p id="name" type="text" style=" display:inline;" disabled></p></li>
-										
-										<li>เบอร์โทร 	<p  id="tel" type="text" style=" display:inline;" disabled></p></li>
-									</ul>   
-									<ul style="list-style-type:none;text-align: left">
-										<li>&nbsp; &nbsp; &nbsp; &nbsp;</li>
-									</ul>  
-									<ul style="list-style-type:none;text-align: left">
-										<li>&nbsp; &nbsp; &nbsp; &nbsp;</li>
-									</ul>  
-									<ul style="list-style-type:none;text-align: left">
-										<li>&nbsp; &nbsp; &nbsp; &nbsp;</li>
-									</ul>  
-								
-							</div>
-							
-							
-						<br>
-						
-							  	<div class="field">
-										<table id="BVtable" class="BVtable" >
-												<tr>
-												  <th class="BVth">ลำดับที่</th>
-												  <th class="BVth">เลขทะเบียน</th>
-												  <th class="BVth">ประเภทรถ</th>
-												  <th class="BVth">สี</th>
-												  <th class="BVth">ราคา</th>
-												  
-												</tr>
-												
-										</table>
-										
-								
-								</div>
-							    </br>
-								<div class="field" >
-										<ul style="list-style-type:none;text-align: right">
-												<li>ราคา   <a id="priceAll">   30000 </a></li>
-												<li>ภาษีมูลค่าเพิ่ม    <a id="inv">  .....0 </a></li>
-												<li>จำนวนเงินรวม    <a id= "priceAddinv">  30000 </a></li>										
-										</ul> 
-								
-								</div>
-							</br>
-
-								<div class="BVfields">
-
-								
-										<ul style="list-style-type:none;text-align: left">
-												<li>&nbsp; &nbsp; &nbsp; &nbsp;</li>
-										</ul> 
-										<ul style="list-style-type:none;text-align: left">
-														<li>&nbsp; &nbsp; &nbsp; &nbsp;</li>
-										</ul> 	  
-										<ul style="list-style-type:none;text-align: left">
-											<li>ลงชื่อ</li>
-											<li>......................................</li>
-											<li>เจ้าหน้าที่</li>
-										</ul>   
-										<ul style="list-style-type:none;text-align: left">
-											<li>&nbsp; &nbsp; &nbsp; &nbsp;</li>
-										</ul>  
-										<ul style="list-style-type:none;text-align: left">
-											<li>&nbsp; &nbsp; &nbsp; &nbsp;</li>
-										</ul>  
-										<ul style="list-style-type:none;text-align: left">
-											<li>&nbsp; &nbsp; &nbsp; &nbsp;</li>
-										</ul>  
-										<ul style="list-style-type:none;text-align: left;">
-												<li>ลงชื่อ</li>
-										  	<li>......................................</li>
-											  <li>ลูกค้า</li>
-										</ul>   
-								</div>
+		
+		<footer id="footer">
 
 
-								<hr>
-							</form>
+		</footer>
+
+	</div>
+
+	<!-- Scripts -->
+	<script>
+    
+		
+		if ('addEventListener' in window) {
+			window.addEventListener('load', function () { document.body.className = document.body.className.replace(/\bis-preload\b/, ''); });
+			document.body.className += (navigator.userAgent.match(/(MSIE|rv:11\.0)/) ? ' is-ie' : '');
+		}
 
 
-				
-							
-				
-						
-						
-						
-					
-						
-				
-						<a onclick="PrintDiv()" class="button print" style="position: absolute; right: 9em;" >พิมพ์</a>
-			<a  onclick="insertItemInvoie('TRN_buy_bill')" class="button" style="position: absolute; right: 2em;">ถัดไป</a>
-							
-					
-					</section>
 
-				
-					<footer id="footer">
-					
-						
-					</footer>
+	</script>
+  
 
-			</div>
+</body>
 
-		<!-- Scripts -->
-			<script>
-				 
-				if ('addEventListener' in window) {
-					window.addEventListener('load', function() { document.body.className = document.body.className.replace(/\bis-preload\b/, ''); });
-					document.body.className += (navigator.userAgent.match(/(MSIE|rv:11\.0)/) ? ' is-ie' : '');
-				}
-          
-
-
-			</script>
-	
-
-	</body>
 </html>

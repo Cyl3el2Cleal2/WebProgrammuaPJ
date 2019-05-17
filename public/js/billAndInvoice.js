@@ -380,10 +380,10 @@ function getbillLicense() {
                 document.getElementById("total").innerHTML = pricetotal + prs
                 let current_datetime = new Date()
                 let formatted_date = current_datetime.getDate() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getFullYear()
-               
+
                 document.getElementById("date").innerHTML = formatted_date
                 document.getElementById("customer").innerHTML = customer[0].firstname + " " + customer[0].lastname
-                var idc = 10000+ parseInt(current_datetime.getMinutes())
+                var idc = 10000 + parseInt(current_datetime.getMinutes())
 
                 document.getElementById("idbuy").innerHTML = idc
             }
@@ -897,18 +897,29 @@ function insertInvoieLicense() {
         }
     })
 }
-function PrintDiv() {
-    var divToPrint = document.getElementById('forms'); // เลือก div id ที่เราต้องการพิมพ์
-    var html = '<!DOCTYPE HTML>' + '<html>' + // 
-        '<head>' +
-        '<link href=\"print.css\" rel=\"stylesheet\" type=\"text/css\"/>' +
-        '<link rel=\"stylesheet\" href=\"./../../css/style.css\" />' +
-        '</head>' +
-        '<body onload="\window.print(); window.close();\">' + divToPrint.innerHTML + '</body>' +
-        '</html>';
-    var popupWin = window.open();
-    popupWin.document.open();
-    popupWin.document.write(html); //โหลด print.css ให้ทำงานก่อนสั่งพิมพ์
-    popupWin.document.close();
+// function PrintDiv() {
+//     var divToPrint = document.getElementById('forms'); // เลือก div id ที่เราต้องการพิมพ์
+//     var html = '<!DOCTYPE HTML>' + '<html>' + // 
+//         '<head>' +
+//         '<link href=\"print.css\" rel=\"stylesheet\" type=\"text/css\"/>' +
+//         '<link rel=\"stylesheet\" href=\"./../../css/style.css\" />' +
+//         '</head>' +
+//         '<body onload="\window.print(); window.close();\">' + divToPrint.innerHTML + '</body>' +
+//         '</html>';
+//     var popupWin = window.open();
+//     popupWin.document.open();
+//     popupWin.document.write(html); //โหลด print.css ให้ทำงานก่อนสั่งพิมพ์
+//     popupWin.document.close();
 
+// }
+function PrintDiv() {
+    document.getElementById('print').style.display = "none"
+    document.getElementById('insert').style.display = "none"
+    window.print();
+    if(window.closed == false || window.close == true){
+        document.getElementById('print').style.display = "block"
+        document.getElementById('insert').style.display = "block"
+    }
+       
+   
 }
