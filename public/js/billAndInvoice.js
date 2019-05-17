@@ -86,7 +86,7 @@ function getbillBuy() {
                 document.getElementById("invB").innerHTML = " -"
                 var vat = 0.5;
                 var prs = pr * (vat / 100)
-                document.getElementById("invH").innerHTML = prs
+                document.getElementById("invH").innerHTML =  vat +"%"
                 document.getElementById("priceH2").innerHTML = pr
                 document.getElementById("total").innerHTML = pr + prs
                 document.getElementById("date").innerHTML = contract[0].date
@@ -177,7 +177,7 @@ function getbillSale() {
                     document.getElementById("invB").innerHTML = " -"
                     var vat = 0.5;
                     var prs = pr * (vat / 100)
-                    document.getElementById("invH").innerHTML = prs
+                    document.getElementById("invH").innerHTML =  vat +"%"
                     document.getElementById("priceH2").innerHTML = pr
                     document.getElementById("total").innerHTML = pr + prs
                     document.getElementById("date").innerHTML = contract[0].date
@@ -275,7 +275,7 @@ function getbillCarRecieve() {
                     document.getElementById("invB").innerHTML = " -"
                     var vat = 0.5;
                     var prs = pricetotal * (vat / 100)
-                    document.getElementById("invH").innerHTML = prs
+                    document.getElementById("invH").innerHTML =  vat +"%"
                     document.getElementById("priceH2").innerHTML = pricetotal
                     document.getElementById("total").innerHTML = pricetotal + prs
                     document.getElementById("date").innerHTML = contract[0].date
@@ -328,7 +328,7 @@ function getbillLicense() {
                     var table = {            //data of table
                         ID_TRN_buy: i,
                         license_plate: detail[i].car_number,
-                        model: detail[i].name,
+                        model: detail[i].car_model,
                         ID_MST_stock: stock[0]._id,
                         weight: "-"
 
@@ -373,9 +373,9 @@ function getbillLicense() {
                 document.getElementById("BVtable").innerHTML = tableHeader + tableContent + tableFooter;
                 document.getElementById("priceHeader").innerHTML = pricetotal
                 document.getElementById("invB").innerHTML = " -"
-                var vat = 0.5;
+                var vat = 5;
                 var prs = pricetotal * (vat / 100)
-                document.getElementById("invH").innerHTML = prs
+                document.getElementById("invH").innerHTML = vat +"%"
                 document.getElementById("priceH2").innerHTML = pricetotal
                 document.getElementById("total").innerHTML = pricetotal + prs
                 let current_datetime = new Date()
@@ -736,12 +736,11 @@ function getTableLicenseInvoice() {
                 var table = {            //data of table
                     ID_TRN_buy: i,
                     license_plate: detail[i].car_number,
-                    model: detail[i].name,
+                    model: detail[i].car_model,
                     ID_MST_stock: detail[i].price,
                     weight: "-",
 
                 }
-
 
                 json.push(table)
             }
