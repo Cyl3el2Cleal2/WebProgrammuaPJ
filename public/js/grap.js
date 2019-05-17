@@ -35,19 +35,19 @@ function getData() {
             console.log(license)
             $area = $("#area")
             str = '<div class="bar-group">\
-            <div class="bar bar-2 stat-3" style="height: '+Math.min(buy/1000000*100,100)+'%;"></div>\
+            <div class="bar bar-2 stat-3" style="height: '+Math.min(buy/800000*100,100)+'%;"></div>\
             </div>';
             $area.append(str);
             str = '<div class="bar-group">\
-            <div class="bar bar-2 stat-1" style="height: '+Math.min(sale/1000000*100,100)+'%;"></div>\
+            <div class="bar bar-2 stat-1" style="height: '+Math.min(sale/800000*100,100)+'%;"></div>\
             </div>';
             $area.append(str);
             str = '<div class="bar-group">\
-            <div class="bar bar-2 stat-2" style="height: '+Math.min(repair/1000000*100,100)+'%;"></div>\
+            <div class="bar bar-2 stat-2" style="height: '+Math.min(repair/800000*100,100)+'%;"></div>\
             </div>';
             $area.append(str);
             str = '<div class="bar-group">\
-            <div class="bar bar-2 stat-3" style="height: '+Math.min(license/1000000*100,100)+'%;"></div>\
+            <div class="bar bar-2 stat-3" style="height: '+Math.min(license/800000*100,100)+'%;"></div>\
             </div>';
             $area.append(str);
 
