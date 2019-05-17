@@ -15,7 +15,7 @@ function login() {
   $.ajax({
     type: "POST",
     contentType: "application/json",
-    url: "http://localhost:3000/sum",
+    url: "http://localhost:3000/api/login",
     data: JSON.stringify(data),
     dataType: "json",
     success: function (customer) {
