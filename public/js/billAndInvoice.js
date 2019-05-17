@@ -228,9 +228,9 @@ function getbillCarRecieve() {
                     for (var i = 0; i < detail.length; i++) {
                         var table = {            //data of table
                             _id: i,
-                            license_plate: detail[0].nameSpare,
-                            model: detail[0].numSpare,
-                            ID_MST_stock: detail[0].priceSpare,
+                            license_plate: detail[i].nameSpare,
+                            model: detail[i].numSpare,
+                            ID_MST_stock: detail[i].priceSpare,
 
                         }
                         json.push(table)
@@ -556,10 +556,10 @@ function getTableBuyInvoice() {
 
             document.getElementById("priceAll").innerHTML = pr;
             var inv = vat
-            document.getElementById("inv").innerHTML = inv;
+            document.getElementById("inv").innerHTML = inv +"%";
 
             var pri = pr + inv
-            document.getElementById("priceAddinv").innerHTML = pri;
+            document.getElementById("priceAddinv").innerHTML = bill[0].total;
 
 
         },
@@ -637,11 +637,10 @@ function getTableSaleInvoice() {
 
             document.getElementById("priceAll").innerHTML = pr;
             
-            document.getElementById("inv").innerHTML = bill[0].vat;
+            document.getElementById("inv").innerHTML = bill[0].vat +"%";
 
-            var pri = pr * (parseInt(bill[0].vat)/100)
-            console.log(parseInt(bill[0].vat))
-            document.getElementById("priceAddinv").innerHTML = pri;
+          
+            document.getElementById("priceAddinv").innerHTML =  bill[0].total;
 
 
         },
@@ -675,12 +674,12 @@ function getTableCarInvoice() {
                     ID_TRN_taxlnvoice: i,
                     nameSpare: detail[i].nameSpare,
                     numSpare: detail[i].numSpare,
-
                     price: detail[i].priceSpare
                 }
 
                 json.push(table)
             }
+            console.log(json)
             document.getElementById("num1").innerHTML = res[5];
             document.getElementById("num2").innerHTML = bill[0].ID_TRN_maintainance_bill;
             document.getElementById("date").innerHTML = bill[0].date;
@@ -706,7 +705,7 @@ function getTableCarInvoice() {
             var tableFooter = "</table>";
             document.getElementById("BVtable").innerHTML = tableHeader + tableContent + tableFooter;
             document.getElementById("priceAll").innerHTML = bill[0].price;
-            document.getElementById("inv").innerHTML = bill[0].vat;
+            document.getElementById("inv").innerHTML = bill[0].vat +"%";
             document.getElementById("priceAddinv").innerHTML = bill[0].total;
         },
         error: function (e) {
@@ -776,7 +775,7 @@ function getTableLicenseInvoice() {
             var tableFooter = "</table>";
             document.getElementById("BVtable").innerHTML = tableHeader + tableContent + tableFooter;
             document.getElementById("priceAll").innerHTML = bill[0].price;
-            document.getElementById("inv").innerHTML = bill[0].vat;
+            document.getElementById("inv").innerHTML = bill[0].vat +"%";
             document.getElementById("priceAddinv").innerHTML = bill[0].total
 
         },
