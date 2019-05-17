@@ -37,7 +37,7 @@ function getbillBuy() {
             var contract = res[0];      //array of contract
             var customer = res[1];  //array of customer
             var stock = res[3];      //array of stock 
-            if (res[0].length == 0 || res[1].length == 0 || res[2].length == 0 || res[3].length == 0) {
+            if (res[0].length == 0 || res[1].length == 0  || res[3].length == 0) {
                 alert("เกิดข้อผิดพลาด")
             } else {
                 var json = []
@@ -84,7 +84,7 @@ function getbillBuy() {
                 document.getElementById("BVtable").innerHTML = tableHeader + tableContent + tableFooter;
                 document.getElementById("priceHeader").innerHTML = pr
                 document.getElementById("invB").innerHTML = " -"
-                var vat = 0.5;
+                var vat = 5;
                 var prs = pr * (vat / 100)
                 document.getElementById("invH").innerHTML =  vat +"%"
                 document.getElementById("priceH2").innerHTML = pr
@@ -127,7 +127,7 @@ function getbillSale() {
                 var contract = res[0];      //array of contract
                 var customer = res[1];  //array of customer
                 var stock = res[3];      //array of stock 
-                if (res[0].length == 0 || res[1].length == 0 || res[2].length == 0 || res[3].length == 0) {
+                if (res[0].length == 0 || res[1].length == 0  || res[3].length == 0) {
                     alert("เกิดข้อผิดพลาด")
                 } else {
                     var json = []
@@ -175,7 +175,7 @@ function getbillSale() {
                     document.getElementById("BVtable").innerHTML = tableHeader + tableContent + tableFooter;
                     document.getElementById("priceHeader").innerHTML = pr
                     document.getElementById("invB").innerHTML = " -"
-                    var vat = 0.5;
+                    var vat = 5;
                     var prs = pr * (vat / 100)
                     document.getElementById("invH").innerHTML =  vat +"%"
                     document.getElementById("priceH2").innerHTML = pr
@@ -273,7 +273,7 @@ function getbillCarRecieve() {
                     document.getElementById("BVtable").innerHTML = tableHeader + tableContent + tableFooter;
                     document.getElementById("priceHeader").innerHTML = pricetotal
                     document.getElementById("invB").innerHTML = " -"
-                    var vat = 0.5;
+                    var vat = 5;
                     var prs = pricetotal * (vat / 100)
                     document.getElementById("invH").innerHTML =  vat +"%"
                     document.getElementById("priceH2").innerHTML = pricetotal
@@ -419,12 +419,13 @@ function insertItemBill(collection) {
 }
 function insertBill(url, next) {
 
-
+    var vat = $('#invH').text().split("%")
+    console.log(vat[0])
     var data = {
         date: $('#date').text(),
         type: $('#type').text(),
         total: $('#total').text(),
-        vat: $('#invH').text(),
+        vat: vat[0],
         insure: "",
         price: $('#priceH2').text(),
         fk: location.search.substring(1)
@@ -505,6 +506,7 @@ function getTableBuyInvoice() {
             var stock = res[4];
 
             var vat = parseInt(bill[0].vat);
+            console.log(vat)
             var table = {
                 ID_TRN_taxlnvoice: "1",
                 license_plate: stock[0].license_plate,
@@ -585,8 +587,9 @@ function getTableSaleInvoice() {
             var stock = res[4];
 
             var vat = parseInt(bill[0].vat);
+            console.log(bill[0].vat)
             var table = {
-                ID_TRN_taxlnvoice: "1",
+                ID_TRN_taxlnvoice: stock[0].length,
                 license_plate: stock[0].license_plate,
                 type: stock[0].model,
                 color: stock[0].color,
@@ -633,10 +636,11 @@ function getTableSaleInvoice() {
             document.getElementById("BVtable").innerHTML = tableHeader + tableContent + tableFooter;
 
             document.getElementById("priceAll").innerHTML = pr;
-            var inv = vat
-            document.getElementById("inv").innerHTML = inv;
+            
+            document.getElementById("inv").innerHTML = bill[0].vat;
 
-            var pri = pr + inv
+            var pri = pr * (parseInt(bill[0].vat)/100)
+            console.log(parseInt(bill[0].vat))
             document.getElementById("priceAddinv").innerHTML = pri;
 
 

@@ -33,9 +33,9 @@ app.post("/api/buy/bill/getItem", (req, res) => {
                 var idstock = {
                     _id: mongodb.ObjectID(result[0].ID_MST_stock)
                 }
-                var idemployee = {
-                    ID_MST_employee: result[0].ID_MST_employee
-                }
+                // var idemployee = {
+                //     ID_MST_employee: result[0].ID_MST_employee
+                // }
                 dbo.collection('MST_customer').find(idcustomer).toArray((err, result) => {
                     if (err) {
                         res.sendStatus(404)
@@ -43,7 +43,8 @@ app.post("/api/buy/bill/getItem", (req, res) => {
                         console.log(result)
                         respons.push(result)
 
-                        dbo.collection('MST_employee').find(idemployee).toArray((err, result) => {
+                        dbo.collection('MST_employee').find() .sort({$natural: -1})
+                        .limit(1).toArray((err, result) => {
                             if (err) {
                                 res.sendStatus(404)
                             } else {
@@ -180,16 +181,17 @@ app.post("/api/buy/invoice/getItem", (req, res) => {
                         var idstock = {
                             _id: mongodb.ObjectID(result[0].ID_MST_stock)
                         }
-                        var idemployee = {
-                            ID_MST_employee: result[0].ID_MST_employee
-                        }
+                        // var idemployee = {
+                        //     ID_MST_employee: result[0].ID_MST_employee
+                        // }
                         dbo.collection('MST_customer').find(idcustomer).toArray((err, result) => {
                             if (err) {
                                 res.sendStatus(404)
                             } else {
                                 respons.push(result)
 
-                                dbo.collection('MST_employee').find(idemployee).toArray((err, result) => {
+                                dbo.collection('MST_employee').find() .sort({$natural: -1})
+                                .limit(1).toArray((err, result) => {
                                     if (err) {
                                         res.sendStatus(404)
                                     } else {
@@ -234,7 +236,7 @@ app.post("/api/sale/bill/getItem", (req, res) => {
         }
 
         var respons = [];
-        console.log("conenct sale")
+        console.log(idc)
 
         dbo.collection('TRN_sale_contract').find(idc).toArray((err, result) => {
             if (err) {
@@ -242,11 +244,11 @@ app.post("/api/sale/bill/getItem", (req, res) => {
             } else {
 
                 if (result.length == 0) {
-
+                    console.log(result)
                     res.sendStatus(404)
                 } else {
                     console.log("conenct sale TRN_sale_contract")
-
+                    console.log(result)
                     respons.push(result)
                     var idcustomer = {
                         _id: mongodb.ObjectID(result[0].ID_MST_customer)
@@ -256,21 +258,20 @@ app.post("/api/sale/bill/getItem", (req, res) => {
                         _id: mongodb.ObjectID(result[0].ID_MST_stock)
 
                     }
-                    var idemployee = {
-                        _id: mongodb.ObjectID(result[0].ID_MST_employee)
-
-                    }
+                 
                     dbo.collection('MST_customer').find(idcustomer).toArray((err, result) => {
                         if (err) {
                             res.sendStatus(404)
                         } else {
                             console.log("conenct sale MST_customer")
                             respons.push(result)
-
-                            dbo.collection('MST_employee').find(idemployee).toArray((err, result) => {
+                            console.log(result)
+                            dbo.collection('MST_employee').find().sort({$natural: -1})
+                            .limit(1).toArray((err, result) => {
                                 if (err) {
                                     res.sendStatus(404)
                                 } else {
+                                    console.log(result)
                                     console.log("conenct sale MST_employee")
                                     respons.push(result)
                                     dbo.collection('MST_stock').find(idstock).toArray((err, result) => {
@@ -279,11 +280,12 @@ app.post("/api/sale/bill/getItem", (req, res) => {
                                         } else {
                                             console.log("conenct sale MST_stock")
                                             respons.push(result)
-
+                                            console.log(result)
                                             dbo.collection('TRN_sale_bill').find().count((err, result) => {
                                                 if (err) {
                                                     res.sendStatus(404)
                                                 } else {
+                                                    console.log(result)
                                                     console.log("conenct sale  TRN_sale_bill")
                                                     respons.push(result)
                                                     res.send(respons)
@@ -386,17 +388,18 @@ app.post("/api/sale/invoice/getItem", (req, res) => {
                                 _id: mongodb.ObjectID(result[0].ID_MST_stock)
 
                             }
-                            var idemployee = {
-                                _id: mongodb.ObjectID(result[0].ID_MST_employee)
+                            // var idemployee = {
+                            //     _id: mongodb.ObjectID(result[0].ID_MST_employee)
 
-                            }
+                            // }
                             dbo.collection('MST_customer').find(idcustomer).toArray((err, result) => {
                                 if (err) {
                                     res.sendStatus(404)
                                 } else {
                                     respons.push(result)
 
-                                    dbo.collection('MST_employee').find(idemployee).toArray((err, result) => {
+                                    dbo.collection('MST_employee').find() .sort({$natural: -1})
+                                    .limit(1).toArray((err, result) => {
                                         if (err) {
                                             res.sendStatus(404)
                                         } else {
