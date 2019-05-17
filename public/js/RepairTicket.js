@@ -69,21 +69,13 @@ function getTableCarRecieve() {
 }
 
 function PrintDiv() {
-    var divToPrint = document.getElementById('mmform'); // เลือก div id ที่เราต้องการพิมพ์
-    var html = '<!DOCTYPE HTML>' + '<html>' + // 
-        '<head>' +
-        '<link href=\"print.css\" rel=\"stylesheet\" type=\"text/css\"/>' +
-        '<link rel=\"stylesheet\" href=\"./../../css/style.css\" />' +
-        '</head>' +
-        '<body onload="\window.print(); window.close();\">' + divToPrint.innerHTML + '</body>' +
-        '</html>';
-
-    var popupWin = window.open();
-
-    popupWin.document.open();
-    popupWin.document.write(html); //โหลด print.css ให้ทำงานก่อนสั่งพิมพ์
-    popupWin.document.close();
-
+    document.getElementById('print').style.display = "none"
+    document.getElementById('insert').style.display = "none"
+    window.print();
+    if(window.closed == false || window.close == true){
+        document.getElementById('print').style.display = "block"
+        document.getElementById('insert').style.display = "block"
+    }
 }
 function InsertTicket(){
     var data = {

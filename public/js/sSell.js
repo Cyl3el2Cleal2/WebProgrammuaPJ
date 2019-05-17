@@ -18,7 +18,15 @@ function sSellSave(){
         alert("กรุณาเพิ่มรถ")
         return
     }
-
+    var dateTx = document.getElementById('date'); 
+    var numTx = document.getElementById('num');
+    var nameEmpTx = document.getElementById('nameEmp');
+    var nameTx = document.getElementById('name');
+    console.log(dateTx.value+"//"+numTx.value+"//"+nameEmpTx.value+"//"+nameTx.value)
+    if(dateTx.value == "" || nameEmpTx.value == "" || nameTx.value == "" || numTx.value == ""){
+        alert("กรุณากรอกข้อมูลให้ครบถ้วน")
+        return
+    }
 
 
     var data = {
@@ -96,6 +104,13 @@ function getEmpData(){
 
 
 function queryData() {
+    var table = document.getElementById('fixed_header');
+
+    if(table.rows.length == 2){
+        window.open(window.location.href);
+    }else{
+
+    
     if(document.getElementById("fixed_header").rows.length>2){
         window.open(window.location.href +' '+document.getElementById('car').value)
     }
@@ -147,5 +162,5 @@ function queryData() {
             console.log("ERROR: ", e);
         }
     });
-
+    }
 }

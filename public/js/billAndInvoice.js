@@ -37,7 +37,7 @@ function getbillBuy() {
             var contract = res[0];      //array of contract
             var customer = res[1];  //array of customer
             var stock = res[3];      //array of stock 
-            if (res[0].length == 0 || res[1].length == 0 || res[2].length == 0 || res[3].length == 0) {
+            if (res[0].length == 0 || res[1].length == 0  || res[3].length == 0) {
                 alert("เกิดข้อผิดพลาด")
             } else {
                 var json = []
@@ -84,9 +84,9 @@ function getbillBuy() {
                 document.getElementById("BVtable").innerHTML = tableHeader + tableContent + tableFooter;
                 document.getElementById("priceHeader").innerHTML = pr
                 document.getElementById("invB").innerHTML = " -"
-                var vat = 0.5;
+                var vat = 5;
                 var prs = pr * (vat / 100)
-                document.getElementById("invH").innerHTML = prs
+                document.getElementById("invH").innerHTML =  vat +"%"
                 document.getElementById("priceH2").innerHTML = pr
                 document.getElementById("total").innerHTML = pr + prs
                 document.getElementById("date").innerHTML = contract[0].date
@@ -127,7 +127,7 @@ function getbillSale() {
                 var contract = res[0];      //array of contract
                 var customer = res[1];  //array of customer
                 var stock = res[3];      //array of stock 
-                if (res[0].length == 0 || res[1].length == 0 || res[2].length == 0 || res[3].length == 0) {
+                if (res[0].length == 0 || res[1].length == 0  || res[3].length == 0) {
                     alert("เกิดข้อผิดพลาด")
                 } else {
                     var json = []
@@ -175,9 +175,9 @@ function getbillSale() {
                     document.getElementById("BVtable").innerHTML = tableHeader + tableContent + tableFooter;
                     document.getElementById("priceHeader").innerHTML = pr
                     document.getElementById("invB").innerHTML = " -"
-                    var vat = 0.5;
+                    var vat = 5;
                     var prs = pr * (vat / 100)
-                    document.getElementById("invH").innerHTML = prs
+                    document.getElementById("invH").innerHTML =  vat +"%"
                     document.getElementById("priceH2").innerHTML = pr
                     document.getElementById("total").innerHTML = pr + prs
                     document.getElementById("date").innerHTML = contract[0].date
@@ -228,9 +228,9 @@ function getbillCarRecieve() {
                     for (var i = 0; i < detail.length; i++) {
                         var table = {            //data of table
                             _id: i,
-                            license_plate: detail[0].nameSpare,
-                            model: detail[0].numSpare,
-                            ID_MST_stock: detail[0].priceSpare,
+                            license_plate: detail[i].nameSpare,
+                            model: detail[i].numSpare,
+                            ID_MST_stock: detail[i].priceSpare,
 
                         }
                         json.push(table)
@@ -273,9 +273,9 @@ function getbillCarRecieve() {
                     document.getElementById("BVtable").innerHTML = tableHeader + tableContent + tableFooter;
                     document.getElementById("priceHeader").innerHTML = pricetotal
                     document.getElementById("invB").innerHTML = " -"
-                    var vat = 0.5;
+                    var vat = 5;
                     var prs = pricetotal * (vat / 100)
-                    document.getElementById("invH").innerHTML = prs
+                    document.getElementById("invH").innerHTML =  vat +"%"
                     document.getElementById("priceH2").innerHTML = pricetotal
                     document.getElementById("total").innerHTML = pricetotal + prs
                     document.getElementById("date").innerHTML = contract[0].date
@@ -328,7 +328,7 @@ function getbillLicense() {
                     var table = {            //data of table
                         ID_TRN_buy: i,
                         license_plate: detail[i].car_number,
-                        model: detail[i].name,
+                        model: detail[i].car_model,
                         ID_MST_stock: stock[0]._id,
                         weight: "-"
 
@@ -373,17 +373,17 @@ function getbillLicense() {
                 document.getElementById("BVtable").innerHTML = tableHeader + tableContent + tableFooter;
                 document.getElementById("priceHeader").innerHTML = pricetotal
                 document.getElementById("invB").innerHTML = " -"
-                var vat = 0.5;
+                var vat = 5;
                 var prs = pricetotal * (vat / 100)
-                document.getElementById("invH").innerHTML = prs
+                document.getElementById("invH").innerHTML = vat +"%"
                 document.getElementById("priceH2").innerHTML = pricetotal
                 document.getElementById("total").innerHTML = pricetotal + prs
                 let current_datetime = new Date()
                 let formatted_date = current_datetime.getDate() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getFullYear()
-               
+
                 document.getElementById("date").innerHTML = formatted_date
                 document.getElementById("customer").innerHTML = customer[0].firstname + " " + customer[0].lastname
-                var idc = 10000+ parseInt(current_datetime.getMinutes())
+                var idc = 10000 + parseInt(current_datetime.getMinutes())
 
                 document.getElementById("idbuy").innerHTML = idc
             }
@@ -419,12 +419,13 @@ function insertItemBill(collection) {
 }
 function insertBill(url, next) {
 
-
+    var vat = $('#invH').text().split("%")
+    console.log(vat[0])
     var data = {
         date: $('#date').text(),
         type: $('#type').text(),
         total: $('#total').text(),
-        vat: $('#invH').text(),
+        vat: vat[0],
         insure: "",
         price: $('#priceH2').text(),
         fk: location.search.substring(1)
@@ -505,6 +506,7 @@ function getTableBuyInvoice() {
             var stock = res[4];
 
             var vat = parseInt(bill[0].vat);
+            console.log(vat)
             var table = {
                 ID_TRN_taxlnvoice: "1",
                 license_plate: stock[0].license_plate,
@@ -554,10 +556,10 @@ function getTableBuyInvoice() {
 
             document.getElementById("priceAll").innerHTML = pr;
             var inv = vat
-            document.getElementById("inv").innerHTML = inv;
+            document.getElementById("inv").innerHTML = inv +"%";
 
             var pri = pr + inv
-            document.getElementById("priceAddinv").innerHTML = pri;
+            document.getElementById("priceAddinv").innerHTML = bill[0].total;
 
 
         },
@@ -585,8 +587,9 @@ function getTableSaleInvoice() {
             var stock = res[4];
 
             var vat = parseInt(bill[0].vat);
+            console.log(bill[0].vat)
             var table = {
-                ID_TRN_taxlnvoice: "1",
+                ID_TRN_taxlnvoice: stock[0].length,
                 license_plate: stock[0].license_plate,
                 type: stock[0].model,
                 color: stock[0].color,
@@ -633,11 +636,11 @@ function getTableSaleInvoice() {
             document.getElementById("BVtable").innerHTML = tableHeader + tableContent + tableFooter;
 
             document.getElementById("priceAll").innerHTML = pr;
-            var inv = vat
-            document.getElementById("inv").innerHTML = inv;
+            
+            document.getElementById("inv").innerHTML = bill[0].vat +"%";
 
-            var pri = pr + inv
-            document.getElementById("priceAddinv").innerHTML = pri;
+          
+            document.getElementById("priceAddinv").innerHTML =  bill[0].total;
 
 
         },
@@ -671,12 +674,12 @@ function getTableCarInvoice() {
                     ID_TRN_taxlnvoice: i,
                     nameSpare: detail[i].nameSpare,
                     numSpare: detail[i].numSpare,
-
                     price: detail[i].priceSpare
                 }
 
                 json.push(table)
             }
+            console.log(json)
             document.getElementById("num1").innerHTML = res[5];
             document.getElementById("num2").innerHTML = bill[0].ID_TRN_maintainance_bill;
             document.getElementById("date").innerHTML = bill[0].date;
@@ -702,7 +705,7 @@ function getTableCarInvoice() {
             var tableFooter = "</table>";
             document.getElementById("BVtable").innerHTML = tableHeader + tableContent + tableFooter;
             document.getElementById("priceAll").innerHTML = bill[0].price;
-            document.getElementById("inv").innerHTML = bill[0].vat;
+            document.getElementById("inv").innerHTML = bill[0].vat +"%";
             document.getElementById("priceAddinv").innerHTML = bill[0].total;
         },
         error: function (e) {
@@ -736,12 +739,11 @@ function getTableLicenseInvoice() {
                 var table = {            //data of table
                     ID_TRN_buy: i,
                     license_plate: detail[i].car_number,
-                    model: detail[i].name,
+                    model: detail[i].car_model,
                     ID_MST_stock: detail[i].price,
                     weight: "-",
 
                 }
-
 
                 json.push(table)
             }
@@ -773,7 +775,7 @@ function getTableLicenseInvoice() {
             var tableFooter = "</table>";
             document.getElementById("BVtable").innerHTML = tableHeader + tableContent + tableFooter;
             document.getElementById("priceAll").innerHTML = bill[0].price;
-            document.getElementById("inv").innerHTML = bill[0].vat;
+            document.getElementById("inv").innerHTML = bill[0].vat +"%";
             document.getElementById("priceAddinv").innerHTML = bill[0].total
 
         },
@@ -897,18 +899,29 @@ function insertInvoieLicense() {
         }
     })
 }
-function PrintDiv() {
-    var divToPrint = document.getElementById('forms'); // เลือก div id ที่เราต้องการพิมพ์
-    var html = '<!DOCTYPE HTML>' + '<html>' + // 
-        '<head>' +
-        '<link href=\"print.css\" rel=\"stylesheet\" type=\"text/css\"/>' +
-        '<link rel=\"stylesheet\" href=\"./../../css/style.css\" />' +
-        '</head>' +
-        '<body onload="\window.print(); window.close();\">' + divToPrint.innerHTML + '</body>' +
-        '</html>';
-    var popupWin = window.open();
-    popupWin.document.open();
-    popupWin.document.write(html); //โหลด print.css ให้ทำงานก่อนสั่งพิมพ์
-    popupWin.document.close();
+// function PrintDiv() {
+//     var divToPrint = document.getElementById('forms'); // เลือก div id ที่เราต้องการพิมพ์
+//     var html = '<!DOCTYPE HTML>' + '<html>' + // 
+//         '<head>' +
+//         '<link href=\"print.css\" rel=\"stylesheet\" type=\"text/css\"/>' +
+//         '<link rel=\"stylesheet\" href=\"./../../css/style.css\" />' +
+//         '</head>' +
+//         '<body onload="\window.print(); window.close();\">' + divToPrint.innerHTML + '</body>' +
+//         '</html>';
+//     var popupWin = window.open();
+//     popupWin.document.open();
+//     popupWin.document.write(html); //โหลด print.css ให้ทำงานก่อนสั่งพิมพ์
+//     popupWin.document.close();
 
+// }
+function PrintDiv() {
+    document.getElementById('print').style.display = "none"
+    document.getElementById('insert').style.display = "none"
+    window.print();
+    if(window.closed == false || window.close == true){
+        document.getElementById('print').style.display = "block"
+        document.getElementById('insert').style.display = "block"
+    }
+       
+   
 }
