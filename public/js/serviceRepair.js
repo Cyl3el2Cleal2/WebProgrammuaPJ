@@ -126,7 +126,7 @@ function insertToDB() {
             carModel: carModel,
             carColor: carColor,
             ID_MST_employee: empID,
-            ID_MST_customer: ID_MST_customer,
+            ID_MST_customer: id_mst_customer,
             carSpare: spare
 
         }

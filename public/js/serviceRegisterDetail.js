@@ -117,6 +117,7 @@ function insertToDB() {
                 var result = JSON.stringify(customer);
                  if (customer.status == 'true') {
                     alert("insert Successful!")
+                    console.log(customer._id)
                     window.location.href = "./../../main/regis/rgBill.html?" + customer._id
 
                 } else {
