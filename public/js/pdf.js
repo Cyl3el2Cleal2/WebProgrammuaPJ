@@ -56,7 +56,7 @@ function showPdf() {
 var ID_buy_con;
 var ID_customer;
 var ID_stock;
-var ID_employee = "E00012";
+var ID_employee = "E00013";
 var ID_buy;
 // กรอก
 var location;
@@ -69,37 +69,62 @@ var license;
 var model;
 var color;
 
-function getData() {
+function getData(n) {
   var id = {
     id: location.search.substring(1)
   };
-  $.ajax({
-    type: "POST",
-    contentType: "application/json",
-    url: "http://localhost:3000/api/deal/getItem",
-    data: JSON.stringify(id),
-    dataType: "json",
-    success: function(res) {
-      console.log(res);
-      name_customer = res[3];
-      license = res[5];
-      model = res[4];
-      color = res[6];
-      ID_buy = res[0];
-      ID_customer = res[1];
-      ID_stock = res[2];
-      money = res[7];
-      init();
-    },
-    error: function(e) {
-      console.log("ERROR: ", e);
-    }
-  });
+  if(n == 1){
+    $.ajax({
+      type: "POST",
+      contentType: "application/json",
+      url: "http://localhost:3000/api/deal/getItem",
+      data: JSON.stringify(id),
+      dataType: "json",
+      success: function(res) {
+        console.log(res);
+        name_customer = res[3];
+        license = res[5];
+        model = res[4];
+        color = res[6];
+        ID_buy = res[0];
+        ID_customer = res[1];
+        ID_stock = res[2];
+        money = res[7];
+        init();
+      },
+      error: function(e) {
+        console.log("ERROR: ", e);
+      }
+    });
+  }else{////////////////////////for sale
+    $.ajax({
+      type: "POST",
+      contentType: "application/json",
+      url: "http://localhost:3000/api/sale/deal/getItem",
+      data: JSON.stringify(id),
+      dataType: "json",
+      success: function(res) {
+        console.log(res);
+        name_customer = res[3];
+        license = res[5];
+        model = res[4];
+        color = res[6];
+        ID_buy = res[0];
+        ID_customer = res[1];
+        ID_stock = res[2];
+        money = res[7];
+        init();
+      },
+      error: function(e) {
+        console.log("ERROR: ", e);
+      }
+    });
+  }
 }
 
 function init() {
   $("#name").val(name_customer);
-  $("#emp").val("สุเทพ เทือกสูบรรณ");
+  $("#emp").val("ประยุทธ์ จันทร์โอชา");
   $("#address").val("130/1 อาคารปานศรี ซอยรัชดาภิเษก");
   $("#type").val(model);
   $("#license").val(license);

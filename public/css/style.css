@@ -349,7 +349,7 @@ input[type="radio"]+label {
     font-family: Arial, sans-serif;
 }
 
-input[type="radio"]+label span {
+ input[type="radio"]+label span {
     display: inline-block;
     width: 19px;
     height: 19px;
@@ -361,7 +361,7 @@ input[type="radio"]+label span {
 
 input[type="radio"]:checked+label span {
     background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/210284/check_radio_sheet.png) -57px top no-repeat;
-}
+} 
 
 .isleft {
     text-align: left;
@@ -686,7 +686,7 @@ input[type="radio"]:checked+label span {
     color: white !important;
 }
 
-input[type="radio"] {
+/* input[type="radio"] {
     display: none;
 }
 
@@ -700,14 +700,13 @@ input[type="radio"]+label span {
     width: 19px;
     height: 19px;
     margin: 0px 10px -5px -1px;
-    /* vertical-align:middle; */
     background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/210284/check_radio_sheet.png) -38px top no-repeat;
     cursor: pointer;
 }
 
 input[type="radio"]:checked+label span {
     background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/210284/check_radio_sheet.png) -57px top no-repeat;
-}
+} */
 
 /*>>>>>>>>>>> Alex <<<<<<<<<<<< */
 

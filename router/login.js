@@ -17,19 +17,26 @@ app.post("/api/login", (req, res) => {
 
         }
         console.log(user)
-        dbo.collection('MST_employee').find(user).count((err, result) => {
+        dbo.collection('MST_employee').find(user).toArray((err, result) => {
             if (err) {
                 res.sendStatus(404)
             } else {
                 console.log(result)
-                if (result > 0) {
-                
-                    res.send('true')
+                if (result.length > 0) {
+                   
+                    result[0].status = 'true';
+                    
+
+                    
+                    res.send(result[0]);
+                    //res.send('true')
 
 
                 } else {
                   
-                    res.send('false')
+                    res.send({
+                        'status':'false'
+                    })
                 }
 
             }

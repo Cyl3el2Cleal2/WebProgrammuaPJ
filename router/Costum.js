@@ -41,4 +41,31 @@ app.post("/api/Custum", (req, res) => {
         })
     });
 })
+
+
+
+app.post('/api/cus/search', (req, res) => {
+    console.log("73 emp.js")
+
+    MongoClient.connect(url, function (err, db) {
+        if (err) throw err;
+        var dbo = db.db("gigabug");
+        var findId = req.body.emp_id;
+        findId = String(findId).replace("#", '');
+        console.log(findId)
+        var condi = {
+            "_id": mongodb.ObjectID(findId)
+        }
+        dbo.collection("MST_customer").find(condi).toArray(function (err, result) {
+
+            if (err) {
+                print(err)
+                throw err
+                res.send(err.code)
+            };
+            res.send(result[0])
+            db.close();
+        });
+    });
+});
 module.exports = app;
