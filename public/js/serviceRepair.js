@@ -1,5 +1,5 @@
 
-var id_mst_customer;
+var id_mst_customer = location.search.substring(1);
 function getData() {
 
     id_mst_customer = location.search.substring(1)

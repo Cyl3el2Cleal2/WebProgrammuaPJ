@@ -725,8 +725,8 @@ function getTableLicenseInvoice() {
 
             console.log(res)
             var bill = res[0];
-            var customer = res[3];
-            var stock = res[2];
+            var customer = res[2];
+            var stock = res[1];
             var detail = stock[0].detail
 
             var vat = parseInt(bill[0].vat);
@@ -745,7 +745,7 @@ function getTableLicenseInvoice() {
 
                 json.push(table)
             }
-            document.getElementById("num1").innerHTML = res[4];
+            document.getElementById("num1").innerHTML = res[3];
             document.getElementById("num2").innerHTML = bill[0].TRN_license_bill;
             document.getElementById("date").innerHTML = bill[0].date;
             document.getElementById("typeCus").innerHTML = bill[0].type;
