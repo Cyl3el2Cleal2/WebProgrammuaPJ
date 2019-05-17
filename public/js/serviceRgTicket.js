@@ -19,9 +19,9 @@ function init() {
             if (JSON.stringify(customer) != 'false') {
                 alert("Load Successful!")
                 document.getElementById("numberOfTicket").innerHTML = "เลขที่___" + customer[1] + "___";
-                document.getElementById("numberCarAndNumberTank").innerHTML = "เอกสารที่ให้ไว้เพื่อแสดงว่ารถหมายเลขทะเบียนที่____" + customer[2] + "____" + "ตัวถังที่ ___" + customer[0].ID_TRN_per_license_plate_detail + "___";
+                document.getElementById("numberCarAndNumberTank").innerHTML = "เอกสารที่ให้ไว้เพื่อแสดงว่ารถหมายเลขทะเบียนที่____" + customer[2] + "____" + "ตัวถังที่ ___" + customer[0].TRN_per_license_plate_detail + "___";
                 document.getElementById("timeData").innerHTML = "ได้ทำประกันภัยตามพระรายบัญญัติคุ้มคริงผู้ประสบภัยจากรถยนต์ 2562 โดยมีระยะเวลาประกันภัย วันที่ ___" + customer[0].date + "___";
-                document.getElementById("numb").innerHTML = "ตามกรมธรรม์ประกันภัยเลขที่ ___" + customer[0].ID_TRN_license_bill + "___ ของบริษัท ____โชคทวีออโต้เซลล์____";
+                document.getElementById("numb").innerHTML = "ตามกรมธรรม์ประกันภัยเลขที่ ___" + customer[0].TRN_license_bill + "___ ของบริษัท ____โชคทวีออโต้เซลล์____";
             } else {
                 alert("Load Incorrect!");
             }

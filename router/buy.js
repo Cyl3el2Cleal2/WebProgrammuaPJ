@@ -733,22 +733,14 @@ app.post("/api/license/bill/getItem", (req, res) => {
 
                 } else {
                     respons.push(result)
+                    console.log(result)
                     var customerr = {
                         _id: mongodb.ObjectID(result[0].ID_MST_customer)
                     }
-                    var getlicense = {
-                        _id: mongodb.ObjectID(result[0].ID_TRN_get_licence_plate)
-                    }
+                  
 
 
-                    dbo.collection('TRN_get_license_plate').find(getlicense).toArray((err, result) => {
-                        if (err) {
-                            res.sendStatus(404)
-                        } else {
-
-                            console.log("conenct getlicense")
-                            respons.push(result)
-                            console.log(result)
+               
 
                             dbo.collection('MST_customer').find(customerr).toArray((err, result) => {
                                 if (err) {
@@ -770,9 +762,7 @@ app.post("/api/license/bill/getItem", (req, res) => {
                                 }
 
                             })
-                        }
-
-                    })
+                   
 
                 }
             }
@@ -862,14 +852,7 @@ app.post("/api/repair/invoice/getItem", (req, res) => {
                                 }
             
             
-                                dbo.collection('TRN_get_license_plate').find(getlicense).toArray((err, result) => {
-                                    if (err) {
-                                        res.sendStatus(404)
-                                    } else {
-            
-                                        console.log("conenct getlicense")
-                                        respons.push(result)
-                                        console.log(result)
+                               
             
                                         dbo.collection('MST_customer').find(customerr).toArray((err, result) => {
                                             if (err) {
@@ -891,9 +874,7 @@ app.post("/api/repair/invoice/getItem", (req, res) => {
                                             }
             
                                         })
-                                    }
-            
-                                })
+                                
             
                             }
                         }

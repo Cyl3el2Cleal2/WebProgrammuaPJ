@@ -1,7 +1,7 @@
 function getTableCarRecieve() {
 
     var id = {
-        id: location.search.substring(0)
+        id: location.search.substring(1)
     }
     $.ajax({
         type: "POST",
@@ -15,23 +15,27 @@ function getTableCarRecieve() {
             console.log(res)
             var bill = res[0];
             var customer = res[2];
-            var stock = res[4];
-
-            var vat = parseInt(bill[0].vat);
-            var table = {
-                ID_TRN_car_recieve: "1",
-                license_plate: stock[0].license_plate,
-                type: stock[0].model,
-                color: stock[0].color,
-                price: stock[0].price
-            }
-            document.getElementById("mmRecieveDate").value = bill[0].date;
-            document.getElementById("thisDate").value = bill[0].type;
-            document.getElementById('recieveName').value = customer[0].firstname + " " + customer[0].lastname
-            document.getElementById('recieveTel').value = customer[0].tel
-
+            var stock = res[1];
+            console.log(customer)
+            var detail = stock[0].carSpare
             var json = []
-            json.push(table)
+          
+            for(var i =0;i<detail.length;i++){
+                var table = {
+                    ID_TRN_car_recieve: i,
+                    license_plate: bill[0].carLicense,
+                    type: bill[0].carModel,
+                    Rep : detail[i].nameSpare
+                    
+                }
+                json.push(table)
+            }
+           
+            document.getElementById("mmRecieveDate").value = stock[0].date;
+            document.getElementById("thisDate").innerHTML = stock[0].date;
+            document.getElementById('recieveName').innerHTML = customer[0].firstname + " " + customer[0].lastname
+            document.getElementById('recieveTel').innerHTML = customer[0].tel
+
 
             var td = "mmtd"
             var th = "mmBVth"
@@ -45,10 +49,10 @@ function getTableCarRecieve() {
             var p;
             for (i = 0; i < json.length; i++) {
                 tableContent = tableContent + "<tr class=" + tr + ">" +
-                    "<td class=" + td + ">" + json[i].ID_TRN_car_Recieve +
-                    "</td> <td class=" + td + ">" + json[i].license_platcar +
-                    "</td> <td class=" + td + ">" + json[i].type + json[i].color +
-                    "</td> <td class=" + td + ">" + json[i].price +
+                    "<td class=" + td + ">" + json[i].ID_TRN_car_recieve +
+                    "</td> <td class=" + td + ">" + json[i].license_plate +
+                    "</td> <td class=" + td + ">" + json[i].type +
+                    "</td> <td class=" + td + ">" + json[i].Rep +
                     "</tr>";
 
             }
@@ -80,4 +84,35 @@ function PrintDiv() {
     popupWin.document.write(html); //โหลด print.css ให้ทำงานก่อนสั่งพิมพ์
     popupWin.document.close();
 
+}
+function InsertTicket(){
+    var data = {
+       
+    recieveName : $('#recieveName').text(),
+    recieveTel : $('#recieveTel').text(),
+    date : $('#mmRecieveDate').text(),
+    TRN_maintennance_detail_administer : location.search.substring(1)
+        
+    }
+    console.log(data)
+
+    $.ajax({
+        type: "POST",
+        contentType: "application/json",
+        url: "http://localhost:3000/api/car_recieve/Ticket/insert",
+        data: JSON.stringify(data),
+        dataType: 'json',
+        success: function (res) {
+          
+                alert("ทำรายการ " + $('#typeCus').text() + " " + "สำเร็จ")
+                window.location.href = "rpBill.html?" + res.id
+          
+              
+            
+
+        },
+        error: function (e) {
+            alert("ทำรายการ " + $('#typeCus').text() + " " + "ไม่สำเร็จ")
+        }
+    })
 }

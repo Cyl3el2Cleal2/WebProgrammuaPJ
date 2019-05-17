@@ -311,12 +311,12 @@ function getbillLicense() {
             console.log(res)
 
 
-            var contract = res[0];      //array of contract
-            var customer = res[2];  //array of customer
-            var stock = res[1];
+            //array of contract
+            var customer = res[1];  //array of customer
+            var stock = res[0];
             var pricetotal = 0;
             //array of stock 
-            if (res[0].length == 0 || res[1].length == 0 || res[2].length == 0 || res[3].length == 0) {
+            if (res[0].length == 0 || res[1].length == 0) {
                 alert("เกิดข้อผิดพลาด")
             } else {
                 var json = []
@@ -329,7 +329,7 @@ function getbillLicense() {
                         ID_TRN_buy: i,
                         license_plate: detail[i].car_number,
                         model: detail[i].name,
-                        ID_MST_stock: detail[i].generation,
+                        ID_MST_stock: stock[0]._id,
                         weight: "-"
 
                     }
@@ -378,9 +378,12 @@ function getbillLicense() {
                 document.getElementById("invH").innerHTML = prs
                 document.getElementById("priceH2").innerHTML = pricetotal
                 document.getElementById("total").innerHTML = pricetotal + prs
-                document.getElementById("date").innerHTML = stock[0].dateEnd
+                let current_datetime = new Date()
+                let formatted_date = current_datetime.getDate() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getFullYear()
+               
+                document.getElementById("date").innerHTML = formatted_date
                 document.getElementById("customer").innerHTML = customer[0].firstname + " " + customer[0].lastname
-                var idc = 10000 + res[3]
+                var idc = 10000+ parseInt(current_datetime.getMinutes())
 
                 document.getElementById("idbuy").innerHTML = idc
             }
@@ -656,12 +659,10 @@ function getTableCarInvoice() {
         dataType: 'json',
         success: function (res) {
             console.log(res.length)
-
             console.log(res)
             var bill = res[0];
             var customer = res[4];
             var stock = res[3];
-
             var vat = parseInt(bill[0].vat);
             var detail = stock[0].carSpare
             var json = []
@@ -676,24 +677,18 @@ function getTableCarInvoice() {
 
                 json.push(table)
             }
-
             document.getElementById("num1").innerHTML = res[5];
             document.getElementById("num2").innerHTML = bill[0].ID_TRN_maintainance_bill;
             document.getElementById("date").innerHTML = bill[0].date;
             document.getElementById("typeCus").innerHTML = bill[0].type;
             document.getElementById('name').innerHTML = customer[0].firstname + " " + customer[0].lastname
             document.getElementById('tel').innerHTML = customer[0].tel
-
-
-
             var td = "BVtd"
             var th = "BVth"
             var table = "BVtable"
             var tr = "BVtr"
-
             var tableHeader = "<table class=" + table + "><tr><th class=" + th + ">ลำดับที่</th ><th class=" + th + ">ชิ้นส่วน</th><th class=" + th + ">จำนวน</th><th class=" + th + ">ราคา</th></tr>";
             var tableContent = "";
-
             var pr = 0;
             var p;
             for (i = 0; i < json.length; i++) {
@@ -703,27 +698,19 @@ function getTableCarInvoice() {
                     "</td> <td class=" + td + ">" + json[i].numSpare +
                     "</td> <td class=" + td + ">  " + json[i].price +
                     "</tr>";
-
-
             }
             var tableFooter = "</table>";
             document.getElementById("BVtable").innerHTML = tableHeader + tableContent + tableFooter;
-
             document.getElementById("priceAll").innerHTML = bill[0].price;
-
             document.getElementById("inv").innerHTML = bill[0].vat;
-
-
             document.getElementById("priceAddinv").innerHTML = bill[0].total;
-
-
         },
         error: function (e) {
             alert("เกิดข้อผิดพลาด")
         }
     });
 }
-function getTableLicenseInvoice(){
+function getTableLicenseInvoice() {
     var id = {
         id: location.search.substring(1)
     }
@@ -744,7 +731,7 @@ function getTableLicenseInvoice(){
 
             var vat = parseInt(bill[0].vat);
             var json = []
-           
+
             for (var i = 0; i < detail.length; i++) {
                 var table = {            //data of table
                     ID_TRN_buy: i,
@@ -752,24 +739,18 @@ function getTableLicenseInvoice(){
                     model: detail[i].name,
                     ID_MST_stock: detail[i].price,
                     weight: "-",
-                  
-                    
 
                 }
 
-               
+
                 json.push(table)
             }
-           
             document.getElementById("num1").innerHTML = res[4];
             document.getElementById("num2").innerHTML = bill[0].TRN_license_bill;
             document.getElementById("date").innerHTML = bill[0].date;
             document.getElementById("typeCus").innerHTML = bill[0].type;
             document.getElementById('name').innerHTML = customer[0].firstname + " " + customer[0].lastname
             document.getElementById('tel').innerHTML = customer[0].tel
-
-           
-
             var td = "BVtd"
             var th = "BVth"
             var table = "BVtable"
@@ -778,27 +759,22 @@ function getTableLicenseInvoice(){
             var tableHeader = "<table class=" + table + "><tr><th class=" + th + ">ลำดับที่</th ><th class=" + th + ">เลขทะเบียน</th><th class=" + th + ">ประเภทรถ</th><th class=" + th + ">ราคา</th></tr>";
             var tableContent = "";
 
-         
+
             for (i = 0; i < json.length; i++) {
                 tableContent = tableContent + "<tr class=" + tr + ">"
                     + "<td class=" + td + ">" + json[i].ID_TRN_buy +
                     "</td> <td class=" + td + ">" + json[i].license_plate +
-                    "</td> <td class=" + td + ">" + json[i]. model +
+                    "</td> <td class=" + td + ">" + json[i].model +
                     "</td> <td class=" + td + ">  " + json[i].ID_MST_stock +
                     "</tr>";
 
-               
+
             }
             var tableFooter = "</table>";
             document.getElementById("BVtable").innerHTML = tableHeader + tableContent + tableFooter;
-
-            document.getElementById("priceAll").innerHTML =bill[0].price ;
-          
+            document.getElementById("priceAll").innerHTML = bill[0].price;
             document.getElementById("inv").innerHTML = bill[0].vat;
-
-            document.getElementById("priceAddinv").innerHTML =  bill[0].total;
-
-
+            document.getElementById("priceAddinv").innerHTML = bill[0].total
 
         },
         error: function (e) {
@@ -808,37 +784,7 @@ function getTableLicenseInvoice(){
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/*******insert invoicre*************** */
 function insertItemInvoie(collection) {
     if (collection == "TRN_buy_bill") {
         insertInvoieBill()
@@ -847,7 +793,7 @@ function insertItemInvoie(collection) {
     } else if (collection == "TRN_car_recieve_bill") {
         console.log("car")
         insertInvoieRepair()
-    }else if(collection == "TRN_license_bill"){
+    } else if (collection == "TRN_license_bill") {
         insertInvoieLicense()
     }
 
@@ -871,9 +817,6 @@ function insertInvoieBill() {
             } else {
                 alert("ทำรายการ " + $('#typeCus').text() + " " + "ไม่สำเร็จ")
             }
-
-
-
 
         },
         error: function (e) {
@@ -924,9 +867,6 @@ function insertInvoieRepair() {
                 alert("ทำรายการ " + $('#type').text() + " " + "สำเร็จ")
                 window.location.href = "./../main.html"
             }
-
-
-
         },
         error: function (e) {
             alert("เกิดข้อผิดพลาด")
@@ -951,9 +891,6 @@ function insertInvoieLicense() {
                 alert("ทำรายการ " + $('#type').text() + " " + "สำเร็จ")
                 window.location.href = "./../main.html"
             }
-
-
-
         },
         error: function (e) {
             alert("เกิดข้อผิดพลาด")
@@ -969,9 +906,7 @@ function PrintDiv() {
         '</head>' +
         '<body onload="\window.print(); window.close();\">' + divToPrint.innerHTML + '</body>' +
         '</html>';
-
     var popupWin = window.open();
-
     popupWin.document.open();
     popupWin.document.write(html); //โหลด print.css ให้ทำงานก่อนสั่งพิมพ์
     popupWin.document.close();

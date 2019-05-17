@@ -9,10 +9,11 @@
     <link rel="stylesheet" href="./../../css/style.css" />
     <noscript>
 	<link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-    <script src="../../js/rpTicket.js"></script>
+    <script src="../../js/RepairTicket.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 
-<body onload="getTableTicket()">
+<body onload="getTableCarRecieve()">
 
     <!-- Wrapper -->
     <div id="wrapper">
@@ -45,7 +46,7 @@
                         </ul>
                         <ul class="mmUl">
                             <li>วันที่
-                                <p id="date" style="display:inline">....../...../.....</p>
+                                <p id="thisDate" style="display:inline">....../...../.....</p>
                             </li>
                         </ul>
                     </div>
@@ -69,13 +70,13 @@
                             <li>&nbsp;</li>
                             <li>
                                 <h3 class="mmh3">วันที่นัดรับ
-                                    <p id="mmRecieveDate" style="display:inline"></p>
+                                    <input id="mmRecieveDate" type="date" style="display:inline">
                                 </h3>
                             </li>
                         </ul>
                     </div><br>
                     <div>
-                        <table class="mmTable" id="mmTable">
+                        <table class="mmTable" id="mmtable">
                             <tr>
                                 <th class="mmth">ลำดับที่</th>
                                 <th class="mmth">ข้อมูลรถ</th>
@@ -96,7 +97,7 @@
                 <hr />
             </form><br>
             <a onclick="PrintDiv()" class="button print" style="position: absolute; right: 9em;">พิมพ์</a>
-            <a href="rpVat.html" class="button" style="position: absolute; right: 2em;">ถัดไป</a>
+            <a onclick="InsertTicket()" class="button" style="position: absolute; right: 2em;">ถัดไป</a>
             <br>
     </div>
 

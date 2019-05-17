@@ -31,7 +31,7 @@ app.post("/api/LoadDataRpTicket", (req, res) => {
                     } else {
                         array.push(result)
                         console.log(result)
-                        dbo.collection('TRN_per_license_plate_detail').find(array[0].ID_TRN_per_license_plate_detail).toArray((err, result) => {
+                        dbo.collection('TRN_per_license_plate_detail').find(array[0].TRN_per_license_plate_detail).toArray((err, result) => {
                             if (err) {
                                 console.log('false')
                                 res.status(404).send('false');
