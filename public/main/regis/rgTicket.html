@@ -2,82 +2,80 @@
 <html lang="en">
 
 <head>
-	<title>ใบรับทะเบียน</title>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-	<link rel="stylesheet" href="./../../css/style.css" />
+    <title>ใบรับทะเบียน</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+    <link rel="stylesheet" href="./../../css/style.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="../../js/serviceRgTicket.js"></script>
 
 </head>
 
-<body class="is-preload">
+<body class="is-preload" onload="init()">
 
-	<!-- Wrapper -->
-	<div id="wrapper">
+    <!-- Wrapper -->
+    <div id="wrapper">
 
-		<!-- Main -->
-		<section id="main">
-			<header>
-				<h1>โชคทวีออโต้เซลล์</h1>
-				<p>ใบรับทะเบียน</p>
-			</header>
+        <!-- Main -->
+        <section id="main">
+            <header>
+                <h1>โชคทวีออโต้เซลล์</h1>
+                <p>ใบรับทะเบียน</p>
+            </header>
+            <hr />
+            <form method="post" action="#">
+                <fieldset>
+                    <div class="fields">
+                        <div class="field">
+                            <h5 class="h5Pop" id="numberOfTicket">เลขที่___________</h5>
+                            <h4 class="h4Pop">ใบรับกาารต่อทะเบียนตามพระราชบัญญัติคุ้มครองผู้ประสบภัยจากรถยนต์</h4>
+                            <br><br><br>
+                            <h6 style="letter-spacing: 0.01em;" id="numberCarAndNumberTank">เอกสารที่ให้ไว้เพื่อแสดงว่ารถหมายเลขทะเบียนที่ ___________________ ตัวถังที่ __________________</h6>
+                            <p style="text-align: left; letter-spacing: 0.01em;" id="timeData">
+                                ได้ทำประกันภัยตามพระรายบัญญัติคุ้มคริงผู้ประสบภัยจากรถยนต์ 2562 โดยมีระยะเวลาประกันภัย วันที่ _________________
+                            </p>
+                            <p style="text-align: left; letter-spacing: 0.01em;" id="numb">
+                                ตามกรมธรรม์ประกันภัยเลขที่ _______________ ของบริษัท ____โชคทวีออโต้เซลล์____
+                            </p>
+                            <br>
 
-			<hr />
+                            <div class="field" align="right">
+                                <ul style="list-style-type: none;text-align:center;display: inline-block; letter-spacing: 0.01em;">
+                                    <li>
 
-			<form method="post" action="#">
-				<fieldset>
-					<div class="fields">
-						<div class="field">
-							<h5 class="h5Pop">เลขที่_____________</h5>
-							<h4 class="h4Pop">ใบรับกาารต่อทะเบียนตามพระราชบัญญัติคุ้มครองผู้ประสบภัยจากรถยนต์</h4>
-							<br><br><br>
-							<h6 style="letter-spacing: 0.01em;">เอกสารที่ให้ไว้เพื่อแสดงว่ารถหมายเลขทะเบียนที่ ___________________ ตัวถังที่
-								__________________</h6>
-							<p style="text-align: left; letter-spacing: 0.01em;">
-								ได้ทำประกันภัยตามพระรายบัญญัติคุ้มคริงผู้ประสบภัยจากรถยนต์ 2562 โดยมีระยะเวลาประกันภัย
-								เริ่มวันที่ _________________
-							</p>
-							<p style="text-align: left; letter-spacing: 0.01em;">
-								ถึงวันที่ _________________ ตามกรมธรรม์ประกันภัยเลขที่ _______________ ของบริษัท
-								___________________
-							</p>
-							<br>
-
-							<div class="field" align="right">
-								<ul style="list-style-type: none;text-align:center;display: inline-block; letter-spacing: 0.01em;">
-									<li>
-
-										ลงชื่อ
-										<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>
-										<br>
-										<small>เจ้าหน้าที่</small>
-									</li>
-								</ul>
-								<ul style="list-style-type:none;text-align:center;display: inline-block; letter-spacing: 0.01em;">
-									<li>
-										ลงชื่อ
-										<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>
-										<br>
-										<small>ลูกค้า</small>
-									</li>
-								</ul>
-							</div>
-							<br>
-						</div>
-					</div>
-				</fieldset>
-				<br>
-			</form>
-			<hr />
-<br>
-<a href="#" class="button print" style="position: absolute; right: 9em;" >พิมพ์</a>
-<a href="rgVat.html" class="button" style="position: absolute; right: 2em;">ถัดไป</a>
-			<br>
+                                        ลงชื่อ
+                                        <u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>
+                                        <br>
+                                        <small>เจ้าหน้าที่</small>
+                                    </li>
+                                </ul>
+                                <ul style="list-style-type:none;text-align:center;display: inline-block; letter-spacing: 0.01em;">
+                                    <li>
+                                        ลงชื่อ
+                                        <u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>
+                                        <br>
+                                        <small>ลูกค้า</small>
+                                    </li>
+                                </ul>
+                            </div>
+                            <br>
+                        </div>
+                    </div>
+                </fieldset>
+                <br>
+            </form>
+            <hr />
+            <br>
+            <a href="#" class="button print" style="position: absolute; right: 9em;">พิมพ์</a>
+            <a class="button" style="position: absolute; right: 2em;" onclick="sendTo()">ถัดไป</a>
+            <br>
 
 
-		</section>
+        </section>
 
 
-	</div>
+    </div>
 </body>
 
 </html>

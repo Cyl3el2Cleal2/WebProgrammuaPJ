@@ -16,12 +16,12 @@ var recieve = require('./router/carRecieve')
 var costum = require('./router/Costum')
 var path = require('path');
 var bBuy = require('./router/bBuy')
-var stock = require('./router/stock')
+var rgTicket = require('./router/rgTicket')
 app.use(express.static('public'));
-app.get('/', function (req, res) {
-    res.sendFile(path.join(__dirname,'public', 'login.html'));
+app.get('/', function(req, res) {
+    res.sendFile(path.join(__dirname, 'public', 'login.html'));
 });
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(login)
 app.use(forget)
@@ -29,17 +29,17 @@ app.use(register)
 app.use(buy)
 app.use(recieve)
 app.use(costum)
-app.use(stock)
-//Uncomment ถ้าทำแล้ว
+    //Uncomment ถ้าทำแล้ว
 app.use(bBuy)
 app.use(sale)
-// app.use(repair)
+app.use(rgTicket)
+    // app.use(repair)
 
 // app.use(sale)
 app.use(repair)
 app.use(deal)
-// app.use(regis)
+    // app.use(regis)
 app.use(emp)
 app.listen(process.env.PORT || 3000, () => {
-  console.log('Start server at port 3000.')
+    console.log('Start server at port 3000.')
 })

@@ -17,12 +17,11 @@ app.post("/api/insertToDB", (req, res) => {
         carModel: req.body.carModel,
         carColor: req.body.carColor,
         ID_MST_employee: req.body.ID_MST_employee,
-        ID_MST_customer:req.body.ID_MST_customer,
         carSpare: req.body.carSpare,
     }
 
-    //console.log(data)
-    MongoClient.connect(url, function (err, db) {
+    console.log(data)
+    MongoClient.connect(url, function(err, db) {
         if (err) throw err;
         var dbo = db.db("gigabug");
 
@@ -30,7 +29,7 @@ app.post("/api/insertToDB", (req, res) => {
             if (err) {
                 console.log("error edit ID");
             } else {
-                //console.log("Count = " + result)
+                console.log("Count = " + result)
                 if (result > 0) {
                     if (result < 9) {
                         data.ID_TRNmaintennance_detail_repairman = "MDR0000" + (result + 1);
@@ -51,14 +50,8 @@ app.post("/api/insertToDB", (req, res) => {
                     res.sendStatus(404)
                     res.send('false')
                 } else {
-                    // console.log(result)
-                    // res.send('true')
-                    var dataresult = {
-                        _id: result.ops[0]._id,
-                        status: 'true'
-                    }
-                    
-                    res.send(dataresult)
+                    console.log(result)
+                    res.send('true')
                 }
 
             });
@@ -70,20 +63,52 @@ app.post("/api/insertToDB", (req, res) => {
 
 
 //-------------------------------------------------rpEmp---------------------------------------------------------
-app.post("/api/insertToDBEmp", (req, res) => {
+var ObjectID = require('mongodb').ObjectID
+app.post("/api/LoadDataDetail", (req, res) => {
+    MongoClient.connect(url, function(err, db) {
+        if (err) throw err;
+        var dbo = db.db("gigabug");
+        var condi = {
+            _id: mongodb.ObjectID(req.body.tell)
+        }
+        var array = []
+        dbo.collection('TRN_maintennance_detail_repairman').find(condi).toArray((err, result) => {
+            if (err) {
+                console.log('error bBuy line 20')
+                res.status(404).send('false');
+            } else {
+                array.push(result[0])
+                console.log(result[0])
+                dbo.collection('MST_customer').find().toArray((err, result) => {
+                    if (err) {
+                        console.log('error bBuy line 20')
+                        res.status(404).send(null);
+                    } else {
+                        array.push(result[0].firstname + " " + result[0].lastname)
+                        console.log(array[1])
+                        res.send(array)
+                    }
+                })
+            }
+        })
+    });
+})
 
+app.post("/api/insertToDBEmp", (req, res) => {
     var data = {
         ID_TRNmaintennance_detail_administer: req.body.ID_TRNmaintennance_detail_administer,
         date: req.body.date,
         carLicense: req.body.carLicense,
         carModel: req.body.carModel,
         carColor: req.body.carColor,
+        empID: req.body.empID,
         ID_TRNmaintennance_detail_repairman: req.body.ID_TRNmaintennance_detail_repairman,
+        ID_MST_customer: req.body.ID_MST_customer,
         carSpare: req.body.carSpare,
     }
 
     console.log(data)
-    MongoClient.connect(url, function (err, db) {
+    MongoClient.connect(url, function(err, db) {
         if (err) throw err;
         var dbo = db.db("gigabug");
         dbo.collection('TRN_maintennance_detail_administer').find().count((err, result) => {
@@ -100,10 +125,12 @@ app.post("/api/insertToDBEmp", (req, res) => {
                         res.sendStatus(404)
                         res.send('false')
                     } else {
-                        console.log(result)
-                        res.send('true')
+                        var dataObj = {
+                            _id: result.ops[0]._id,
+                            status: 'true'
+                        }
+                        res.send(dataObj)
                     }
-
                 });
             }
         });

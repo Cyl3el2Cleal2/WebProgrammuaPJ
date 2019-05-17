@@ -7,155 +7,117 @@
 <html>
 
 <head>
-	<title>บันทึกรายละเอียดการซ่อม (ธุรการ)</title>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-	<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-	<link rel="stylesheet" href="./../../css/style.css" />
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script src="./../../js/serviceRepairEmp.js"></script>
-	<style>
-		td {
-			border: 1px solid black;
-			border-collapse: collapse;
-			padding: 5px;
-			text-align: left;
-		}
-	</style>
+    <title>บันทึกรายละเอียดการซ่อม (ธุรการ)</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+    <link rel="stylesheet" href="./../../css/style.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="./../../js/serviceRepairEmp.js"></script>
+    <style>
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 5px;
+            text-align: left;
+        }
+    </style>
 </head>
 
-<body class="is-preload">
+<body class="is-preload" onload="init()">
 
-	<!-- Wrapper -->
-	<div id="wrapper">
+    <!-- Wrapper -->
+    <div id="wrapper">
 
 
-		<!-- Main -->
-		<section id="main">
-			<header>
-				<h1>โชคทวีออโต้เซลล์</h1>
-				<p>บันทึกรายละเอียดการซ่อม (ธุรการ)</p>
-			</header>
+        <!-- Main -->
+        <section id="main">
+            <header>
+                <h1>โชคทวีออโต้เซลล์</h1>
+                <p>บันทึกรายละเอียดการซ่อม (ธุรการ)</p>
+            </header>
 
-			<hr />
+            <hr />
 
-			<form  id="myForm" method="post" action="#">
-				<br>
+            <form id="myForm" method="post" action="#">
+                <br>
 
-				<div class="fields">
-					<div class="field">
-						<h3 class="h3Pop">ชื่อลูกค้า</h3>
-						<input type="text" name="nameCus" id="nameCus" placeholder="กรอกชื่อ" required/>
-					</div>
-					<br>
-					<div class="field">
-						<h3 class="h3Pop">วันที่</h3>
-						<input type="date" name="date" id="date" placeholder="วันที่" required/>
-					</div>
-					<br>
-					<div class="field">
-						<h3 class="h3Pop">เลขทะเบียน</h3>
-						<input type="email" name="carLicense" id="carLicense" placeholder="กรอกเลขทะเบียนรถ" required/>
+                <div class="fields">
+                    <div class="field">
+                        <h3 class="h3Pop">ชื่อลูกค้า</h3>
+                        <input type="text" name="nameCus" id="nameCus" placeholder="กรอกชื่อ" required/>
+                    </div>
+                    <br>
+                    <div class="field">
+                        <h3 class="h3Pop">วันที่</h3>
+                        <input type="date" name="date" id="date" placeholder="วันที่" required/>
+                    </div>
+                    <br>
+                    <div class="field">
+                        <h3 class="h3Pop">เลขทะเบียน</h3>
+                        <input type="email" name="carLicense" id="carLicense" placeholder="กรอกเลขทะเบียนรถ" required/>
 
-					</div>
-					<br>
-					<div class="field">
-						<h3 class="h3Pop">รุ่น</h3>
-						<input type="text" name="carModel" id="carModel" placeholder="กรอกชื่อรุ่น" required/>
-					</div>
-					<br>
-					<div class="field">
-						<h3 class="h3Pop">สี</h3>
-						<input type="text" name="carColor" id="carColor" placeholder="กรอกสี" required/>
-					</div>
-					<br>
-					<div class="field">
-						<h3 class="h3Pop">รหัสช่างซ่อม</h3>
-						<input type="text" name="empID" id="empID" placeholder="รหัสช่างซ่อม" required/>
-					</div>
-					<div class="field">
+                    </div>
+                    <br>
+                    <div class="field">
+                        <h3 class="h3Pop">รุ่น</h3>
+                        <input type="text" name="carModel" id="carModel" placeholder="กรอกชื่อรุ่น" required/>
+                    </div>
+                    <br>
+                    <div class="field">
+                        <h3 class="h3Pop">สี</h3>
+                        <input type="text" name="carColor" id="carColor" placeholder="กรอกสี" required/>
+                    </div>
+                    <br>
+                    <div class="field">
+                        <h3 class="h3Pop">รหัสช่างซ่อม</h3>
+                        <input type="text" name="empID" id="empID" placeholder="รหัสช่างซ่อม" required/>
+                    </div>
+                    <div class="field">
 
-					</div>
-					<br>
-					<div class="field">
-						<fieldset class="fieldsetPop">
-							<div class="rowPop">
-								<div class="columnPop ">
-									<label>อะไหล่</label>
-								</div>
-								<div class="columnPop">
-									<input id=nameSpare type="text" onkeypress="isInputLetter(event)" required>
-								</div>
-								<div class="columnPop">
-									<label>จำนวน</label>
-								</div>
-								<div class="columnPop">
-									<input id="numSpare" type="text" onkeypress="isInputNumber(event)" required>
-								</div>
-								<div class="columnPop">
-									<label>ราคา</label>
-								</div>
-								<div class="columnPop">
-									<input id="priceSpare" type="text" onkeypress="isInputNumber(event)" required>
-								</div>
-								<div class="columnPop">
-									<a onclick="addToTable()" class="button search">เพิ่ม</a>
-								</div>
-							</div>
-							<table id="listTable" class="tableBest">
-								<tr>
-									<th class="thPop">อะไหล่</th>
-									<th class="thPop">จำนวน</th>
-									<th class="thPop">รวม</th>
-									<th class="thPop"></th>
-								</tr>
-								<tr>
-									<td class="tdPop">xxx</td>
-									<td class="tdPop">xxx</td>
-									<td class="tdPop">xxx</td>
-									<td class="tdPop">
-										<center><a onclick="deleteToTable()" class="button delete">ลบ</a></center>
-									</td>
-								</tr>
-								<tr>
-									<td class="tdPop">xxx</td>
-									<td class="tdPop">xxx</td>
-									<td class="tdPop">xxx</td>
-									<td class="tdPop">
-										<center><a onclick="deleteToTable()" class="button delete">ลบ</a></center>
-									</td>
-								</tr>
-							</table>
-						</fieldset>
-						<br>
-					</div>
-				</div>
-			</form>
-			<hr />
-			<a onclick="insertToDB()" class="button" form="myForm" style="position: absolute; right: 8%;">ถัดไป</a>
-			<br>
+                    </div>
+                    <br>
+                    <div class="field">
+                        <fieldset class="fieldsetPop">
+                            <table id="listTable" class="tableBest" style="margin-top : 2%; margin-bottom: 2%">
+                                <tr>
+                                    <th class="thPop">อะไหล่</th>
+                                    <th class="thPop">จำนวน</th>
+                                    <th class="thPop">รวม</th>
+                                </tr>
+                            </table>
+                        </fieldset>
+                        <br>
+                    </div>
+                </div>
+            </form>
+            <hr />
+            <a onclick="insertToDB()" class="button" form="myForm" style="position: absolute; right: 8%;">ถัดไป</a>
+            <br>
 
 
 
-			<!-- <footer>
+            <!-- <footer>
 							<ul class="icons">
 								<li><a href="#" class="fa-twitter">Twitter</a></li>
 								<li><a href="#" class="fa-instagram">Instagram</a></li>
 								<li><a href="#" class="fa-facebook">Facebook</a></li>
 							</ul>
 						</footer> -->
-		</section>
+        </section>
 
 
-	</div>
+    </div>
 
-	<!-- Scripts -->
-	<script>
-		if ('addEventListener' in window) {
-			window.addEventListener('load', function () { document.body.className = document.body.className.replace(/\bis-preload\b/, ''); });
-			document.body.className += (navigator.userAgent.match(/(MSIE|rv:11\.0)/) ? ' is-ie' : '');
-		}
-	</script>
+    <!-- Scripts -->
+    <script>
+        if ('addEventListener' in window) {
+            window.addEventListener('load', function() {
+                document.body.className = document.body.className.replace(/\bis-preload\b/, '');
+            });
+            document.body.className += (navigator.userAgent.match(/(MSIE|rv:11\.0)/) ? ' is-ie' : '');
+        }
+    </script>
 
 </body>
 
