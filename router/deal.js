@@ -81,6 +81,10 @@ app.post('/api/deal/getItem', (req, res) => {
 
     var data = [];
 
+    // req.body.id = "5cdead4950a2960b28dd67ec"
+    console.log(req.body.id+"<-----------")
+
+
     MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
         if (err) throw err;
         var dbo = db.db("gigabug");
@@ -90,7 +94,7 @@ app.post('/api/deal/getItem', (req, res) => {
                 res.send(false)
                 db.close;
             } else {
-                console.log("TRN_buy ");
+                console.log("TRN_buy");
                 console.log(result);
                 data.push(result[0]._id);
                 
@@ -120,7 +124,7 @@ app.post('/api/deal/getItem', (req, res) => {
                                 res.send(false)
                                 db.close;
                             } else {
-                                console.log("stock " )
+                                console.log("stock" )
                                 console.log(stk)
                                 data.push(stk[0].model)
                                 data.push(stk[0].license_plate)
@@ -131,6 +135,69 @@ app.post('/api/deal/getItem', (req, res) => {
                         })
                     }
                 })
+            }
+        });
+    });
+})
+// ---------------------------- SALE
+app.post('/api/sale/deal/getItem', (req, res) => {
+
+    var data = [];
+    req.body.id = "5cdeb02eade835309046107d"
+    console.log(req.body.id+"<--")
+
+    MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
+        if (err) throw err;
+        var dbo = db.db("gigabug");
+        var query = { _id: mongodb.ObjectID(req.body.id) };
+        dbo.collection("TRN_sale").find(query).toArray(function (err, result) {
+            if (err) {
+                res.send(false)
+                db.close;
+            } else {
+                console.log("TRN_sale");
+                console.log(result);
+                data.push(result[0]._id);
+                
+                data.push(result[0].ID_MST_employee);
+                data.push(result[0].ID_MST_stock);
+                //res.send(data);
+                var queryCus = {
+                    ID_MST_employee:result[0].ID_MST_employee
+                };
+                console.log(queryCus.ID_MST_employee)
+                res.send(data)
+                // console.log(result[0].ID_MST_customer)
+                // dbo.collection("MST_customer").find(queryCus).toArray(function (err, respons) {
+                //     if (err) {
+                //         res.send(false)
+                //         db.close;
+                //     } else {
+                //         console.log("Mst_customer ")
+                //         console.log(respons)
+                //         data.push(respons[0].firstname + " " + respons[0].lastname)
+                        
+                //         //res.send(data)
+                //         var queryStk = {
+                //             _id: mongodb.ObjectID(result[0].ID_MST_stock)
+                //         };
+                //         console.log("===>" + result[0].ID_MST_stock)
+                //         dbo.collection("MST_stock").find(queryStk).toArray(function (err, stk) {
+                //             if (err) {
+                //                 res.send(false)
+                //                 db.close;
+                //             } else {
+                //                 console.log("stock" )
+                //                 console.log(stk)
+                //                 data.push(stk[0].model)
+                //                 data.push(stk[0].license_plate)
+                //                 data.push(stk[0].color)
+                //                 data.push(stk[0].price)
+                //                 res.send(data)
+                //             }
+                //         })
+                //     }
+                // })
             }
         });
     });
