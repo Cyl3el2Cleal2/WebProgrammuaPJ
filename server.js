@@ -17,6 +17,7 @@ var costum = require('./router/Costum')
 var path = require('path');
 var bBuy = require('./router/bBuy')
 var rgTicket = require('./router/rgTicket')
+var graph = require('./router/sum')
 app.use(express.static('public'));
 app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname, 'public', 'login.html'));
@@ -40,6 +41,7 @@ app.use(repair)
 app.use(deal)
     // app.use(regis)
 app.use(emp)
+app.use(graph)
 app.listen(process.env.PORT || 3000, () => {
     console.log('Start server at port 3000.')
 })

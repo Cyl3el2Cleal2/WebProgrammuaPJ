@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "nodemon server.js",
+    "cp": "node-sass --include-path sass ./public/css/in.scss ./public/css/out.css"
   },
   "author": "",
   "license": "ISC",
@@ -16,7 +17,10 @@
     "jquery": "^3.3.1",
     "mongodb": "^3.1.13",
     "nodemailer": "^6.0.0",
-    "nodemon": "^1.19.0",
     "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "node-sass": "^4.12.0",
+    "nodemon": "^1.19.0"
   }
 }

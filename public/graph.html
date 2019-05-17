@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Summary</title>
+    <link rel="stylesheet" href="./css/out.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="js/grap.js"></script>
+</head>
+
+<body>
+    <div style="text-align:center">
+        <h1>
+            รายได้สุทธิของบริษัททวีโชค
+        </h1>
+    </div>
+    <div id="bar-chart">
+        <div class="graph">
+            <ul class="x-axis">
+                <li><span>รายได้จากการขาย</span></li>
+                <li><span>รายจ่ายจากการขาย</span></li>
+                <li><span>รายได้จากการซ่อม</span></li>
+                <li><span>รายได้จากการต่อทะเบียน</span></li>
+            </ul>
+            <ul class="y-axis">
+                <li><span>50,000++</span></li>
+                <li><span>40,000</span></li>
+                <li><span>30,000</span></li>
+                <li><span>20,000</span></li>
+                <li><span>10,000</span></li>
+                <li><span>0</span></li>
+            </ul>
+            <div class="bars" id="area">
+
+            </div>
+        </div>
+    </div>
+    <div style="text-align:center">
+        <h2 id="buy">
+            รายได้จากการขาย
+        </h2>
+        <h2 id="sale">
+            รายจ่ายจากการขาย
+        </h2>
+        <h2 id="rp">
+            รายได้จากการซ่อม
+        </h2>
+        <h2 id="lc">
+            รายได้จากการต่อทะเบียน
+        </h2>
+        <h1 id="plus">
+            กำไร
+        </h1>
+        <h1 id="nega">
+            ขาดทุน
+        </h1>
+    </div>
+
+</body>
+
+</html>
