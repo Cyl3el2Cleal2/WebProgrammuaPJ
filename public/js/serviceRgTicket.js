@@ -38,3 +38,14 @@ function sendTo() {
     };
     window.location.href = "rgVat.html?" + data.tell;
 }
+function PrintDiv() {
+    document.getElementById('print').style.display = "none"
+    document.getElementById('insert').style.display = "none"
+    window.print();
+    if(window.closed == false || window.close == true){
+        document.getElementById('print').style.display = "block"
+        document.getElementById('insert').style.display = "block"
+    }
+       
+   
+}
