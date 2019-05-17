@@ -17,6 +17,7 @@ var costum = require('./router/Costum')
 var path = require('path');
 var bBuy = require('./router/bBuy')
 var rgTicket = require('./router/rgTicket')
+var stock = require('./router/stock')
 app.use(express.static('public'));
 app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname, 'public', 'login.html'));
@@ -29,6 +30,7 @@ app.use(register)
 app.use(buy)
 app.use(recieve)
 app.use(costum)
+app.use(stock)
     //Uncomment ถ้าทำแล้ว
 app.use(bBuy)
 app.use(sale)
