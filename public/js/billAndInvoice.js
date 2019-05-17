@@ -410,7 +410,7 @@ function insertItemBill(collection) {
         insertBill("http://localhost:3000/api/sale/bill/insert", "sVat.html?")
 
     } else if (collection == "TRN_car_recieve") {
-        insertBill("http://localhost:3000/api/Car_recieve/invoice/insert", "rpVat.html?")
+        insertBill("http://localhost:3000/api/Car_recieve/bill/insert", "rpVat.html?")
 
     } else if (collection == "TRN_license_bill") {
         insertBill("http://localhost:3000/api/license/bill/insert", "rgTicket.html?")
