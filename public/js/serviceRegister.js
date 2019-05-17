@@ -1,5 +1,6 @@
-var username, password, confirmpassword,firstname,lastname, tel, email, age, idcard, type, address;
+var username, password, confirmpassword, firstname, lastname, tel, email, age, idcard, type, address;
 var emailFilter = /^.+@.+\..{2,3}$/;
+
 function register() {
     username = document.getElementById("username").value;
     password = document.getElementById("password").value;
@@ -17,56 +18,44 @@ function register() {
     if (username == "") {
         alert("กรุณากรอกชื่อผู้ใช้");
         document.getElementById("username").focus();
-    }
-    else if (password == "") {
+    } else if (password == "") {
         alert("กรุณากรอกรหัสผ่าน");
         document.getElementById("password").focus();
-    }
-    else if (password != confirmpassword) {
+    } else if (password != confirmpassword) {
         alert("รหัสผ่านไม่ตรงกัน");
         document.getElementById("confirmpassword").focus();
-    }
-    else if (genderm == false && genderw == false) {
-       
+    } else if (genderm == false && genderw == false) {
+
         alert("กรุณาเลือกเพศ")
-    }
-    else if (tel == "") {
+    } else if (tel == "" || tel.length != 10) {
         alert("กรุณาเบอร์โทรศัพท์ให้ครบ 10 หลัก");
         document.getElementById("tel").focus();
-    }
-    else if (email == "") {
+    } else if (email == "") {
         alert("กรุณากรอกอีเมล");
         document.getElementById("email").focus();
-    }
-    else if (!(emailFilter.test(email))) {
+    } else if (!(emailFilter.test(email))) {
         alert("กรุณากรอกอีเมลให้ถูกต้อง");
         document.getElementById("email").focus();
-    }
-    else if (age == "") {
+    } else if (age == "") {
         alert("กรุณากรอกอายุ");
         document.getElementById("age").focus();
-    }
-
-    else if (idcard == "" || idcard.length != 13) {
+    } else if (idcard == "" || idcard.length != 13) {
         alert("กรุณากรอกรหัสบัตรประชาชน 13 หลัก");
         document.getElementById("idcrad").focus();
-    }
-
-    else if (type == "") {
+    } else if (type == "") {
         alert("กรุณากรอกประเภทงาน");
         document.getElementById("type").focus();
-    }
-
-    else if (address == "") {
+    } else if (address == "") {
         alert("กรุณากรอกที่อยู่");
         document.getElementById("address").focus();
     } else {
-       
-       checkUsername();
+
+        checkUsername();
     }
-   
+
 }
-function checkUsername(){
+
+function checkUsername() {
     var data = {
         username: username
     };
@@ -77,29 +66,30 @@ function checkUsername(){
         url: "http://localhost:3000/api/register/username",
         data: JSON.stringify(data),
         dataType: "json",
-        success: function (customer) {
-          var result = JSON.stringify(customer);
-          console.log(result);
-          if (JSON.stringify(customer) == "true") {
-            insert();
-          } else {
-            alert("กรุณาเปลี่ยนชื่อผู้ใช้");
-            document.getElementById("username").focus();
-          }
+        success: function(customer) {
+            var result = JSON.stringify(customer);
+            console.log(result);
+            if (JSON.stringify(customer) == "true") {
+                insert();
+            } else {
+                alert("กรุณาเปลี่ยนชื่อผู้ใช้");
+                document.getElementById("username").focus();
+            }
         },
-        error: function (e) {
-          console.log("ERROR: ", e);
+        error: function(e) {
+            console.log("ERROR: ", e);
         }
-      });
+    });
 }
+
 function insert() {
     var gender;
     genderm = document.getElementById("r1").checked;
     genderw = document.getElementById("r2").checked;
-    
-    if(genderm==true){
-       gender = "ชาย";
-    }else{
+
+    if (genderm == true) {
+        gender = "ชาย";
+    } else {
         gender = "หญิง";
     }
     var data = {
@@ -114,9 +104,9 @@ function insert() {
         idcard: idcard,
         type: type,
         address: address,
-       
+
     }
-    
+
 
     $.ajax({
         type: "POST",
@@ -124,7 +114,7 @@ function insert() {
         url: "http://localhost:3000/api/register/insert",
         data: JSON.stringify(data),
         dataType: 'json',
-        success: function (customer) {
+        success: function(customer) {
             var result = JSON.stringify(customer);
             if (JSON.stringify(customer) == 'true') {
                 alert("สมัครสมาชิกสำเร็จ!")
@@ -134,7 +124,7 @@ function insert() {
                 alert("กรุณาสมัครใหม่อีกครั้ง!");
             }
         },
-        error: function (e) {
+        error: function(e) {
             console.log("ERROR: ", e);
         }
     });
