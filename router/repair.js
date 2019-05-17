@@ -17,7 +17,6 @@ app.post("/api/insertToDB", (req, res) => {
         carModel: req.body.carModel,
         carColor: req.body.carColor,
         ID_MST_employee: req.body.ID_MST_employee,
-        ID_MST_customer: req.body.ID_MST_customer,
         carSpare: req.body.carSpare,
     }
 
@@ -51,11 +50,8 @@ app.post("/api/insertToDB", (req, res) => {
                     res.sendStatus(404)
                     res.send('false')
                 } else {
-                    var dataresult = {
-                        _id: result.ops[0]._id,
-                        status: 'true'
-                    }
-                    res.send(dataresult)
+                    console.log(result)
+                    res.send('true')
                 }
 
             });
@@ -83,7 +79,10 @@ app.post("/api/LoadDataDetail", (req, res) => {
             } else {
                 array.push(result[0])
                 console.log(result[0])
-                dbo.collection('MST_customer').find().toArray((err, result) => {
+                var condi2 = {
+                    _id: mongodb.ObjectID(result[0].ID_MST_customer)
+                }
+                dbo.collection('MST_customer').find(condi2).toArray((err, result) => {
                     if (err) {
                         console.log('error bBuy line 20')
                         res.status(404).send(null);
