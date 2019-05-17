@@ -56,6 +56,7 @@ function addToTable() {
         cell4.innerHTML = '<td >' + v4 + '</td>';
         cell5.innerHTML = '<td ><center><a onclick="deleteToTable()" class="button delete">ลบ</a></center></td>';
         check = check + 1;
+        clearInput()
     } else {
         window.alert("กรุณากรอกข้อมูลให้ถูกต้องและครบถ้วน")
     }
@@ -145,4 +146,11 @@ function isInputLetter(evt) {
     if ((/[1-9]/.test(ch))) {
         evt.preventDefault();
     }
+}
+
+//clearInput
+function clearInput(){
+    document.getElementById("carNumber").value = ""
+    document.getElementById("carModel").value = ""
+    document.getElementById("price").value = ""
 }
