@@ -38,7 +38,7 @@ function getbillBuy() {
             var customer = res[1];  //array of customer
             var stock = res[3];      //array of stock 
             if (res[0].length == 0 || res[1].length == 0  || res[3].length == 0) {
-                alert("เกิดข้อผิดพลาด")
+                alert("page incorrect")
             } else {
                 var json = []
                 console.log(stock[0])
@@ -102,7 +102,7 @@ function getbillBuy() {
             ////query
         },
         error: function (e) {
-            alert("เกิดข้อผิดพลาด")
+            alert("page incorrect")
         }
     })
 }
@@ -440,7 +440,7 @@ function insertBill(url, next) {
         success: function (res) {
             console.log(res.id)
             if (res != null) {
-                alert("ทำรายการ " + $('#type').text() + " " + "สำเร็จ")
+                alert("insert successful")
                 window.location.href = next + res.id
             }
 
@@ -814,10 +814,10 @@ function insertInvoieBill() {
         dataType: 'json',
         success: function (res) {
             if (res == true) {
-                alert("ทำรายการ " + $('#typeCus').text() + " " + "สำเร็จ")
+                alert("insert successful")
                 window.location.href = "./../main.html"
             } else {
-                alert("ทำรายการ " + $('#typeCus').text() + " " + "ไม่สำเร็จ")
+                alert("insert incorrect")
             }
 
         },
@@ -841,7 +841,7 @@ function insertInvoieSale() {
         success: function (res) {
             console.log(res)
 
-            alert("ทำรายการ " + $('#type').text() + " " + "สำเร็จ")
+            alert("insert successful")
             window.location.href = "./../main.html"
 
 
@@ -866,7 +866,7 @@ function insertInvoieRepair() {
         success: function (res) {
             console.log(res)
             if (res == true) {
-                alert("ทำรายการ " + $('#type').text() + " " + "สำเร็จ")
+                alert("insert successful")
                 window.location.href = "./../main.html"
             }
         },
@@ -890,7 +890,7 @@ function insertInvoieLicense() {
         success: function (res) {
             console.log(res)
             if (res == true) {
-                alert("ทำรายการ " + $('#type').text() + " " + "สำเร็จ")
+                alert("insert successful")
                 window.location.href = "./../main.html"
             }
         },
